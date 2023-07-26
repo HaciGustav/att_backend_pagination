@@ -1,0 +1,67 @@
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import { useSelector } from "react-redux";
+
+import CardContent from "@mui/material/CardContent";
+import { useEffect } from "react";
+
+const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
+  const { userRoles } = useSelector((state) => state.atina);
+
+  const handleClick = (e) => {
+    if (e.target.checked) {
+      setRoleIds((pre) => [...pre, Number(e.target.value)]);
+    } else {
+      setRoleIds((pre) => [...pre.filter((x) => x !== Number(e.target.value))]);
+    }
+  };
+  useEffect(() => {
+    setInputVal((pre) => ({ ...pre, roleIds }));
+  }, [roleIds]);
+
+  return (
+    <div style={{ padding: 0 }}>
+      <CardContent>
+        <FormGroup
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            rowGap: "10px",
+          }}
+        >
+          {userRoles?.map((role, i) => (
+            <div
+              key={role?.id}
+              style={{
+                padding: "0 18px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                border: "1px solid #ddd",
+                borderRadius: "5px",
+              }}
+            >
+              <FormControlLabel
+                sx={{ width: "100%" }}
+                control={
+                  <Checkbox
+                    value={role?.id}
+                    name={role?.name}
+                    checked={
+                      inputVal.roleIds.includes(Number(role?.id)) || false
+                    }
+                    onClick={handleClick}
+                  />
+                }
+                label={role?.name}
+              />
+            </div>
+          ))}
+        </FormGroup>
+      </CardContent>
+    </div>
+  );
+};
+
+export default RolesList;

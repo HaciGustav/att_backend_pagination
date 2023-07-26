@@ -1,0 +1,24 @@
+
+.table {
+    display: inline-block;
+    border-spacing: 0;
+    /* border: 1px solid black; */
+}
+.resizer {
+    display: inline-block;
+    background: transparent;
+    width: 10px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: translateX(50%);
+    z-index: 1;
+  cursor: col-resize ;
+    /* touch-action:none; */
+
+    
+  }
+  .isResizing {
+      background: red;
+    }
