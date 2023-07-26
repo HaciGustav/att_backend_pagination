@@ -1,14 +1,13 @@
 import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
-import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import BookingsFilter from "../filters/BookingsFilter";
 import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 import Tooltip from "@mui/material/Tooltip";
 import { tableStyles } from "@/styles/table_styles";
-import { searchBookings } from "@/helpers/searchFunctions";
 import BookingsTableRow from "../table_rows/BookingsTableRow";
 import UndoIcon from "@mui/icons-material/Undo";
 import IconButton from "@mui/material/IconButton";
@@ -21,7 +20,6 @@ import ErrorModal from "../modals/ErrorModal";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import SSR_Pagination from "../SSR_Pagination";
 import usePagination from "@/hooks/usePagination";
 import Loading_Icon from "../Loading_Icon";
@@ -216,7 +214,7 @@ const MobileBookings = () => {
           <Table
             {...getTableProps()}
             sx={{ minWidth: 650 }}
-            aria-label="simple table"
+
             // onContextMenu={handleRightClick}
           >
             <CustomTableHead

@@ -101,6 +101,7 @@ const ImageModal = ({ open, setOpen, index, fileArr }) => {
             height: "auto",
             borderRadius: "8px",
             boxShadow: "-2px 19px 48px -24px rgba(66, 68, 90, 1)",
+            userSelect: "none",
           }}
           src={path}
         />

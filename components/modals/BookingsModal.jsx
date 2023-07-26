@@ -1,16 +1,9 @@
 import Modal from "@mui/material/Modal";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import {
-  Button,
-  TextField,
-  Tooltip,
-  Typography,
-  IconButton,
-} from "@mui/material";
+import { Button, TextField, Typography, IconButton } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { modalStyles } from "@/styles/modal_styles";
-import { useSession } from "next-auth/react";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CloseIcon from "@mui/icons-material/Close";
 import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
@@ -37,16 +30,10 @@ const initialBookingParams = {
 const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
   const { user } = useSelector((state) => state.settings);
   const { bookingTypes } = useSelector((state) => state.atina);
-  const handleClose = () => setOpenBookingModal(false);
-  const [inputVal, setInputVal] = useState(
-    booking
-      ? {
-          ...booking,
-          Date: dayjs(booking.Date),
-          Time: booking?.Time?.slice(0, booking?.Time.indexOf(".")),
-        }
-      : initialBookingParams
-  );
+  const handleClose = () => {
+    setOpenBookingModal(false);
+  };
+  const [inputVal, setInputVal] = useState({});
   const handleChange = (e) => {
     if (!user?.isAdmin) return;
 
@@ -73,6 +60,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
         Date: dayjs(booking.Date),
         Time: booking?.Time?.slice(0, booking?.Time.indexOf(".")),
       });
+    } else {
+      setInputVal(initialBookingParams);
     }
   }, [booking]);
   return (

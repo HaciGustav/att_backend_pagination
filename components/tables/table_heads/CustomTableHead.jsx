@@ -34,7 +34,7 @@ const CustomTableHead = ({
 
   return (
     <TableHead
-      // sx={{ border: "2px solid red", height: "50px" }}
+      sx={tableStyles.tableHead}
       onContextMenu={(e) => handleRightClick(e, "head")}
     >
       {!headerGroups?.length && (

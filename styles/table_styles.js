@@ -7,9 +7,15 @@ export const tableStyles = {
     maxHeight: "90vh",
     overflow: "auto",
   },
+  tableHead: {
+    position: "sticky",
+    top: -10,
+    backgroundColor: "background.paper",
+    opacity: 1,
+    zIndex: 5,
+  },
   helpersWrapper: {
     display: "flex",
-    // justifyContent: "space-between",
     justifyContent: "end",
     alignItems: "center",
   },
@@ -33,7 +39,6 @@ export const tableStyles = {
     cell: {
       fontSize: "0.7em",
       borderRight: "0.5px solid #ccc",
-      // width: "100%",
     },
     image: {
       transition: "0.3s all",
