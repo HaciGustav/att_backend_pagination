@@ -1,12 +1,10 @@
-"use client";
-
 import { dashboardStyles } from "@/styles/dashboard_styles";
 import { Box, Button, TextField } from "@mui/material";
 import { getSession, signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/slices/settingsSlice";
@@ -16,6 +14,43 @@ import { fetchFail, fetchStart } from "@/redux/slices/atinaSlice";
 import Loading from "@/components/Loading";
 
 const Login = () => {
+  const styles = useMemo(
+    () => ({
+      background: {
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#ccc",
+      },
+      loginPanel: {
+        backgroundColor: "#e10000",
+        boxShadow: " -11px 13px 45px 0px rgba(0,0,0,0.4)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        minWidth: "300px",
+        rowGap: "15px",
+        padding: "2rem",
+        border: "2px solid #fff",
+        borderRadius: "1rem",
+        position: "absolute",
+        zIndex: 5,
+      },
+      inputLabel: {
+        color: "#000",
+        left: 0,
+        backgroundColor: "#ffffffcc",
+        paddingInline: "2px",
+        borderRadius: "5px",
+      },
+      input: { backgroundColor: "#fff", color: "#000", borderRadius: "5px" },
+    }),
+    []
+  );
+
   const [inputVal, setInputVal] = useState({});
   const { error, errorMsg, loading } = useSelector((state) => state.atina);
   const router = useRouter();
@@ -50,38 +85,12 @@ const Login = () => {
     <>
       <Head>
         <title>Attensam Login</title>
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       {error && <ErrorModal error={errorMsg} />}
       {loading && <Loading />}{" "}
-      <Box
-        component={Paper}
-        sx={{
-          width: "100%",
-          height: "100vh",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#ccc",
-        }}
-      >
-        <Box
-          component="form"
-          onSubmit={handleSubmit}
-          sx={{
-            backgroundColor: "#e10000",
-            boxShadow: " -11px 13px 45px 0px rgba(0,0,0,0.4)",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            minWidth: "300px",
-            rowGap: "15px",
-            padding: "2rem",
-            border: "2px solid #fff",
-            borderRadius: "1rem",
-            // minHeight: "70vh",
-          }}
-        >
+      <Box component={Paper} sx={styles.background}>
+        <Box component="form" onSubmit={handleSubmit} sx={styles.loginPanel}>
           <Image
             src={"/assets/attensam-logo.svg"}
             style={{
@@ -97,20 +106,10 @@ const Login = () => {
             sx={{ width: "350px" }}
             color="secondary"
             InputLabelProps={{
-              sx: {
-                color: "#000",
-                left: 0,
-                backgroundColor: "#ffffffcc",
-                paddingInline: "2px",
-                borderRadius: "5px",
-              },
+              sx: styles.inputLabel,
             }}
             inputProps={{
-              sx: {
-                backgroundColor: "#fff",
-                color: "#000",
-                borderRadius: "5px",
-              },
+              sx: styles.input,
             }}
             variant="outlined"
             name="username"
@@ -123,20 +122,10 @@ const Login = () => {
             sx={{ width: "350px" }}
             color="secondary"
             InputLabelProps={{
-              sx: {
-                color: "#000",
-                backgroundColor: "#ffffffcc",
-                paddingInline: "4px",
-                borderRadius: "5px",
-              },
+              sx: styles.inputLabel,
             }}
             inputProps={{
-              sx: {
-                backgroundColor: "#fff",
-                color: "#000",
-
-                borderRadius: "5px",
-              },
+              sx: styles.input,
             }}
             variant="outlined"
             name="password"

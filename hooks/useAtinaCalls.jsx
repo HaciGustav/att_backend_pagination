@@ -33,7 +33,7 @@ const useAtinaCalls = () => {
     getAtinaData("api/AtinaMasterData/GetBookingTypes");
   const getMobileBookingsData = (params = "") => {
     // console.log(params);
-    getAtinaData("api/AtinaMobileBookings?" + params);
+    getAtinaData("api/AtinaMobileBookings?showPagination=true&" + params);
   };
   const getNfcTagsData = () => getAtinaData("AtinaNfcTags");
   const getAtinaItemsData = (type) =>

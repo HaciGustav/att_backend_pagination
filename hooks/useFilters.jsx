@@ -22,7 +22,6 @@ const useFilters = () => {
     });
 
     const {
-      id,
       bookingType,
       itemType,
       street,
