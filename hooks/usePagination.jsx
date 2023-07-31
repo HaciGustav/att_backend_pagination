@@ -46,7 +46,7 @@ const usePagination = (table) => {
     } else {
       const tempObj = { ...sortingParams };
       delete tempObj[column.id];
-      dispatch(setSortType({ field: tempObj }));
+      dispatch(setSortType({ field: {} }));
     }
   };
 
@@ -64,6 +64,7 @@ const usePagination = (table) => {
   };
 
   const handleSortParams = (column, e) => {
+    console.log(e.ctrlKey);
     if (e.ctrlKey) {
       multiSort(column);
     } else {

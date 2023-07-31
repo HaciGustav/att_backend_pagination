@@ -124,6 +124,7 @@ const MobileBookings = () => {
     const params = makeUrlParams();
     getMobileBookingsData(params + filterParams);
     console.log("RENDER");
+    console.log(sortingParams);
   }, [paginationParams, sortingParams, filterParams, searchTrigger]);
 
   useEffect(() => {
