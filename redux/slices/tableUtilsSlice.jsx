@@ -5,6 +5,7 @@ const tableUtilsSlice = createSlice({
 
   initialState: {
     bookings: {
+      searchTrigger: false,
       filterParams: "",
       sortingParams: {},
       sortingParamsString: "",
@@ -25,6 +26,9 @@ const tableUtilsSlice = createSlice({
         ...field,
       };
     },
+    setSearchTrigger: (state) => {
+      state.bookings.searchTrigger = !state.bookings.searchTrigger;
+    },
     makeSortParamsString: (state, { payload: { str } }) => {
       state.bookings.sortingParamsString = str;
     },
@@ -44,6 +48,7 @@ const tableUtilsSlice = createSlice({
 });
 
 export const {
+  setSearchTrigger,
   setFilterParams,
   setSortType,
   makeSortParamsString,

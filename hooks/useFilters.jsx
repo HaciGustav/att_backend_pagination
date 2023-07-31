@@ -1,4 +1,8 @@
-import { setFilterParams } from "@/redux/slices/tableUtilsSlice";
+import {
+  setCurrentPage,
+  setFilterParams,
+  setSearchTrigger,
+} from "@/redux/slices/tableUtilsSlice";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import React from "react";
 import { useDispatch } from "react-redux";
@@ -112,6 +116,8 @@ const useFilters = () => {
     }
 
     dispatch(setFilterParams({ params: base }));
+    dispatch(setCurrentPage({ number: 1 }));
+    dispatch(setSearchTrigger());
 
     return base;
   };

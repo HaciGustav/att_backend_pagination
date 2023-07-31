@@ -16,8 +16,6 @@ const usePagination = (table) => {
     (state) => state.tableUtils[table]
   );
 
-  const [params, setParams] = useState(null);
-
   const makeUrlParams = () => {
     let fields = "";
     let directions = "";
@@ -32,7 +30,7 @@ const usePagination = (table) => {
     const SORT_STRING = `pageNumber=${paginationParams.currentPage}&pageSize=${paginationParams.pageSize}`;
     // dispatch(makePaginationParamsString({ str: PAGI_STRING }));
     // dispatch(makeSortParamsString({ str: SORT_STRING }));
-    setParams(PARAMS);
+
     return PARAMS;
   };
 

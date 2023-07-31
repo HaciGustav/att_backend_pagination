@@ -13,11 +13,10 @@ import FirstPageIcon from "@mui/icons-material/FirstPage";
 import { useSelector } from "react-redux";
 import usePagination from "@/hooks/usePagination";
 
-const SSR_Pagination = ({ paginationParams, table }) => {
+const SSR_Pagination = ({ paginationParams, table, totalPages }) => {
   const [page, setPage] = useState({
     pageSize: 50,
     currentPage: 1,
-    totalPages: 1,
   });
 
   const { handlePageSize, handlePreviousPage, handleNextPage, gotoPage } =
@@ -27,13 +26,12 @@ const SSR_Pagination = ({ paginationParams, table }) => {
     handlePageSize(Number(event.target.value));
     gotoPage(1);
   };
-  const { pageSize, currentPage, totalPages } = paginationParams;
+  const { pageSize, currentPage } = paginationParams;
 
   useEffect(() => {
     setPage({
       pageSize,
       currentPage,
-      totalPages,
     });
   }, [paginationParams]);
   return (
@@ -71,7 +69,7 @@ const SSR_Pagination = ({ paginationParams, table }) => {
         </FormControl>
       </div>
       <span style={{ fontSize: "0.8rem" }}>
-        {page.currentPage} von {page.totalPages}
+        {page.currentPage} von {totalPages}
       </span>
       <div>
         <IconButton
@@ -88,13 +86,13 @@ const SSR_Pagination = ({ paginationParams, table }) => {
         </IconButton>
         <IconButton
           onClick={() => handleNextPage()}
-          disabled={page.currentPage >= page.totalPages}
+          disabled={page.currentPage >= totalPages}
         >
           <ChevronRightIcon />
         </IconButton>
         <IconButton
-          onClick={() => gotoPage(page.totalPages)}
-          disabled={page.currentPage >= page.totalPages}
+          onClick={() => gotoPage(totalPages)}
+          disabled={page.currentPage >= totalPages}
         >
           <LastPageIcon />
         </IconButton>

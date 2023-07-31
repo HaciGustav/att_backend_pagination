@@ -69,9 +69,8 @@ const MobileBookings = () => {
     useSelector((state) => state.atina);
 
   //! Pagination, Sorting and Filtering State ▼▼▼▼▼▼
-  const { paginationParams, sortingParams, filterParams } = useSelector(
-    (state) => state.tableUtils.bookings
-  );
+  const { paginationParams, sortingParams, filterParams, searchTrigger } =
+    useSelector((state) => state.tableUtils.bookings);
 
   //#region //! Custom Hooks ▼▼▼▼▼▼
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
@@ -124,11 +123,11 @@ const MobileBookings = () => {
   useEffect(() => {
     const params = makeUrlParams();
     getMobileBookingsData(params + filterParams);
-  }, [paginationParams, sortingParams, filterParams]);
+    console.log("RENDER");
+  }, [paginationParams, sortingParams, filterParams, searchTrigger]);
 
   useEffect(() => {
     if (!mobileBookings?.entries) return;
-    handlePaginationParams();
     setAllData(mobileBookings?.entries);
   }, [mobileBookings]);
 
@@ -183,6 +182,7 @@ const MobileBookings = () => {
 
             <SSR_Pagination
               paginationParams={paginationParams}
+              totalPages={mobileBookings?.totalPages}
               table={"bookings"}
             />
 
