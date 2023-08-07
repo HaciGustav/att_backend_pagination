@@ -38,7 +38,7 @@ import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
-import Nfc_TableHead from "./table_heads/NFC_teableHead";
+import Nfc_TableHead from "./table_heads/NFC_TeableHead";
 import AtinaItems from "@/pages/items";
 
 const initalContextMenu = {

@@ -31,7 +31,7 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import Nfc_TableHead from "./table_heads/NFC_teableHead";
+import Nfc_TableHead from "./table_heads/NFC_TeableHead";
 
 const initalContextMenu = {
   show: false,
