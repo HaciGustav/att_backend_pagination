@@ -37,6 +37,9 @@ import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import useAtinaCalls from "@/hooks/useAtinaCalls";
+import Nfc_TableHead from "./table_heads/NFC_teableHead";
+import AtinaItems from "@/pages/items";
 
 const initalContextMenu = {
   show: false,
@@ -48,11 +51,15 @@ const NfcTable = ({ data }) => {
   const tableRef = useRef(null);
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const { NFC_TABLE_COLUMNS } = useColumns();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [allData, setAllData] = useState(data);
   const [hiddenColumns, setHiddenColumns] = useState([]);
   const [resetResize, setResetResize] = useState(false);
-  const { error, errorMsg } = useSelector((state) => state.atina);
+  const [error, setError] = useState(null);
+  const { nfcTags, loading } = useSelector((state) => state.atina);
+
+  const { getNfcTagsData } = useAtinaCalls();
+
   //? Table Utilities START
   //#region
   const tableColumns = useMemo(() => NFC_TABLE_COLUMNS, []);
@@ -65,6 +72,23 @@ const NfcTable = ({ data }) => {
     [tableRef]
   );
 
+  /*   const {
+    headerGroups,
+    getTableProps,
+    getTableBodyProps,
+    page,
+    canPreviousPage,
+    canNextPage,
+    setPageSize,
+    gotoPage,
+    pageOptions,
+    nextPage,
+    previousPage,
+    prepareRow,
+    allColumns,
+    resetResizing,
+    state,
+  } = useTableUtils(tableColumns, allData, defaultColumn, hiddenColumns); */
   const {
     headerGroups,
     getTableProps,
@@ -81,7 +105,23 @@ const NfcTable = ({ data }) => {
     allColumns,
     resetResizing,
     state,
-  } = useTableUtils(tableColumns, allData, defaultColumn, hiddenColumns);
+  } = useTable(
+    {
+      columns: tableColumns,
+      data: allData,
+      defaultColumn,
+      initialState: {
+        pageSize: 25,
+      },
+      isMultiSortEvent: (e) => {
+        if (e.ctrlKey) return true;
+      },
+    },
+    useSortBy,
+    useBlockLayout,
+    useResizeColumns,
+    usePagination
+  );
   //#endregion
   // Table Utilities END
 
@@ -102,7 +142,6 @@ const NfcTable = ({ data }) => {
 
   const handleFilter = (e) => {
     e.preventDefault();
-
     const adapterDayjs = new AdapterDayjs();
     const isDateFromValid = adapterDayjs.isValid(filterVal.createdFrom);
     const isDateToValid = adapterDayjs.isValid(filterVal.createdTo);
@@ -121,16 +160,18 @@ const NfcTable = ({ data }) => {
       createdFrom: cFrom,
       createdTo: cTo,
     };
-
+    console.log(currentValues);
+    setError(null);
     // setLoading(true);
-    searchNfcTag(currentValues).then((res) => {
+    searchNfcTag(currentValues, setError).then((res) => {
+      if (!res?.length) return;
       let editedRes = res?.map((x) => ({
         ...x?.item,
         createdDate: x?.createdDate,
       }));
-      console.log(editedRes);
+
       setAllData(editedRes);
-      setLoading(false);
+      // setLoading(false);
     });
   };
   const handleReset = () => {
@@ -142,6 +183,18 @@ const NfcTable = ({ data }) => {
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
   useEffect(() => {
+    getNfcTagsData();
+  }, []);
+
+  useEffect(() => {
+    let editedRes = nfcTags?.map((x) => ({
+      ...x?.item,
+      createdDate: x?.createdDate,
+    }));
+
+    setAllData(editedRes);
+  }, [nfcTags]);
+  useEffect(() => {
     const x = localStorage.getItem("hiddenColumns/nfc-tags");
     setHiddenColumns(JSON.parse(x));
   }, []);
@@ -149,7 +202,7 @@ const NfcTable = ({ data }) => {
   return (
     <>
       {loading && <Loading />}
-      {error && <ErrorModal error={errorMsg} />}
+      {error && <ErrorModal error={error?.message} />}
       {contextMenu.show && (
         <ContextMenu
           allColumns={allColumns}
@@ -210,7 +263,7 @@ const NfcTable = ({ data }) => {
           sx={{ minWidth: 650 }}
           aria-label="simple table"
         >
-          <CustomTableHead
+          <Nfc_TableHead
             headerGroups={headerGroups}
             resetResize={resetResize}
             setResetResize={setResetResize}

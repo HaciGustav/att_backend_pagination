@@ -9,7 +9,7 @@ const atinaSlice = createSlice({
     mobileBookings: {},
     bookingTypes: [],
     nfcTags: [],
-    atinaItems: [],
+    atinaItems: {},
     userRoles: [],
     loading: false,
     error: false,

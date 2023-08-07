@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const searchNfcTag = async (params) => {
+export const searchNfcTag = async (params, setError) => {
   let nfcArray = null;
 
   const {
@@ -11,6 +11,16 @@ export const searchNfcTag = async (params) => {
     desc,
     ItemType,
     itemID,
+    itemNumber,
+    street,
+    streetNumber,
+    zip,
+    city,
+    data1,
+    data2,
+    data3,
+    data4,
+    data5,
     timeFrom,
     timeTo,
   } = params;
@@ -45,6 +55,36 @@ export const searchNfcTag = async (params) => {
   if (itemID) {
     base += `&ItemID=${itemID}`;
   }
+  if (itemNumber) {
+    base += `&ItemNumber=${itemNumber}`;
+  }
+  if (street) {
+    base += `&Street=${street}`;
+  }
+  if (streetNumber) {
+    base += `&StreetNumber=${streetNumber}`;
+  }
+  if (zip) {
+    base += `&ZIP=${zip}`;
+  }
+  if (city) {
+    base += `&City=${city}`;
+  }
+  if (data1) {
+    base += `&Data1=${data1}`;
+  }
+  if (data2) {
+    base += `&Data2=${data2}`;
+  }
+  if (data3) {
+    base += `&Data3=${data3}`;
+  }
+  if (data4) {
+    base += `&Data4=${data4}`;
+  }
+  if (data5) {
+    base += `&Data5=${data5}`;
+  }
   console.log(base);
 
   try {
@@ -52,6 +92,7 @@ export const searchNfcTag = async (params) => {
     nfcArray = data;
   } catch (error) {
     console.log(error);
+    setError(error);
   }
 
   return nfcArray;

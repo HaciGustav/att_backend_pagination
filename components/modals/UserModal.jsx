@@ -58,6 +58,11 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
   const handleSubmit = () => {
     // setInputVal({ roles: [] });
     if (userInfo) {
+      let parameter = {
+        ...inputVal,
+        personnelNumber: inputVal.personnelnumber,
+      };
+      delete parameter.personnelnumber;
       putUserData(inputVal).then(() => handleClose());
     } else {
       postUserData(inputVal).then(() => handleClose());
@@ -180,8 +185,8 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     variant="outlined"
                     label="Personalnummer"
                     size="small"
-                    name="personnelNumber"
-                    value={inputVal?.personnelNumber || ""}
+                    name="personnelnumber"
+                    value={inputVal?.personnelnumber || ""}
                     onChange={handleChange}
                   />
                 </div>

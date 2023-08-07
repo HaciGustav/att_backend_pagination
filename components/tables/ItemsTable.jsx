@@ -23,6 +23,11 @@ import Loading from "../Loading";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
+import useFilters from "@/hooks/useFilters";
+import usePagination from "@/hooks/usePagination";
+import SSR_Pagination from "../SSR_Pagination";
+import useAtinaCalls from "@/hooks/useAtinaCalls";
+import Loading_Icon from "../Loading_Icon";
 
 const initalContextMenu = {
   show: false,
@@ -30,19 +35,39 @@ const initalContextMenu = {
   y: 0,
 };
 
-const ItemsTable = ({ atinaItems }) => {
+const ItemsTable = ({}) => {
   const tableRef = useRef(null);
+  const {
+    ITEM_TABLE_ORDER_COLUMNS,
+    ITEM_TABLE_METER_COLUMNS,
+    ITEM_TABLE_VEHICLE_COLUMNS,
+  } = useColumns();
 
-  const { error, errorMsg } = useSelector((state) => state.atina);
   const { user } = useSelector((state) => state.settings);
 
-  const [allData, setAllData] = useState(atinaItems);
-  const [loading, setLoading] = useState(false);
+  const [allData, setAllData] = useState([]);
   const [type, setType] = useState("Order");
   const [resetResize, setResetResize] = useState(false);
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const [openItemsModal, setOpenItemsModal] = useState(false);
   const [hiddenColumns, setHiddenColumns] = useState([]);
+
+  //! Items Data and Relevants ▼▼▼▼▼▼
+  const { errorMsg, error, atinaItems, loading } = useSelector(
+    (state) => state.atina
+  );
+
+  //! Pagination, Sorting and Filtering State ▼▼▼▼▼▼
+  const { paginationParams, sortingParams, filterParams, searchTrigger } =
+    useSelector((state) => state.tableUtils.items);
+
+  //#region //! Custom Hooks ▼▼▼▼▼▼
+  const { getAtinaItemsData } = useAtinaCalls();
+  const { filterItems, resetFilter } = useFilters();
+  const { handleSortParams, makeUrlParams, handlePaginationParams } =
+    usePagination("items");
+
+  //#endregion //! Custom Hooks ▲▲▲▲▲▲
 
   //#region Table Utilities START
 
@@ -54,11 +79,6 @@ const ItemsTable = ({ atinaItems }) => {
     }),
     []
   );
-  const {
-    ITEM_TABLE_ORDER_COLUMNS,
-    ITEM_TABLE_METER_COLUMNS,
-    ITEM_TABLE_VEHICLE_COLUMNS,
-  } = useColumns();
   const tableColumns = useMemo(() => {
     if (type === "Order") {
       return ITEM_TABLE_ORDER_COLUMNS;
@@ -73,13 +93,6 @@ const ItemsTable = ({ atinaItems }) => {
     getTableProps,
     getTableBodyProps,
     page,
-    canPreviousPage,
-    canNextPage,
-    setPageSize,
-    gotoPage,
-    pageOptions,
-    nextPage,
-    previousPage,
     prepareRow,
     allColumns,
     resetResizing,
@@ -93,17 +106,29 @@ const ItemsTable = ({ atinaItems }) => {
   const handleFilter = (e) => {
     e.preventDefault();
     setType(filterVal.itemType);
-    setLoading(true);
+    filterItems(filterVal);
+    /*  // setLoading(true);
     searchItems({ ...filterVal, type }).then((res) => {
       setAllData(res.itemArray);
-      setLoading(false);
-    });
+      // setLoading(false);
+    }); */
   };
 
   const handleReset = () => {
     setFilterVal({ itemType: "Order" });
+    resetFilter("items");
     setType("Order");
   };
+
+  useEffect(() => {
+    const params = makeUrlParams();
+    getAtinaItemsData(params + filterParams);
+  }, [paginationParams, sortingParams, filterParams, searchTrigger]);
+
+  useEffect(() => {
+    if (!atinaItems?.entries) return;
+    setAllData(atinaItems?.entries);
+  }, [atinaItems]);
 
   useEffect(() => {
     const x = localStorage.getItem("hiddenColumns/items");
@@ -113,7 +138,7 @@ const ItemsTable = ({ atinaItems }) => {
   return (
     <>
       {error && <ErrorModal error={errorMsg} />}
-      {loading && <Loading />}
+      {/* {loading && <Loading />} */}
       <ItemsModal
         setOpenItemsModal={setOpenItemsModal}
         openItemsModal={openItemsModal}
@@ -136,13 +161,7 @@ const ItemsTable = ({ atinaItems }) => {
       <TableContainer
         ref={tableRef}
         component={Paper}
-        // onContextMenu={handleRightClick}
-        sx={{
-          ...tableStyles.tableContainer,
-          // maxWidth: "93vw",
-          // maxHeight: "82vh",
-          // overflow: "auto",
-        }}
+        sx={tableStyles.tableContainer}
       >
         <ItemsFilter
           handleReset={handleReset}
@@ -154,7 +173,7 @@ const ItemsTable = ({ atinaItems }) => {
         />
         <div style={tableStyles.helpersWrapper}>
           <div style={{ display: "flex" }}>
-            <Pagination
+            {/* <Pagination
               data={allData}
               nextPage={nextPage}
               previousPage={previousPage}
@@ -164,6 +183,12 @@ const ItemsTable = ({ atinaItems }) => {
               state={state}
               setPageSize={setPageSize}
               gotoPage={gotoPage}
+            /> */}
+            {loading && <Loading_Icon />}
+            <SSR_Pagination
+              paginationParams={paginationParams}
+              totalPages={atinaItems?.totalPages}
+              table={"items"}
             />
 
             <Tooltip title="Spaltengröße rückgängig machen" arrow>
@@ -206,6 +231,8 @@ const ItemsTable = ({ atinaItems }) => {
             setResetResize={setResetResize}
             resetResize={resetResize}
             handleRightClick={handleRightClick}
+            handleSortParams={handleSortParams}
+            table={"items"}
           />
 
           <CustomTableBody

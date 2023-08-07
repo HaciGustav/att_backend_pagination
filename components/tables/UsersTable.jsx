@@ -24,6 +24,14 @@ import ErrorModal from "../modals/ErrorModal";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
+import {
+  useBlockLayout,
+  usePagination,
+  useResizeColumns,
+  useSortBy,
+  useTable,
+} from "react-table";
+import Nfc_TableHead from "./table_heads/NFC_teableHead";
 
 const initalContextMenu = {
   show: false,
@@ -59,6 +67,23 @@ const UsersTable = ({ usersData }) => {
     [tableRef]
   );
 
+  /* const {
+    headerGroups,
+    getTableProps,
+    getTableBodyProps,
+    page,
+    canPreviousPage,
+    canNextPage,
+    setPageSize,
+    gotoPage,
+    pageOptions,
+    nextPage,
+    previousPage,
+    prepareRow,
+    allColumns,
+    resetResizing,
+    state,
+  } = useTableUtils(tableColumns, allData, defaultColumn, hiddenColumns); */
   const {
     headerGroups,
     getTableProps,
@@ -75,7 +100,23 @@ const UsersTable = ({ usersData }) => {
     allColumns,
     resetResizing,
     state,
-  } = useTableUtils(tableColumns, allData, defaultColumn, hiddenColumns);
+  } = useTable(
+    {
+      columns: tableColumns,
+      data: allData,
+      defaultColumn,
+      initialState: {
+        pageSize: 25,
+      },
+      isMultiSortEvent: (e) => {
+        if (e.ctrlKey) return true;
+      },
+    },
+    useSortBy,
+    useBlockLayout,
+    useResizeColumns,
+    usePagination
+  );
   //#endregion
   //? Table Utilities END
 
@@ -174,7 +215,7 @@ const UsersTable = ({ usersData }) => {
           aria-label="simple table"
           size="small"
         >
-          <CustomTableHead
+          <Nfc_TableHead
             headerGroups={headerGroups}
             resetResize={resetResize}
             setResetResize={setResetResize}

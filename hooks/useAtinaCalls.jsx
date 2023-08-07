@@ -5,7 +5,7 @@ import useAxios from "./useAxios";
 
 const useAtinaCalls = () => {
   const dispatch = useDispatch();
-  const { axiosInstance } = useAxios();
+  const { axiosInstance, axiosWithToken } = useAxios();
 
   //!--------------- GET CALL --------------
   const getAtinaData = async (url) => {
@@ -14,7 +14,7 @@ const useAtinaCalls = () => {
     let res = null;
     let error = null;
     try {
-      const { data } = await axiosInstance.get(`${url}`);
+      const { data } = await axiosWithToken.get(`${url}`);
       dispatch(getSuccess({ data, url }));
       res = data;
     } catch (err) {
@@ -32,13 +32,15 @@ const useAtinaCalls = () => {
   const getBookingTypes = () =>
     getAtinaData("api/AtinaMasterData/GetBookingTypes");
   const getMobileBookingsData = (params = "") => {
-    // console.log(params);
     getAtinaData("api/AtinaMobileBookings?showPagination=true&" + params);
   };
+
   const getNfcTagsData = () => getAtinaData("AtinaNfcTags");
-  const getAtinaItemsData = (type) =>
+
+  const getAtinaItemsData = (params = "", type = "Order") =>
     getAtinaData(
-      `api/AtinaItems/SearchByKeyValue?ItemType=${type}&onlyWithTagId=false`
+      `api/AtinaItems/SearchByKeyValue?ItemType=${type}&onlyWithTagId=false&showPagination=true&` +
+        params
     );
   const getAtinaRoleDefinitions = () =>
     getAtinaData("api/AtinaRoleDefinitions/getall");
@@ -46,7 +48,7 @@ const useAtinaCalls = () => {
   //!--------------- POST CALL --------------
   const postAtinaData = async (url, params) => {
     try {
-      const x = await axiosInstance.post(`${url}`, params);
+      const x = await axiosWithToken.post(`${url}`, params);
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
       getUsersData();
       console.log(x);
@@ -62,7 +64,7 @@ const useAtinaCalls = () => {
   //!--------------- PUT CALL --------------
   const putAtinaData = async (url, info) => {
     try {
-      await axiosInstance.put(`${url}/${info.id}`, info);
+      await axiosWithToken.put(`${url}/${info.id}`, info);
       // toastSuccessNotify(`Etwas ist schiefgelaufen..`);
     } catch (err) {
       const { message } = err;
@@ -77,7 +79,7 @@ const useAtinaCalls = () => {
     let res = null;
     let error = null;
     try {
-      res = await axiosInstance.delete(`${url}/${id}`);
+      res = await axiosWithToken.delete(`${url}/${id}`);
       toastSuccessNotify(`Erfolgreich aktualisiert..`);
     } catch (err) {
       error = err;

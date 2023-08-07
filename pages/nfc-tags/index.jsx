@@ -12,7 +12,7 @@ const NfcTags = ({ data, error }) => {
 
   return (
     <>
-      <ErrorModal error={error} />
+      {/* <ErrorModal error={error} /> */}
       <Head>
         <title>NFC Tags</title>
       </Head>
@@ -36,13 +36,16 @@ export const getServerSideProps = async (context) => {
   }
   const atinaCalls = new AtinaCalls();
 
-  const { res, error } = await atinaCalls.fetchData("AtinaNfcTags");
-  const editedData = res?.map((item) => ({
-    ...item.item,
-    createdDate: item.createdDate,
-  }));
+  // const { res, error } = await atinaCalls.fetchData("AtinaNfcTags");
+  // const editedData = res?.map((item) => ({
+  //   ...item.item,
+  //   createdDate: item.createdDate,
+  // }));
 
   return {
-    props: { data: !error && editedData, error: error },
+    props: {
+      // data: !error && editedData, error: error,
+      session,
+    },
   };
 };

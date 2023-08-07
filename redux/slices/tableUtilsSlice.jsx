@@ -16,33 +16,45 @@ const tableUtilsSlice = createSlice({
         totalPages: 1,
       },
     },
+    items: {
+      searchTrigger: false,
+      filterParams: "",
+      sortingParams: {},
+      sortingParamsString: "",
+      paginationParamsString: "",
+      paginationParams: {
+        pageSize: 25,
+        currentPage: 1,
+        totalPages: 1,
+      },
+    },
   },
   reducers: {
-    setFilterParams: (state, { payload: { params } }) => {
-      state.bookings.filterParams = params;
+    setFilterParams: (state, { payload: { params, table } }) => {
+      state[table].filterParams = params;
     },
-    setSortType: (state, { payload: { field } }) => {
-      state.bookings.sortingParams = {
+    setSortType: (state, { payload: { field, table } }) => {
+      state[table].sortingParams = {
         ...field,
       };
     },
-    setSearchTrigger: (state) => {
-      state.bookings.searchTrigger = !state.bookings.searchTrigger;
+    setSearchTrigger: (state, { payload: { table } }) => {
+      state[table].searchTrigger = !state[table].searchTrigger;
     },
-    makeSortParamsString: (state, { payload: { str } }) => {
-      state.bookings.sortingParamsString = str;
+    makeSortParamsString: (state, { payload: { str, table } }) => {
+      state[table].sortingParamsString = str;
     },
-    setPageSize: (state, { payload: { size } }) => {
-      state.bookings.paginationParams.pageSize = size;
+    setPageSize: (state, { payload: { size, table } }) => {
+      state[table].paginationParams.pageSize = size;
     },
-    setCurrentPage: (state, { payload: { number } }) => {
-      state.bookings.paginationParams.currentPage = number;
+    setCurrentPage: (state, { payload: { number, table } }) => {
+      state[table].paginationParams.currentPage = number;
     },
-    setTotalPages: (state, { payload: { total } }) => {
-      state.bookings.paginationParams.totalPages = total;
+    setTotalPages: (state, { payload: { total, table } }) => {
+      state[table].paginationParams.totalPages = total;
     },
-    makePaginationParamsString: (state, { payload: { str } }) => {
-      state.bookings.paginationParamsString = str;
+    makePaginationParamsString: (state, { payload: { str, table } }) => {
+      state[table].paginationParamsString = str;
     },
   },
 });

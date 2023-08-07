@@ -115,17 +115,91 @@ const useFilters = () => {
       base += `&data5=${data5}`;
     }
 
-    dispatch(setFilterParams({ params: base }));
-    dispatch(setCurrentPage({ number: 1 }));
-    dispatch(setSearchTrigger());
+    dispatch(setFilterParams({ params: base, table: "bookings" }));
+    dispatch(setCurrentPage({ number: 1, table: "bookings" }));
+    dispatch(setSearchTrigger({ table: "bookings" }));
 
     return base;
   };
-  const resetFilter = () => {
-    dispatch(setFilterParams({ params: "" }));
+  const filterItems = (filterVal) => {
+    const {
+      type,
+      filterOptions,
+      id,
+      itemType,
+      itemID,
+      itemNumber,
+      street,
+      streetnumber,
+      zip,
+      city,
+      country,
+      data1,
+      data2,
+      data3,
+      data4,
+      data5,
+    } = filterVal;
+
+    let base = "";
+
+    if (id) {
+      base += `&ID=${id}`;
+    }
+    if (itemType) {
+      base += `&ItemType=${itemType}`;
+    }
+    if (itemID) {
+      base += `&ItemId=${itemID}`;
+    }
+    if (itemNumber) {
+      base += `&ItemNumber=${itemNumber}`;
+    }
+    if (filterOptions) {
+      base += `&filterOptions=${filterOptions}`;
+    }
+    if (street) {
+      base += `&Street=${street}`;
+    }
+    if (streetnumber) {
+      base += `&Streetnumber=${streetnumber}`;
+    }
+    if (zip) {
+      base += `&Zip=${zip}`;
+    }
+    if (city) {
+      base += `&City=${city}`;
+    }
+    if (country) {
+      base += `&Country=${country}`;
+    }
+    if (data1) {
+      base += `&Data1=${data1}`;
+    }
+    if (data2) {
+      base += `&Data2=${data2}`;
+    }
+    if (data3) {
+      base += `&Data3=${data3}`;
+    }
+    if (data4) {
+      base += `&Data4=${data4}`;
+    }
+    if (data5) {
+      base += `&Data5=${data5}`;
+    }
+
+    dispatch(setFilterParams({ params: base, table: "items" }));
+    dispatch(setCurrentPage({ number: 1, table: "items" }));
+    dispatch(setSearchTrigger({ table: "items" }));
+
+    return base;
+  };
+  const resetFilter = (table) => {
+    dispatch(setFilterParams({ params: "", table }));
   };
 
-  return { filterBookings, resetFilter };
+  return { filterBookings, resetFilter, filterItems };
 };
 
 export default useFilters;

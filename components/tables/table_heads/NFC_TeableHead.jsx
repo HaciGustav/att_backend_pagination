@@ -10,7 +10,7 @@ import { tableStyles } from "@/styles/table_styles";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 
-const CustomTableHead = ({
+const Nfc_TableHead = ({
   headerGroups,
   setResetResize,
   resetResize,
@@ -23,7 +23,6 @@ const CustomTableHead = ({
   const [showEmptyCells, setShowEmptyCells] = useState(false);
   const router = useRouter();
   const { user } = useSelector((state) => state.settings);
-  const { sortingParams } = useSelector((state) => state.tableUtils[table]);
   useEffect(() => {
     if (
       (router.pathname === "/users" || router.pathname === "/items") &&
@@ -35,7 +34,7 @@ const CustomTableHead = ({
 
   return (
     <TableHead
-      sx={tableStyles.tableHead}
+      // sx={{ border: "2px solid red", height: "50px" }}
       onContextMenu={(e) => handleRightClick(e, "head")}
     >
       {!headerGroups?.length && (
@@ -59,10 +58,9 @@ const CustomTableHead = ({
               {...column.getHeaderProps()}
               sx={{ ...tableStyles.th.cell, userSelect: "none" }}
               align="left"
-              onClick={(e) => handleSortParams(column, e)}
             >
               <div
-                // {...column.getSortByToggleProps()}
+                {...column.getSortByToggleProps()}
                 style={{
                   width: "100%",
                   display: "flex",
@@ -70,14 +68,8 @@ const CustomTableHead = ({
                 }}
               >
                 <span>{column.render("Header")} </span>
-                {sortingParams[column.id] === "desc" && (
-                  <ArrowDownwardIcon fontSize="small" />
-                )}
-                {sortingParams[column.id] === "asc" && (
-                  <ArrowUpwardIcon fontSize="small" />
-                )}
 
-                {/* {column.isSorted ? (
+                {column.isSorted ? (
                   column.isSortedDesc ? (
                     <ArrowDownwardIcon fontSize="small" />
                   ) : (
@@ -85,15 +77,12 @@ const CustomTableHead = ({
                   )
                 ) : (
                   ""
-                )} */}
+                )}
               </div>
               <div
                 style={{ border: "2px solid green" }}
                 {...column.getResizerProps()}
-                onClick={(e) => {
-                  setResetResize(!resetResize);
-                  e.stopPropagation();
-                }}
+                onClick={() => setResetResize(!resetResize)}
                 className={`${styles.resizer} ${
                   column.isResizing ? styles.isResizing : null
                 }`}
@@ -119,4 +108,4 @@ const CustomTableHead = ({
   );
 };
 
-export default CustomTableHead;
+export default Nfc_TableHead;

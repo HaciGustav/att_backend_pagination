@@ -79,7 +79,29 @@ const ItemsFilter = ({
                 name="itemNumber"
               />
             </Grid>
-            <Grid item md={6} />
+            <Grid item md={2}>
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+                <InputLabel id="filterOptions">Filteroptionen</InputLabel>
+                <Select
+                  labelId="filterOptions"
+                  id="demo-select-small"
+                  value={filterVal?.filterOptions || ""}
+                  label="Filteroptionen"
+                  name="filterOptions"
+                  onChange={handleChange}
+                >
+                  <MenuItem value={""}>
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"All"}>Alles</MenuItem>
+                  <MenuItem value={"ItemsAssigned"}>zugeordnet</MenuItem>
+                  <MenuItem value={"ItemsNotAssigned"}>
+                    nicht zugeordnet
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item md={4} />
             {filterVal.itemType !== "Vehicle" && (
               <>
                 <Grid item md={2}>

@@ -1,13 +1,19 @@
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const useAxios = () => {
   const BASE_URL = "https://pbsolutions.dev/atina/";
-
+  const { token } = useSelector((state) => state.settings.user);
   const axiosInstance = axios.create({
     baseURL: BASE_URL,
   });
 
-  return { axiosInstance };
+  const axiosWithToken = axios.create({
+    baseURL: BASE_URL,
+    headers: { Authorization: `Token ${token}` },
+  });
+
+  return { axiosInstance, axiosWithToken };
 };
 
 export default useAxios;

@@ -50,6 +50,10 @@ const useColumns = () => {
       Header: "Datensatznummer",
     },
     {
+      accessor: "tagID",
+      Header: "Tag ID",
+    },
+    {
       accessor: "street",
       Header: "straße",
     },
@@ -105,6 +109,10 @@ const useColumns = () => {
       Header: "Datensatznummer",
     },
     {
+      accessor: "tagID",
+      Header: "Tag ID",
+    },
+    {
       accessor: "street",
       Header: "straße",
     },
@@ -148,6 +156,10 @@ const useColumns = () => {
       Header: "Datensatznummer",
     },
     {
+      accessor: "tagID",
+      Header: "Tag ID",
+    },
+    {
       accessor: "data1",
       Header: "Mandant",
     },
@@ -163,10 +175,10 @@ const useColumns = () => {
       accessor: "data4",
       Header: "Modell",
     },
-    // {
-    //   accessor: "data5",
-    //   Header: "#",
-    // },
+    {
+      accessor: "data5",
+      Header: "Status",
+    },
     // {
     //   accessor: "data6",
     //   Header: "#",
