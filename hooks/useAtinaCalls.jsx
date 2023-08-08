@@ -44,7 +44,9 @@ const useAtinaCalls = () => {
     );
   const getAtinaRoleDefinitions = () =>
     getAtinaData("api/AtinaRoleDefinitions/getall");
-
+  const getProtocolData = (params = "") => {
+    getAtinaData("api/AtinaProtocol?showPagination=true&" + params);
+  };
   //!--------------- POST CALL --------------
   const postAtinaData = async (url, params) => {
     try {
@@ -103,6 +105,7 @@ const useAtinaCalls = () => {
     getMobileBookingsData,
     getNfcTagsData,
     getAtinaItemsData,
+    getProtocolData,
     putUserData,
     deleteAtinaItems,
     getBookingTypes,

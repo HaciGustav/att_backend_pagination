@@ -27,7 +27,9 @@ import { useRouter } from "next/router";
 import ProfileMenu from "@/components/menus/ProfileMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/slices/settingsSlice";
-
+import PlagiarismIcon from "@mui/icons-material/Plagiarism";
+import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
+import FeedIcon from "@mui/icons-material/Feed";
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
@@ -144,6 +146,11 @@ export default function Layout({ children, toggleTheme }) {
       text: "Benutzer",
       icon: <PeopleAltIcon />,
       nav: "users",
+    },
+    {
+      text: "Protokoll",
+      icon: <FeedIcon />,
+      nav: "protocol",
     },
 
     /* {

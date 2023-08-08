@@ -11,6 +11,7 @@ const atinaSlice = createSlice({
     nfcTags: [],
     atinaItems: {},
     userRoles: [],
+    protocol: {},
     loading: false,
     error: false,
     errorMsg: "",
@@ -36,6 +37,8 @@ const atinaSlice = createSlice({
         state.bookingTypes = data;
       } else if (url.toLowerCase().includes("roledefinitions")) {
         state.userRoles = data;
+      } else if (url.toLowerCase().includes("protocol")) {
+        state.protocol = data;
       }
     },
     fetchFail: (state, { payload: { message } }) => {

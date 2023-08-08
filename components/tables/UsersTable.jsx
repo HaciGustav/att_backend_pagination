@@ -136,6 +136,7 @@ const UsersTable = ({ usersData }) => {
 
   useEffect(() => {
     getAtinaRoleDefinitions();
+
     const x = localStorage.getItem("hiddenColumns/users");
     setHiddenColumns(JSON.parse(x));
   }, []);

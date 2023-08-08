@@ -1,4 +1,35 @@
 export const modalStyles = {
+  protocolModal: {
+    cardStyle: {
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      width: 550,
+      height: 500,
+      bgcolor: "background.paper",
+      border: "2px solid #000",
+      boxShadow: 24,
+      p: 2,
+      overflow: "auto",
+      display: "flex",
+      flexDirection: "column",
+      placeItems: "space-between",
+      paddingBottom: 0,
+    },
+    content: {
+      display: "flex",
+      flexDirection: "column",
+      rowGap: "8px",
+      justifyContent: "space-between",
+      width: "100%",
+      height: "100%",
+    },
+    button: {
+      // backgroundColor: "secondary",
+      width: "50%",
+    },
+  },
   bookingModal: {
     cardStyle: {
       position: "absolute",

@@ -28,6 +28,18 @@ const tableUtilsSlice = createSlice({
         totalPages: 1,
       },
     },
+    protocol: {
+      searchTrigger: false,
+      filterParams: "",
+      sortingParams: {},
+      sortingParamsString: "",
+      paginationParamsString: "",
+      paginationParams: {
+        pageSize: 25,
+        currentPage: 1,
+        totalPages: 1,
+      },
+    },
   },
   reducers: {
     setFilterParams: (state, { payload: { params, table } }) => {

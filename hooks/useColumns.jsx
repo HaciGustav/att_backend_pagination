@@ -7,6 +7,40 @@ import { useSelector } from "react-redux";
 const useColumns = () => {
   const { bookingTypes } = useSelector((state) => state.atina);
 
+  const PROTOCOL_TABLE_COLUMNS = [
+    {
+      accessor: "description",
+      Header: "Beschreibung",
+      width: 100,
+    },
+    {
+      accessor: "createdDate",
+      Header: "Datum",
+      Cell: ({ value }) => new Date(value).toLocaleDateString("tr"),
+    },
+    {
+      accessor: "createdTime",
+      Header: "Uhrzeit",
+      Cell: ({ value }) => value?.slice(0, value?.lastIndexOf(":")),
+    },
+    {
+      accessor: "userId",
+      Header: "Benutzer ID",
+    },
+    {
+      accessor: "protocoltype",
+      Header: "Protokolltyp",
+    },
+    {
+      accessor: "module",
+      Header: "Modul",
+    },
+    {
+      accessor: "item",
+      Header: "Datensatz",
+    },
+  ];
+
   const USER_TABLE_COLUMNS = [
     {
       accessor: "firstname",
@@ -366,6 +400,7 @@ const useColumns = () => {
     ITEM_TABLE_VEHICLE_COLUMNS,
     NFC_TABLE_COLUMNS,
     BUCHUNGEN_TABLE_COLUMNS,
+    PROTOCOL_TABLE_COLUMNS,
   };
 };
 

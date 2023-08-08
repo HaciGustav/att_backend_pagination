@@ -5,9 +5,12 @@ import { tableStyles } from "@/styles/table_styles";
 import styles from "./table_row_styles.module.css";
 import BookingImageRow from "./row_components/BookingImageRow";
 import ExpandRowCell from "./row_components/BookingExpandRowCell";
+import ProtocolExpandRowCell from "./row_components/ProtocolExpandRowCell";
+import ProtocolExpandRow from "./row_components/ProtocolExpandRow";
+import ProtocolModal from "../modals/ProtocolModal";
 
-const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
-  const [openBookingModal, setOpenBookingModal] = useState(false);
+const ProtocolTableRow = ({ resetResize, row, prepareRow }) => {
+  const [openProtocolModal, setOpenProtocolModal] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = (e) => {
     e.stopPropagation();
@@ -16,7 +19,7 @@ const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
 
   const handleDblClick = (e) => {
     if (e.detail === 2) {
-      setOpenBookingModal(true);
+      setOpenProtocolModal(true);
     }
   };
   useEffect(() => {
@@ -25,10 +28,10 @@ const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
 
   return (
     <>
-      <BookingsModal
-        openBookingModal={openBookingModal}
-        setOpenBookingModal={setOpenBookingModal}
-        booking={row?.original}
+      <ProtocolModal
+        setOpenProtocolModal={setOpenProtocolModal}
+        openProtocolModal={openProtocolModal}
+        protocol={row?.original}
       />
       <TableRow
         {...row.getRowProps()}
@@ -38,8 +41,9 @@ const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
       >
         {row.cells.map((cell, i) => (
           <Fragment key={i}>
-            {cell.getCellProps().key.includes("FileCounter") ? (
-              <ExpandRowCell
+            {/* {console.log(cell.getCellProps().key)} */}
+            {cell.getCellProps().key.includes("description") ? (
+              <ProtocolExpandRowCell
                 cell={cell}
                 row={row}
                 open={open}
@@ -58,13 +62,13 @@ const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
           </Fragment>
         ))}
       </TableRow>
-      <BookingImageRow row={row} open={open} />
+      <ProtocolExpandRow row={row} open={open} />
     </>
   );
 };
 
-export default BookingsTableRow;
-/*   return (
+export default ProtocolTableRow;
+/* row={row} open={open}  return (
               <TableCell
                 {...cell.getCellProps()}
                 sx={{
