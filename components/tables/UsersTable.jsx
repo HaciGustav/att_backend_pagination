@@ -32,6 +32,7 @@ import {
   useTable,
 } from "react-table";
 import Nfc_TableHead from "./table_heads/NFC_TeableHead";
+import Loading_Icon from "../Loading_Icon";
 
 const initalContextMenu = {
   show: false,
@@ -50,7 +51,7 @@ const UsersTable = ({ usersData }) => {
   const [openUserModal, setOpenUserModal] = useState(false);
   const [resetResize, setResetResize] = useState(false);
 
-  const { error, errorMsg } = useSelector((state) => state.atina);
+  // const { error, errorMsg } = useSelector((state) => state.atina);
   const { user } = useSelector((state) => state.settings);
   const { getAtinaRoleDefinitions } = useAtinaCalls();
 
@@ -146,7 +147,7 @@ const UsersTable = ({ usersData }) => {
         setOpenUserModal={setOpenUserModal}
         openUserModal={openUserModal}
       />
-      {loading && <Loading />}
+      {/* {!loading && <Loading />} */}
       {/* {true && <ErrorModal error={errorMsg} />} */}
       {contextMenu.show && (
         <ContextMenu
@@ -173,6 +174,7 @@ const UsersTable = ({ usersData }) => {
           setFilterVal={setFilterVal}
         />
         <div style={{ display: "flex", justifyContent: "end" }}>
+          {loading && <Loading_Icon />}
           <Pagination
             data={allData}
             nextPage={nextPage}

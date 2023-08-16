@@ -23,6 +23,7 @@ import Loading_Icon from "../Loading_Icon";
 import useFilters from "@/hooks/useFilters";
 import ProtocolTableRow from "../table_rows/ProtocolTableRow";
 import ProtocolFilter from "../filters/ProtocolFilter";
+import { Box } from "@mui/material";
 
 // import axios from "axios";
 
@@ -160,11 +161,16 @@ const ProtocolTable = () => {
             setFilterVal={setFilterVal}
           />
 
-          <div
-            style={{
+          <Box
+            sx={{
               display: "flex",
               justifyContent: "end",
               columnGap: "15px",
+              position: "sticky",
+              top: -10,
+              backgroundColor: "background.paper",
+              opacity: 1,
+              zIndex: 5,
             }}
           >
             {loading && <Loading_Icon />}
@@ -199,7 +205,7 @@ const ProtocolTable = () => {
                 </IconButton>
               </Tooltip>
             )}
-          </div>
+          </Box>
           <Table
             {...getTableProps()}
             sx={{ minWidth: 650 }}
