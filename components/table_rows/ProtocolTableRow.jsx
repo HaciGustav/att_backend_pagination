@@ -41,7 +41,6 @@ const ProtocolTableRow = ({ resetResize, row, prepareRow }) => {
       >
         {row.cells.map((cell, i) => (
           <Fragment key={i}>
-            {/* {console.log(cell.getCellProps().key)} */}
             {cell.getCellProps().key.includes("description") ? (
               <ProtocolExpandRowCell
                 cell={cell}

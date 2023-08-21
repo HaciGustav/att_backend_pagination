@@ -11,7 +11,14 @@ const useColumns = () => {
     {
       accessor: "description",
       Header: "Beschreibung",
-      width: 100,
+      width: 150,
+      Cell: ({ value }) => {
+        if (value.length <= 25) {
+          return value;
+        } else {
+          return value.slice(0, 26) + "...";
+        }
+      },
     },
     {
       accessor: "createdDate",
@@ -30,6 +37,7 @@ const useColumns = () => {
     {
       accessor: "protocoltype",
       Header: "Protokolltyp",
+      width: 150,
     },
     {
       accessor: "module",

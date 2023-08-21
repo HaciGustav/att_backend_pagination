@@ -173,7 +173,7 @@ const UsersTable = ({ usersData }) => {
           filterVal={filterVal}
           setFilterVal={setFilterVal}
         />
-        <div style={{ display: "flex", justifyContent: "end" }}>
+        <Box sx={tableStyles.helpersWrapper}>
           {loading && <Loading_Icon />}
           <Pagination
             data={allData}
@@ -210,7 +210,7 @@ const UsersTable = ({ usersData }) => {
               </IconButton>
             </Tooltip>
           )}
-        </div>
+        </Box>
         <Table
           ref={tableRef}
           {...getTableProps()}

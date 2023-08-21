@@ -53,26 +53,43 @@ const ProtocolModal = ({
               {" "}
               <Grid item md={6}>
                 <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   variant="outlined"
                   label="Erstellt am"
                   size="small"
                   sx={{ width: "100%" }}
                   name="createdDate"
-                  value={protocol.createdDate || ""}
+                  value={
+                    new Date(protocol?.createdDate).toLocaleDateString("tr") ||
+                    ""
+                  }
                 />{" "}
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   variant="outlined"
                   label="Uhrzeit"
                   size="small"
                   sx={{ width: "100%" }}
                   name="createdTime"
-                  value={protocol.createdTime || ""}
+                  value={
+                    protocol.createdTime?.slice(
+                      0,
+                      protocol.createdTime?.lastIndexOf(":")
+                    ) || ""
+                  }
                 />{" "}
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   variant="outlined"
                   label="Datensatz"
                   size="small"
@@ -83,6 +100,9 @@ const ProtocolModal = ({
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   variant="outlined"
                   label="Modul"
                   size="small"
@@ -93,6 +113,9 @@ const ProtocolModal = ({
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   variant="outlined"
                   label="Benutzer ID"
                   size="small"
@@ -103,6 +126,9 @@ const ProtocolModal = ({
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  InputProps={{
+                    readOnly: true,
+                  }}
                   variant="outlined"
                   label="Protokolltyp"
                   size="small"
@@ -112,6 +138,9 @@ const ProtocolModal = ({
                 />
               </Grid>
               <TextField
+                InputProps={{
+                  readOnly: true,
+                }}
                 variant="outlined"
                 label="Beschreibung"
                 size="small"

@@ -9,7 +9,7 @@ export const tableStyles = {
   },
   tableHead: {
     position: "sticky",
-    top: 25,
+    top: 30,
     backgroundColor: "background.paper",
     opacity: 1,
     zIndex: 5,
@@ -18,6 +18,11 @@ export const tableStyles = {
     display: "flex",
     justifyContent: "end",
     alignItems: "center",
+    position: "sticky",
+    top: -10,
+    backgroundColor: "background.paper",
+    opacity: 1,
+    zIndex: 5,
   },
   th: {
     cell: {

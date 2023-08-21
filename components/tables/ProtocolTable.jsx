@@ -82,7 +82,7 @@ const ProtocolTable = () => {
   const defaultColumn = useMemo(
     () => ({
       minWidth: 75,
-      width: 220,
+      width: 225,
       maxWidth: 400,
     }),
     []

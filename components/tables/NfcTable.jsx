@@ -232,7 +232,7 @@ const NfcTable = ({ data }) => {
           filterVal={filterVal}
           setFilterVal={setFilterVal}
         />
-        <div style={{ display: "flex", justifyContent: "end" }}>
+        <Box sx={tableStyles.helpersWrapper}>
           <Pagination
             data={allData}
             nextPage={nextPage}
@@ -256,7 +256,7 @@ const NfcTable = ({ data }) => {
             </IconButton>
           </Tooltip>
           <DownloadCSV rawData={allData} fileName={"nfc_tags"} />
-        </div>
+        </Box>
         <Table
           {...getTableProps()}
           className="table"

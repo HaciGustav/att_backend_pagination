@@ -24,6 +24,7 @@ import SSR_Pagination from "../SSR_Pagination";
 import usePagination from "@/hooks/usePagination";
 import Loading_Icon from "../Loading_Icon";
 import useFilters from "@/hooks/useFilters";
+import { Box } from "@mui/material";
 
 // import axios from "axios";
 
@@ -170,13 +171,7 @@ const MobileBookings = () => {
             setFilterVal={setFilterVal}
           />
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "end",
-              columnGap: "15px",
-            }}
-          >
+          <Box sx={tableStyles.helpersWrapper}>
             {loading && <Loading_Icon />}
 
             <SSR_Pagination
@@ -209,7 +204,7 @@ const MobileBookings = () => {
                 </IconButton>
               </Tooltip>
             )}
-          </div>
+          </Box>
           <Table
             {...getTableProps()}
             sx={{ minWidth: 650 }}

@@ -171,7 +171,7 @@ const ItemsTable = ({}) => {
           type={type}
           setType={setType}
         />
-        <div style={tableStyles.helpersWrapper}>
+        <Box sx={tableStyles.helpersWrapper}>
           <div style={{ display: "flex" }}>
             {/* <Pagination
               data={allData}
@@ -217,7 +217,7 @@ const ItemsTable = ({}) => {
               </Tooltip>
             )}
           </div>
-        </div>
+        </Box>
 
         <Table
           className="table"

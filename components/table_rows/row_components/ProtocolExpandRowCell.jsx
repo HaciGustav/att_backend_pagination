@@ -13,19 +13,31 @@ const ProtocolExpandRowCell = ({ cell, row, open, handleOpen }) => {
         p: 0.3,
         alignItems: "center",
         position: "relative",
+        color: "#0000",
+        "&:hover": {
+          color: "#000",
+        },
       }}
     >
       <IconButton
         aria-label="expand row"
+        size="small"
         sx={{
-          position: "relative",
-          left: "50%",
-          transform: " translate(-50%, 0)",
+          position: "absolute",
+          // left: "50%",
+          right: "5px",
+          top: "50%",
+          transform: " translate(0, -50%)",
+          color: "inherit",
+          "&:hover": {
+            backgroundColor: "#C5c5c5cc",
+          },
         }}
         onClick={handleOpen}
       >
         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
       </IconButton>
+      <p style={{ color: "#000" }}>{cell.render("Cell")}</p>
       {/* 
       <span
         style={{
