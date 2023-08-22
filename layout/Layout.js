@@ -137,11 +137,11 @@ export default function Layout({ children, toggleTheme }) {
       icon: <TapAndPlayOutlinedIcon />,
       nav: "items",
     },
-    {
-      text: "NFC Tags",
-      icon: <NfcIcon />,
-      nav: "nfc-tags",
-    },
+    // {
+    //   text: "NFC Tags",
+    //   icon: <NfcIcon />,
+    //   nav: "nfc-tags",
+    // },
     {
       text: "Benutzer",
       icon: <PeopleAltIcon />,
