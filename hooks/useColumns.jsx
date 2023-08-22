@@ -51,28 +51,40 @@ const useColumns = () => {
 
   const USER_TABLE_COLUMNS = [
     {
-      accessor: "firstname",
-      Header: "vorname",
+      accessor: "userInfo.client",
+      Header: "Mandant",
+      width: 150,
     },
     {
-      accessor: "lastname",
-      Header: "nachname",
+      accessor: "userInfo.settlement",
+      Header: "Standort",
+      width: 150,
     },
     {
-      accessor: "username",
+      accessor: "userInfo.username",
       Header: "benutzername",
     },
     {
-      accessor: "passwordHash",
+      accessor: "userInfo.passwordHash",
       Header: "kennwort",
       Cell: () => "*******",
     },
     {
-      accessor: "personnelnumber",
+      accessor: "userInfo.personnelnumber",
       Header: "personalnummer",
     },
     {
+      accessor: "userInfo.firstname",
+      Header: "vorname",
+    },
+    {
+      accessor: "userInfo.lastname",
+      Header: "nachname",
+    },
+
+    {
       Header: "bild",
+      width: 150,
       Cell: (row) => (
         <Avatar
           sx={{ ...tableStyles.tr.image, margin: "auto" }}

@@ -107,7 +107,7 @@ export const modalStyles = {
     content: {
       display: "flex",
       flexDirection: "column",
-      rowGap: "15px",
+      rowGap: "8px",
       paddingInline: 0,
     },
     imgStyle: {
@@ -127,7 +127,7 @@ export const modalStyles = {
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      rowGap: "15px",
+      rowGap: "8px",
     },
     input: {
       border: "2px solid red",

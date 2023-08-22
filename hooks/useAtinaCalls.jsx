@@ -76,6 +76,36 @@ const useAtinaCalls = () => {
       console.log(err);
     }
   };
+
+  const putUserData = async (info) => {
+    const roles = info?.roleIds.map((x) => Number(x));
+    console.log(info);
+    try {
+      const editedData = {
+        id: info.id,
+        username: info.username,
+        firstname: info.firstname,
+        lastname: info.lastname,
+        personnelNumber: info.personnelnumber,
+        password: "11223344",
+        client: "",
+        settlement: "",
+        roleIds: roles,
+      };
+
+      await axiosWithToken.post("AtinaUsers/update", editedData);
+      console.log(editedData);
+
+      toastSuccessNotify(`Etwas ist schiefgelaufen..`);
+    } catch (err) {
+      const { message } = err;
+      dispatch(fetchFail({ message }));
+      toastErrorNotify(`Etwas ist schiefgelaufen.. `);
+      toastErrorNotify(`${message}`);
+      console.log(err);
+    }
+  };
+
   //!--------------- DELETE CALL --------------
   const deleteAtinaData = async (url, id) => {
     let res = null;
@@ -96,7 +126,7 @@ const useAtinaCalls = () => {
   //*GET
 
   //*PUT
-  const putUserData = (info) => putAtinaData("AtinaUsers", info);
+  // const putUserData = (info) => putAtinaData("AtinaUsers", info);
 
   //* DELETE
   const deleteAtinaItems = (id) => deleteAtinaData("api/AtinaItems/Delete", id);

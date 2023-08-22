@@ -20,10 +20,8 @@ import RolesList from "./UserModal_components/RolesList";
 const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
   const [visible, setVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [inputVal, setInputVal] = useState(
-    userInfo ? userInfo : { roleIds: [] }
-  );
-  const [roleIds, setRoleIds] = useState([]);
+  const [inputVal, setInputVal] = useState(userInfo);
+  const [roleIds, setRoleIds] = useState(userInfo?.roles);
   const { user } = useSelector((state) => state.settings);
   // To keep the value of which tab is selected
   const [tab, setTab] = useState("Allgemein");
@@ -33,7 +31,9 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
 
   const handleClose = () => {
     setOpenUserModal(false);
-    setInputVal(userInfo ? userInfo : { roleIds: [] });
+    // if (userInfo) {
+    //   setInputVal(userInfo);
+    // }
     // setInputVal({ roles: [] });
   };
   const handleImageInputChange = (e) => {
@@ -63,17 +63,21 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
         personnelNumber: inputVal.personnelnumber,
       };
       delete parameter.personnelnumber;
-      putUserData(inputVal).then(() => handleClose());
+
+      putUserData(inputVal); //.then(() => handleClose());
     } else {
       postUserData(inputVal).then(() => handleClose());
     }
   };
+  useEffect(() => {
+    console.log(inputVal?.roleIds);
+  }, [tab]);
 
   useEffect(() => {
-    if (userInfo) {
-      setInputVal({ ...userInfo, roleIds: [] });
-    }
-  }, []);
+    setRoleIds(userInfo?.roles);
+    setInputVal({ ...userInfo?.userInfo, roleIds: userInfo?.roles });
+    console.log(inputVal);
+  }, [userInfo]);
 
   return (
     <>
@@ -118,6 +122,26 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
               </label>
               <CardContent sx={modalStyles.userModal.content}>
                 <div style={modalStyles.userModal.inputGroup}>
+                  <div style={{ display: "flex", width: "100%" }}>
+                    <TextField
+                      variant="outlined"
+                      label="Mandant"
+                      size="small"
+                      name="username"
+                      sx={{ width: "100%" }}
+                      value={inputVal?.client || ""}
+                      onChange={handleChange}
+                    />{" "}
+                    <TextField
+                      variant="outlined"
+                      label="Standort"
+                      size="small"
+                      name="username"
+                      sx={{ width: "100%" }}
+                      value={inputVal?.settlement || ""}
+                      onChange={handleChange}
+                    />
+                  </div>
                   <TextField
                     variant="outlined"
                     label="Benutzername"
@@ -160,7 +184,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                   style={{
                     display: "flex",
                     flexDirection: "column",
-                    rowGap: "13px",
+                    rowGap: "8px",
                   }}
                 >
                   <TextField

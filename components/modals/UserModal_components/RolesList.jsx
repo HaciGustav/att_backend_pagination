@@ -11,14 +11,14 @@ const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
 
   const handleClick = (e) => {
     if (e.target.checked) {
-      setRoleIds((pre) => [...pre, Number(e.target.value)]);
+      setRoleIds((pre) => [...pre, e.target.value]);
     } else {
-      setRoleIds((pre) => [...pre.filter((x) => x !== Number(e.target.value))]);
+      setRoleIds((pre) => [...pre.filter((x) => x !== e.target.value)]);
     }
   };
   useEffect(() => {
-    setInputVal((pre) => ({ ...pre, roleIds }));
     console.log(roleIds);
+    setInputVal((pre) => ({ ...pre, roleIds }));
   }, [roleIds]);
 
   return (
@@ -49,9 +49,7 @@ const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
                   <Checkbox
                     value={role?.id}
                     name={role?.name}
-                    checked={
-                      inputVal?.roleIds?.includes(Number(role?.id)) || false
-                    }
+                    checked={roleIds?.includes(role?.id.toString()) || false}
                     onClick={handleClick}
                   />
                 }
