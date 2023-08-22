@@ -64,7 +64,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       };
       delete parameter.personnelnumber;
 
-      putUserData(inputVal); //.then(() => handleClose());
+      // putUserData(inputVal); //.then(() => handleClose());
     } else {
       postUserData(inputVal).then(() => handleClose());
     }

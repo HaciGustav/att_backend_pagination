@@ -96,7 +96,7 @@ const useAtinaCalls = () => {
       await axiosWithToken.post("AtinaUsers/update", editedData);
       console.log(editedData);
 
-      toastSuccessNotify(`Etwas ist schiefgelaufen..`);
+      toastSuccessNotify(`Erfolgreich durchgeführt..`);
     } catch (err) {
       const { message } = err;
       dispatch(fetchFail({ message }));
