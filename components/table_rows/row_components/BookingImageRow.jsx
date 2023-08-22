@@ -7,7 +7,7 @@ import { memo } from "react";
 const BookingImageRow = ({ row, open }) => {
   return (
     <TableRow>
-      <TableCell style={{ padding: 0 }} colSpan={6}>
+      <TableCell sx={{ border: "none", p: 0 }} colSpan={6}>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <div
             style={{

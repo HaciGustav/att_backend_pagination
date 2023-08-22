@@ -3,6 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { tableStyles } from "@/styles/table_styles";
+import { Typography } from "@mui/material";
 const ProtocolExpandRowCell = ({ cell, row, open, handleOpen }) => {
   return (
     <TableCell
@@ -37,7 +38,9 @@ const ProtocolExpandRowCell = ({ cell, row, open, handleOpen }) => {
       >
         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
       </IconButton>
-      <p style={{ color: "#000" }}>{cell.render("Cell")}</p>
+      <Typography variant={"p"} color={"dateInputColor.main"}>
+        {cell.render("Cell")}
+      </Typography>
       {/* 
       <span
         style={{

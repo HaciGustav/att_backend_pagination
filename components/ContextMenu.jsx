@@ -211,7 +211,11 @@ const ContextMenu = ({
 
   return (
     <Box
-      sx={styles.contextMenu}
+      sx={{
+        ...styles.contextMenu,
+        opacity:
+          setOpenModal === undefined && contextMenu.point === "body" && 0,
+      }}
       className="contextMenu"
       component={Paper}
       ref={contextMenuRef}

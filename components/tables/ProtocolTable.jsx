@@ -161,18 +161,7 @@ const ProtocolTable = () => {
             setFilterVal={setFilterVal}
           />
 
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "end",
-              columnGap: "15px",
-              position: "sticky",
-              top: -10,
-              backgroundColor: "background.paper",
-              opacity: 1,
-              zIndex: 5,
-            }}
-          >
+          <Box sx={tableStyles.helpersWrapper}>
             {loading && <Loading_Icon />}
 
             <SSR_Pagination
@@ -193,18 +182,6 @@ const ProtocolTable = () => {
             </Tooltip>
 
             <DownloadCSV rawData={allData} fileName={"mobile_buchungen"} />
-            {user?.isAdmin && (
-              <Tooltip title="Neuen Datensatz anlegen" arrow>
-                <IconButton onClick={() => setOpenBookingModal(true)}>
-                  <AddCircleIcon
-                    sx={{
-                      borderRadius: "10px",
-                      color: "green",
-                    }}
-                  />
-                </IconButton>
-              </Tooltip>
-            )}
           </Box>
           <Table
             {...getTableProps()}

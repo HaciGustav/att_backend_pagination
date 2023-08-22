@@ -40,6 +40,7 @@ const SSR_Pagination = ({ paginationParams, table, totalPages }) => {
         display: "flex",
         alignItems: "center",
         columnGap: "15px",
+        marginLeft: "5px",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", columnGap: "15px" }}>

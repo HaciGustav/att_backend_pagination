@@ -28,7 +28,10 @@ const ProfileMenu = ({ anchorEl, setAnchorEl, toggleTheme }) => {
         }}
       >
         <MenuItem
-          onClick={() => toggleTheme()}
+          onClick={() => {
+            handleClose();
+            toggleTheme();
+          }}
           sx={{
             display: "flex",
             justifyContent: "start",

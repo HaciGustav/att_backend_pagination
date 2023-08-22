@@ -9,18 +9,6 @@ const useColumns = () => {
 
   const PROTOCOL_TABLE_COLUMNS = [
     {
-      accessor: "description",
-      Header: "Beschreibung",
-      width: 150,
-      Cell: ({ value }) => {
-        if (value.length <= 25) {
-          return value;
-        } else {
-          return value.slice(0, 26) + "...";
-        }
-      },
-    },
-    {
       accessor: "createdDate",
       Header: "Datum",
       Cell: ({ value }) => new Date(value).toLocaleDateString("tr"),
@@ -46,6 +34,18 @@ const useColumns = () => {
     {
       accessor: "item",
       Header: "Datensatz",
+    },
+    {
+      accessor: "description",
+      Header: "Beschreibung",
+      width: 150,
+      Cell: ({ value }) => {
+        if (value.length <= 25) {
+          return value;
+        } else {
+          return value.slice(0, 26) + "...";
+        }
+      },
     },
   ];
 

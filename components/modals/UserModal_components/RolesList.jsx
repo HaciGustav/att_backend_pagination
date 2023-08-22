@@ -18,6 +18,7 @@ const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
   };
   useEffect(() => {
     setInputVal((pre) => ({ ...pre, roleIds }));
+    console.log(roleIds);
   }, [roleIds]);
 
   return (
@@ -49,7 +50,7 @@ const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
                     value={role?.id}
                     name={role?.name}
                     checked={
-                      inputVal.roleIds.includes(Number(role?.id)) || false
+                      inputVal?.roleIds?.includes(Number(role?.id)) || false
                     }
                     onClick={handleClick}
                   />
