@@ -69,14 +69,10 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       postUserData(inputVal).then(() => handleClose());
     }
   };
-  useEffect(() => {
-    console.log(inputVal?.roleIds);
-  }, [tab]);
 
   useEffect(() => {
     setRoleIds(userInfo?.roles);
     setInputVal({ ...userInfo?.userInfo, roleIds: userInfo?.roles });
-    console.log(inputVal);
   }, [userInfo]);
 
   return (

@@ -17,7 +17,6 @@ const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
     }
   };
   useEffect(() => {
-    console.log(roleIds);
     setInputVal((pre) => ({ ...pre, roleIds }));
   }, [roleIds]);
 
