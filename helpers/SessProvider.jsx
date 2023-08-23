@@ -13,7 +13,6 @@ const Authentication = ({ children }) => {
     }
   }, [session]);
 
-  console.log(session);
   return <>{children}</>;
 };
 

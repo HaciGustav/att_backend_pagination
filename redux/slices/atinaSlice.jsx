@@ -1,6 +1,29 @@
 "use client";
 import { createSlice } from "@reduxjs/toolkit";
-
+const settlement = [
+  "Amstetten",
+  "Graz",
+  "Innsbruck",
+  "Kalsdorf",
+  "Klagenfurt",
+  "Klosterneuburg",
+  "Krems",
+  "Leoben",
+  "Linz",
+  "Mödling",
+  "Neusiedl",
+  "Oberndorf/Kitzbühel",
+  "Pinzgau",
+  "Rankweil",
+  "Regau",
+  "Salzburg",
+  "St. Pölten",
+  "Völkermarkt",
+  "Wien",
+  "Wolfurt",
+  "Wr. Neustadt",
+];
+const client = ["Attensam", "Attensam Sued", "Attensam West", "Attensam Nord"];
 const atinaSlice = createSlice({
   name: "atina",
 
@@ -15,6 +38,8 @@ const atinaSlice = createSlice({
     loading: false,
     error: false,
     errorMsg: "",
+    settlement: settlement,
+    client: client,
   },
   reducers: {
     fetchStart: (state) => {

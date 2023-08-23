@@ -20,15 +20,16 @@ function PaperComponent(props) {
   );
 }
 
-export default function ConfirmDialog({ openDialog, setOpenDialog, id }) {
+export default function ConfirmDialog({ openDialog, setOpenDialog, data }) {
   const handleClose = () => {
     setOpenDialog(false);
   };
 
   const { deleteAtinaItems } = useAtinaCalls();
   const handleDelete = () => {
-    const response = deleteAtinaItems(id);
-    handleClose();
+    console.log(data);
+    // const response = deleteAtinaItems(data.id);
+    // handleClose();
   };
 
   return (

@@ -12,7 +12,6 @@ const UsersTableRow = ({ row, prepareRow, resetResize }) => {
   const handleDblClick = (e) => {
     if (e.detail === 2) {
       setOpenUserModal(true);
-      console.log(row?.original);
     }
   };
   useEffect(() => {
@@ -24,7 +23,7 @@ const UsersTableRow = ({ row, prepareRow, resetResize }) => {
       <ConfirmDialog
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
-        id={row?.original.id}
+        data={row?.original}
       />
       <UserModal
         setOpenUserModal={setOpenUserModal}

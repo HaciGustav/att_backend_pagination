@@ -14,6 +14,13 @@ import ModalTab from "./UserModal_components/ModalTabs";
 import { modalStyles } from "@/styles/modal_styles";
 import { useSelector } from "react-redux";
 import RolesList from "./UserModal_components/RolesList";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 
 const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
   const initInputVal = useMemo(
@@ -23,7 +30,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       firstname: "",
       lastname: "",
       personnelNumber: "",
-      roleIds: [0],
+      roleIds: [],
     }),
     []
   );
@@ -37,6 +44,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
   const [tabValue, setTabValue] = useState(0);
 
   const { putUserData, postUserData } = useAtinaCalls();
+  const { client, settlement } = useSelector((state) => state.atina);
 
   const handleClose = () => {
     setOpenUserModal(false);
@@ -74,9 +82,11 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       delete parameter.personnelnumber;
 
       putUserData(inputVal); //.then(() => handleClose());
+      handleClose();
     } else {
-      postUserData(inputVal).then(() => handleClose());
+      postUserData(inputVal);
       setInputVal(initInputVal);
+      handleClose();
     }
   };
 
@@ -134,7 +144,42 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
               <CardContent sx={modalStyles.userModal.content}>
                 <div style={modalStyles.userModal.inputGroup}>
                   <div style={{ display: "flex", width: "100%" }}>
-                    <TextField
+                    <FormControl
+                      sx={{ minWidth: 120, width: "100%" }}
+                      size="small"
+                    >
+                      <InputLabel id="mandant">Mandant</InputLabel>
+                      <Select
+                        sx={{ width: "100%" }}
+                        labelId="mandant"
+                        id="demo-select-small"
+                        value={inputVal?.client || ""}
+                        label="Mandant"
+                        onChange={(e) =>
+                          setInputVal({ ...inputVal, client: e.target.value })
+                        }
+                        MenuProps={{ PaperProps: { sx: { maxHeight: 250 } } }}
+                      >
+                        <MenuItem value={""}>
+                          <Typography
+                            component="em"
+                            sx={{ fontSize: "0.7rem" }}
+                          >
+                            None
+                          </Typography>
+                        </MenuItem>
+                        {client?.map((item) => {
+                          return (
+                            <MenuItem key={item} value={item}>
+                              <Typography sx={{ fontSize: "0.7rem" }}>
+                                {item}
+                              </Typography>
+                            </MenuItem>
+                          );
+                        })}
+                      </Select>
+                    </FormControl>
+                    {/* <TextField
                       variant="outlined"
                       label="Mandant"
                       size="small"
@@ -142,16 +187,50 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                       sx={{ width: "100%" }}
                       value={inputVal?.client || ""}
                       onChange={handleChange}
-                    />{" "}
-                    <TextField
-                      variant="outlined"
-                      label="Standort"
+                    />{" "} */}
+                    <FormControl
+                      sx={{
+                        minWidth: 120,
+                        width: "100%",
+                      }}
                       size="small"
-                      name="settlement"
-                      sx={{ width: "100%" }}
-                      value={inputVal?.settlement || ""}
-                      onChange={handleChange}
-                    />
+                    >
+                      <InputLabel id="standort">Standort</InputLabel>
+                      <Select
+                        sx={{ width: "100%", maxHeight: "50px" }}
+                        labelId="standort"
+                        id="demo-select-small"
+                        value={inputVal?.settlement || ""}
+                        label="standort"
+                        onChange={(e) =>
+                          setInputVal({
+                            ...inputVal,
+                            settlement: e.target.value,
+                          })
+                        }
+                        MenuProps={{ PaperProps: { sx: { maxHeight: 250 } } }}
+                      >
+                        {/* <div style={{ maxHeight: "200px" }}> */}
+                        <MenuItem value={""}>
+                          <Typography
+                            component="em"
+                            sx={{ fontSize: "0.7rem" }}
+                          >
+                            None
+                          </Typography>
+                        </MenuItem>
+                        {settlement?.map((item) => {
+                          return (
+                            <MenuItem key={item} value={item}>
+                              <Typography sx={{ fontSize: "0.7rem" }}>
+                                {item}
+                              </Typography>
+                            </MenuItem>
+                          );
+                        })}
+                        {/* </div> */}
+                      </Select>
+                    </FormControl>
                   </div>
                   <TextField
                     variant="outlined"
@@ -161,6 +240,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     sx={{ width: "100%" }}
                     value={inputVal?.username || ""}
                     onChange={handleChange}
+                    required
                   />{" "}
                   <TextField
                     variant="outlined"
@@ -171,6 +251,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     sx={{ width: "100%" }}
                     onChange={handleChange}
                     value={inputVal?.password || ""}
+                    required={userInfo ? false : true}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -203,6 +284,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     label="Vorname"
                     size="small"
                     name="firstname"
+                    required
                     value={inputVal?.firstname || ""}
                     onChange={handleChange}
                   />
@@ -212,6 +294,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     label="Nachname"
                     size="small"
                     name="lastname"
+                    required
                     value={inputVal?.lastname || ""}
                     onChange={handleChange}
                   />
@@ -221,6 +304,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     label="Personalnummer"
                     size="small"
                     name="personnelnumber"
+                    required
                     value={inputVal?.personnelnumber || ""}
                     onChange={handleChange}
                   />

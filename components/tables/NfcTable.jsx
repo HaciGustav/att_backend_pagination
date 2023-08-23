@@ -160,7 +160,7 @@ const NfcTable = ({ data }) => {
       createdFrom: cFrom,
       createdTo: cTo,
     };
-    console.log(currentValues);
+
     setError(null);
     // setLoading(true);
     searchNfcTag(currentValues, setError).then((res) => {

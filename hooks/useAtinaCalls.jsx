@@ -53,11 +53,14 @@ const useAtinaCalls = () => {
       const x = await axiosWithToken.post(`${url}`, params);
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
       // getUsersData();
-      console.log(x);
-      console.log(params);
     } catch (error) {
       toastErrorNotify(`Etwas ist schiefgelaufen.. `);
-      dispatch(fetchFail({ message: error.message }));
+      toastErrorNotify(error.response.data);
+      dispatch(
+        fetchFail({
+          message: error.message,
+        })
+      );
       console.log(error);
     }
   };
@@ -87,7 +90,7 @@ const useAtinaCalls = () => {
 
   const putUserData = async (info) => {
     const roles = info?.roleIds.map((x) => Number(x));
-    console.log(info);
+
     try {
       const editedData = {
         id: info.id,

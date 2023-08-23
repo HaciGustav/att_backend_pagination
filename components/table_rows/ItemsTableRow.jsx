@@ -27,7 +27,7 @@ const ItemsTableRow = ({ row, prepareRow, resetResize }) => {
       <ConfirmDialog
         openDialog={openDialog}
         setOpenDialog={setOpenDialog}
-        id={row?.original.id}
+        data={row?.original}
       />
       <ItemsModal
         setOpenItemsModal={setOpenItemsModal}

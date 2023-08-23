@@ -8,9 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import useContextMenu from "../hooks/useContextMenu";
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 const ColumnMenu = ({ allColumns, styles, state }) => {
   const router = useRouter();
   useEffect(() => {
@@ -59,6 +60,8 @@ const ContextMenu = ({
     something2: false,
   });
   const { closeContextMenu } = useContextMenu(contextMenu, setContextMenu);
+  const { user } = useSelector((state) => state.settings);
+
   const styles = {
     contextMenu: {
       zIndex: 20,
@@ -208,13 +211,16 @@ const ContextMenu = ({
     return cleanup;
   }, []); */
   //#endregion
-
   return (
     <Box
       sx={{
         ...styles.contextMenu,
-        opacity:
-          setOpenModal === undefined && contextMenu.point === "body" && 0,
+        display:
+          !user.isAdmin &&
+          // setOpenModal === undefined &&
+          contextMenu.point === "body"
+            ? "none"
+            : "flex",
       }}
       className="contextMenu"
       component={Paper}

@@ -66,7 +66,6 @@ const usePagination = (table) => {
   };
 
   const handleSortParams = (column, e) => {
-    console.log(table);
     if (e.ctrlKey) {
       multiSort(column);
     } else {
