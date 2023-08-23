@@ -21,6 +21,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import PasswordDialog from "./UserModal_components/PasswordDialog";
 
 const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
   const initInputVal = useMemo(
@@ -29,11 +30,12 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       password: "",
       firstname: "",
       lastname: "",
-      personnelNumber: "",
+      personnelnumber: "",
       roleIds: [],
     }),
     []
   );
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false);
   const [visible, setVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [inputVal, setInputVal] = useState(userInfo);
@@ -48,10 +50,6 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
 
   const handleClose = () => {
     setOpenUserModal(false);
-    // if (userInfo) {
-    //   setInputVal(userInfo);
-    // }
-    // setInputVal({ roles: [] });
   };
   const handleImageInputChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -73,15 +71,14 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
   };
 
   const handleSubmit = () => {
-    // setInputVal({ roles: [] });
     if (userInfo) {
-      let parameter = {
-        ...inputVal,
-        personnelNumber: inputVal.personnelnumber,
-      };
-      delete parameter.personnelnumber;
-
-      putUserData(inputVal); //.then(() => handleClose());
+      // let parameter = {
+      //   ...inputVal,
+      //   personnelNumber: inputVal.personnelnumber,
+      // };
+      // delete parameter.personnelnumber;
+      console.log(inputVal);
+      putUserData(inputVal);
       handleClose();
     } else {
       postUserData(inputVal);
@@ -102,6 +99,12 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
 
   return (
     <>
+      <PasswordDialog
+        setOpenPasswordDialog={setOpenPasswordDialog}
+        openPasswordDialog={openPasswordDialog}
+        setInputVal={setInputVal}
+        inputVal={inputVal}
+      />
       <Modal
         open={openUserModal}
         onClose={handleClose}
@@ -143,7 +146,13 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
               </label>
               <CardContent sx={modalStyles.userModal.content}>
                 <div style={modalStyles.userModal.inputGroup}>
-                  <div style={{ display: "flex", width: "100%" }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "100%",
+                      // border: "2px solid red",
+                    }}
+                  >
                     <FormControl
                       sx={{ minWidth: 120, width: "100%" }}
                       size="small"
@@ -234,45 +243,6 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                       </Select>
                     </FormControl>
                   </div>
-                  <TextField
-                    variant="outlined"
-                    label="Benutzername"
-                    size="small"
-                    name="username"
-                    sx={{ width: "100%" }}
-                    value={inputVal?.username || ""}
-                    onChange={handleChange}
-                    required
-                  />{" "}
-                  <TextField
-                    variant="outlined"
-                    label="Kennwort"
-                    size="small"
-                    type={visible ? "text" : "password"}
-                    name="password"
-                    sx={{ width: "100%" }}
-                    onChange={handleChange}
-                    value={inputVal?.password || ""}
-                    required={userInfo ? false : true}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          {!visible && (
-                            <VisibilityOffIcon
-                              onClick={() => setVisible(!visible)}
-                              sx={{ cursor: "pointer" }}
-                            />
-                          )}
-                          {visible && (
-                            <VisibilityIcon
-                              onClick={() => setVisible(!visible)}
-                              sx={{ cursor: "pointer" }}
-                            />
-                          )}
-                        </InputAdornment>
-                      ),
-                    }}
-                  />{" "}
                 </div>
                 <div
                   style={{
@@ -311,6 +281,70 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     onChange={handleChange}
                   />
                 </div>
+                <TextField
+                  variant="outlined"
+                  label="Benutzername"
+                  size="small"
+                  name="username"
+                  sx={{ width: "100%" }}
+                  value={inputVal?.username || ""}
+                  onChange={handleChange}
+                  required
+                />{" "}
+                {!userInfo && (
+                  <TextField
+                    variant="outlined"
+                    label="Kennwort"
+                    size="small"
+                    type={visible ? "text" : "password"}
+                    name="password"
+                    sx={{ width: "100%" }}
+                    onChange={handleChange}
+                    value={inputVal?.password || ""}
+                    required={userInfo ? false : true}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          {!visible && (
+                            <VisibilityOffIcon
+                              onClick={() => setVisible(!visible)}
+                              sx={{ cursor: "pointer" }}
+                            />
+                          )}
+                          {visible && (
+                            <VisibilityIcon
+                              onClick={() => setVisible(!visible)}
+                              sx={{ cursor: "pointer" }}
+                            />
+                          )}
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}{" "}
+                {user?.isAdmin && userInfo && (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      width: "100%",
+                      marginBottom: "-35px",
+                    }}
+                  >
+                    <span style={{ fontSize: "0.8rem", paddingLeft: "10px" }}>
+                      Passwort:
+                    </span>
+                    <Button
+                      size="small"
+                      sx={{ width: "50%", bgcolor: "secondary.main" }}
+                      variant="contained"
+                      onClick={() => setOpenPasswordDialog(true)}
+                    >
+                      Passwort ändern
+                    </Button>
+                  </div>
+                )}
               </CardContent>
             </div>
           )}
@@ -327,6 +361,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
             style={{
               display: "flex",
               justifyContent: "space-around",
+              columnGap: "10px",
             }}
           >
             {user?.isAdmin && (

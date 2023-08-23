@@ -52,7 +52,9 @@ const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
                     onClick={handleClick}
                   />
                 }
-                label={role?.name}
+                label={
+                  <span style={{ fontSize: "0.8rem" }}> {role?.name} </span>
+                }
               />
             </div>
           ))}

@@ -107,8 +107,10 @@ export const modalStyles = {
     content: {
       display: "flex",
       flexDirection: "column",
+      justifyContent: "center",
       rowGap: "8px",
       paddingInline: 0,
+      // paddingTop: 5,
     },
     imgStyle: {
       backgroundPosition: "center",
@@ -130,7 +132,7 @@ export const modalStyles = {
       rowGap: "8px",
     },
     input: {
-      border: "2px solid red",
+      // border: "2px solid red",
       color: "red",
       height: "2rem",
       display: "none",
@@ -140,7 +142,8 @@ export const modalStyles = {
       padding: "10px 15px",
     },
     button: {
-      backgroundColor: "#e10000",
+      bgcolor: "secondary.main",
+      width: "100%",
     },
   },
   errorModal: {
