@@ -40,20 +40,25 @@ const initalContextMenu = {
   y: 0,
 };
 
-const UsersTable = ({ usersData }) => {
+const UsersTable = () => {
   const tableRef = useRef(null);
   const { USER_TABLE_COLUMNS } = useColumns();
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
   const [hiddenColumns, setHiddenColumns] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [allData, setAllData] = useState(usersData);
+  // const [loading, setLoading] = useState(false);
+  const [allData, setAllData] = useState([]);
   const [openUserModal, setOpenUserModal] = useState(false);
   const [resetResize, setResetResize] = useState(false);
 
   // const { error, errorMsg } = useSelector((state) => state.atina);
   const { user } = useSelector((state) => state.settings);
-  const { getAtinaRoleDefinitions } = useAtinaCalls();
+  const { getAtinaRoleDefinitions, getUsersData } = useAtinaCalls();
+
+  //! Items Data and Relevants ▼▼▼▼▼▼
+  const { errorMsg, error, atinaUsers, loading } = useSelector(
+    (state) => state.atina
+  );
 
   //? Table Utilities START
   //#region
@@ -125,8 +130,8 @@ const UsersTable = ({ usersData }) => {
   const [filterVal, setFilterVal] = useState({});
   const handleFilter = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setLoading(false);
+    // setLoading(true);
+    // setLoading(false);
     //TODO: Search Function
   };
 
@@ -137,7 +142,15 @@ const UsersTable = ({ usersData }) => {
 
   useEffect(() => {
     getAtinaRoleDefinitions();
+    getUsersData();
+  }, []);
+  useEffect(() => {
+    if (atinaUsers) {
+      setAllData(atinaUsers);
+    }
+  }, [atinaUsers]);
 
+  useEffect(() => {
     const x = localStorage.getItem("hiddenColumns/users");
     setHiddenColumns(JSON.parse(x));
   }, []);
@@ -147,8 +160,8 @@ const UsersTable = ({ usersData }) => {
         setOpenUserModal={setOpenUserModal}
         openUserModal={openUserModal}
       />
-      {/* {!loading && <Loading />} */}
-      {/* {true && <ErrorModal error={errorMsg} />} */}
+      {loading && <Loading />}
+      {error && <ErrorModal error={errorMsg} />}
       {contextMenu.show && (
         <ContextMenu
           allColumns={allColumns}

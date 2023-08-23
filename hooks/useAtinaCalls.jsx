@@ -72,6 +72,7 @@ const useAtinaCalls = () => {
       roleIds: editedRoles,
     };
     postAtinaData("AtinaUsers/register", editedParams);
+    getUsersData();
   };
 
   //!--------------- PUT CALL --------------
@@ -107,6 +108,7 @@ const useAtinaCalls = () => {
       await axiosWithToken.post("AtinaUsers/update", editedData);
 
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
+      getUsersData();
     } catch (err) {
       const { message } = err;
       dispatch(fetchFail({ message }));

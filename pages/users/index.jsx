@@ -5,19 +5,18 @@ import { getSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 
-const AtinaUsers = ({ data, error }) => {
+const AtinaUsers = () => {
   const UsersTable = dynamic(() => import("@/components/tables/UsersTable"), {
     ssr: false,
   });
 
   return (
     <>
-      <ErrorModal error={error} />
       <Head>
         <title>Benutzer</title>
       </Head>
 
-      <UsersTable usersData={data || []} />
+      <UsersTable />
     </>
   );
 };
@@ -37,12 +36,14 @@ export const getServerSideProps = async (context) => {
   }
   const atinaCalls = new AtinaCalls();
 
-  const { res, error } = await atinaCalls.fetchData("AtinaUsers");
+  // const { res, error } = await atinaCalls.fetchData("AtinaUsers");
   // console.log(error);
   return {
     props: {
-      data: !error && res,
-      error: error,
+      // data: !error && res,
+      // data: !error && res,
+      // error: error,
+      // data: !error && res,
 
       session,
     },

@@ -96,6 +96,10 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       setRoleIds([]);
     }
   }, [userInfo]);
+  useEffect(() => {
+    setTab("Allgemein");
+    setTabValue(0);
+  }, [openUserModal]);
 
   return (
     <>
