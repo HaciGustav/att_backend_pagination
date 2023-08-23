@@ -155,6 +155,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                         id="demo-select-small"
                         value={inputVal?.client || ""}
                         label="Mandant"
+                        readOnly={!user?.isAdmin}
                         onChange={(e) =>
                           setInputVal({ ...inputVal, client: e.target.value })
                         }
@@ -202,6 +203,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                         id="demo-select-small"
                         value={inputVal?.settlement || ""}
                         label="standort"
+                        readOnly={!user?.isAdmin}
                         onChange={(e) =>
                           setInputVal({
                             ...inputVal,
