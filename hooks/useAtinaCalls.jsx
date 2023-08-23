@@ -52,8 +52,9 @@ const useAtinaCalls = () => {
     try {
       const x = await axiosWithToken.post(`${url}`, params);
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
-      getUsersData();
+      // getUsersData();
       console.log(x);
+      console.log(params);
     } catch (error) {
       toastErrorNotify(`Etwas ist schiefgelaufen.. `);
       dispatch(fetchFail({ message: error.message }));
@@ -61,7 +62,14 @@ const useAtinaCalls = () => {
     }
   };
 
-  const postUserData = (params) => postAtinaData("AtinaUsers/register", params);
+  const postUserData = (params) => {
+    const editedRoles = params.roleIds.map((x) => Number(x));
+    const editedParams = {
+      ...params,
+      roleIds: editedRoles,
+    };
+    postAtinaData("AtinaUsers/register", editedParams);
+  };
 
   //!--------------- PUT CALL --------------
   const putAtinaData = async (url, info) => {
@@ -87,14 +95,13 @@ const useAtinaCalls = () => {
         firstname: info.firstname,
         lastname: info.lastname,
         personnelNumber: info.personnelnumber,
-        password: "11223344",
-        client: "",
-        settlement: "",
+        password: info.password ? info.password : "",
+        client: info.client,
+        settlement: info.settlement,
         roleIds: roles,
       };
 
       await axiosWithToken.post("AtinaUsers/update", editedData);
-      console.log(editedData);
 
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
     } catch (err) {

@@ -1,5 +1,3 @@
-"use client";
-
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Card from "@mui/material/Card";
@@ -8,7 +6,7 @@ import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
 import Button from "@mui/material/Button";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
@@ -18,6 +16,17 @@ import { useSelector } from "react-redux";
 import RolesList from "./UserModal_components/RolesList";
 
 const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
+  const initInputVal = useMemo(
+    () => ({
+      username: "",
+      password: "",
+      firstname: "",
+      lastname: "",
+      personnelNumber: "",
+      roleIds: [0],
+    }),
+    []
+  );
   const [visible, setVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [inputVal, setInputVal] = useState(userInfo);
@@ -64,15 +73,21 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       };
       delete parameter.personnelnumber;
 
-      // putUserData(inputVal); //.then(() => handleClose());
+      putUserData(inputVal); //.then(() => handleClose());
     } else {
       postUserData(inputVal).then(() => handleClose());
+      setInputVal(initInputVal);
     }
   };
 
   useEffect(() => {
-    setRoleIds(userInfo?.roles);
-    setInputVal({ ...userInfo?.userInfo, roleIds: userInfo?.roles });
+    if (userInfo) {
+      setRoleIds(userInfo?.roles);
+      setInputVal({ ...userInfo?.userInfo, roleIds: userInfo?.roles });
+    } else {
+      setInputVal(initInputVal);
+      setRoleIds([]);
+    }
   }, [userInfo]);
 
   return (
@@ -123,7 +138,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                       variant="outlined"
                       label="Mandant"
                       size="small"
-                      name="username"
+                      name="client"
                       sx={{ width: "100%" }}
                       value={inputVal?.client || ""}
                       onChange={handleChange}
@@ -132,7 +147,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                       variant="outlined"
                       label="Standort"
                       size="small"
-                      name="username"
+                      name="settlement"
                       sx={{ width: "100%" }}
                       value={inputVal?.settlement || ""}
                       onChange={handleChange}
