@@ -1,6 +1,11 @@
 import { useDispatch } from "react-redux";
 import { toastErrorNotify, toastSuccessNotify } from "../helpers/ToastNotify";
-import { fetchFail, fetchStart, getSuccess } from "../redux/slices/atinaSlice";
+import {
+  fetchFail,
+  fetchStart,
+  getSuccess,
+  stopLoading,
+} from "../redux/slices/atinaSlice";
 import useAxios from "./useAxios";
 
 const useAtinaCalls = () => {
@@ -25,6 +30,8 @@ const useAtinaCalls = () => {
       console.log(err);
       console.log(message);
       error = err;
+    } finally {
+      dispatch(stopLoading());
     }
     return { error, res };
   };

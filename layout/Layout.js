@@ -32,6 +32,7 @@ import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import FeedIcon from "@mui/icons-material/Feed";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import Loading from "@/components/Loading";
 const drawerWidth = 240;
 
 const ProfileMenu = dynamic(() => import("@/components/menus/ProfileMenu"));
@@ -107,6 +108,7 @@ export default function Layout({ children, toggleTheme }) {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const { user } = useSelector((state) => state.settings);
+  // const { loading } = useSelector((state) => state.atina);
   const dispatch = useDispatch();
 
   const handleClick = (event) => {
@@ -166,6 +168,7 @@ export default function Layout({ children, toggleTheme }) {
   return (
     // <Paper elevation={0} sx={{ overflow: "hidden" }}>
     <div style={{ display: "flex" }}>
+      {/* <Loading loading={loading} /> */}
       <AppBar
         sx={{ backgroundColor: "navbar.main" }}
         position="fixed"

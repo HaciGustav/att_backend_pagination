@@ -35,7 +35,7 @@ const atinaSlice = createSlice({
     atinaItems: {},
     userRoles: [],
     protocol: {},
-    loading: false,
+    loading: true,
     error: false,
     errorMsg: "",
     settlement: settlement,
@@ -47,7 +47,7 @@ const atinaSlice = createSlice({
       state.error = false;
     },
     getSuccess: (state, { payload: { data, url } }) => {
-      state.loading = false;
+      // state.loading = false;
       state.error = false;
       state.errorMsg = "";
       if (url.toLowerCase().includes("mobile")) {
@@ -67,12 +67,17 @@ const atinaSlice = createSlice({
       }
     },
     fetchFail: (state, { payload: { message } }) => {
-      state.loading = false;
+      // state.loading = false;
       state.error = true;
       state.errorMsg = message;
+    },
+
+    stopLoading: (state) => {
+      state.loading = false;
     },
   },
 });
 
-export const { fetchStart, getSuccess, fetchFail } = atinaSlice.actions;
+export const { fetchStart, getSuccess, fetchFail, stopLoading } =
+  atinaSlice.actions;
 export default atinaSlice.reducer;

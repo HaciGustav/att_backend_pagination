@@ -16,6 +16,7 @@ export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState("light");
   const router = useRouter();
+
   Router.events.on("routeChangeStart", () => setLoading(true));
   Router.events.on("routeChangeComplete", () => setLoading(false));
 
@@ -118,7 +119,7 @@ export default function App({ Component, pageProps }) {
   return (
     <Provider store={store}>
       <ThemeProvider theme={theme}>
-        {loading && <Loading />}
+        <Loading loading={loading} />
         <SessionProvider>
           {router.pathname.includes("login") && <Component {...pageProps} />}
           {!router.pathname.includes("login") && (

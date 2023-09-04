@@ -260,7 +260,7 @@ const NfcTable = ({ data }) => {
         <Table
           {...getTableProps()}
           className="table"
-          sx={{ minWidth: 650 }}
+          sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
           aria-label="simple table"
         >
           <Nfc_TableHead

@@ -27,6 +27,7 @@ import usePagination from "@/hooks/usePagination";
 import SSR_Pagination from "../SSR_Pagination";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import Loading_Icon from "../Loading_Icon";
+import { Fade } from "@mui/material";
 
 const initalContextMenu = {
   show: false,
@@ -167,17 +168,6 @@ const ItemsTable = ({}) => {
         />
         <Box sx={tableStyles.helpersWrapper}>
           <div style={{ display: "flex" }}>
-            {/* <Pagination
-              data={allData}
-              nextPage={nextPage}
-              previousPage={previousPage}
-              canPreviousPage={canPreviousPage}
-              canNextPage={canNextPage}
-              pageOptions={pageOptions}
-              state={state}
-              setPageSize={setPageSize}
-              gotoPage={gotoPage}
-            /> */}
             {loading && <Loading_Icon />}
             <SSR_Pagination
               paginationParams={paginationParams}
@@ -212,11 +202,11 @@ const ItemsTable = ({}) => {
             )}
           </div>
         </Box>
-
+        {/* <Fade in={!loading} timeout={450}> */}
         <Table
           className="table"
           {...getTableProps()}
-          sx={{ minWidth: 650 }}
+          sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
           aria-label="simple table"
           size="small"
         >
@@ -238,6 +228,7 @@ const ItemsTable = ({}) => {
             handleRightClick={handleRightClick}
           />
         </Table>
+        {/* </Fade> */}
       </TableContainer>
     </>
   );

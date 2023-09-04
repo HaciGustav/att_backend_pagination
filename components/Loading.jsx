@@ -1,11 +1,12 @@
 "use client";
 
+import { Fade } from "@mui/material";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 
-const Loading = () => {
+const Loading = ({ loading }) => {
   return (
-    <>
+    <Fade in={loading} timeout={150}>
       <Backdrop
         sx={{
           backgroundColor: "#000000dd",
@@ -16,7 +17,7 @@ const Loading = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-    </>
+    </Fade>
   );
 };
 

@@ -185,7 +185,7 @@ const ProtocolTable = () => {
           </Box>
           <Table
             {...getTableProps()}
-            sx={{ minWidth: 650 }}
+            sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
 
             // onContextMenu={handleRightClick}
           >

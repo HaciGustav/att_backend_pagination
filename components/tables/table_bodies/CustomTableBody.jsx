@@ -1,4 +1,7 @@
+import TableSkeleton from "@/components/skeleton/TableSkeleton";
+import { Fade } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
+import { useSelector } from "react-redux";
 
 const CustomTableBody = ({
   getTableBodyProps,
@@ -8,24 +11,35 @@ const CustomTableBody = ({
   TableRow,
   handleRightClick,
 }) => {
+  const { loading } = useSelector((state) => state.atina);
   return (
-    <TableBody
-      {...getTableBodyProps()}
-      onContextMenu={(e) => handleRightClick(e, "body")}
-    >
-      {page?.map((row, i) => {
-        prepareRow(row);
+    <>
+      <TableSkeleton
+        loading={loading}
+        getTableBodyProps={getTableBodyProps}
+        page={page}
+      />
 
-        return (
-          <TableRow
-            resetResize={resetResize}
-            key={i}
-            row={row}
-            prepareRow={prepareRow}
-          />
-        );
-      })}
-    </TableBody>
+      <Fade in={!loading} timeout={450}>
+        <TableBody
+          {...getTableBodyProps()}
+          onContextMenu={(e) => handleRightClick(e, "body")}
+        >
+          {page?.map((row, i) => {
+            prepareRow(row);
+
+            return (
+              <TableRow
+                resetResize={resetResize}
+                key={i}
+                row={row}
+                prepareRow={prepareRow}
+              />
+            );
+          })}
+        </TableBody>
+      </Fade>
+    </>
   );
 };
 

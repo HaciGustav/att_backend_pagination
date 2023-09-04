@@ -26,6 +26,7 @@ import SSR_Pagination from "../SSR_Pagination";
 import usePagination from "@/hooks/usePagination";
 import useFilters from "@/hooks/useFilters";
 import dynamic from "next/dynamic";
+import { Fade } from "@mui/material";
 
 const UsersTableRow = dynamic(() => import("../table_rows/UsersTableRow"));
 const UserModal = dynamic(() => import("../modals/UserModal"));
@@ -64,8 +65,6 @@ const UsersTable = () => {
 
   const { getAtinaRoleDefinitions, getUsersData } = useAtinaCalls();
 
-  //? Table Utilities START
-  //#region
   const tableColumns = useMemo(() => USER_TABLE_COLUMNS, []);
   const defaultColumn = useMemo(
     () => ({
@@ -86,9 +85,8 @@ const UsersTable = () => {
     resetResizing,
     state,
   } = useTableUtils(tableColumns, allData, defaultColumn, hiddenColumns);
+  //#endregion //! Custom Hooks ▲▲▲▲▲▲
   const getTableBodyPropsMemo = useCallback(() => getTableBodyProps(), []);
-  //#endregion
-  //? Table Utilities END
 
   useEffect(() => {
     const params = makeUrlParams();
@@ -98,6 +96,7 @@ const UsersTable = () => {
   useEffect(() => {
     if (!atinaUsers?.entries) return;
     setAllData(atinaUsers?.entries);
+    console.log("user rendered");
   }, [atinaUsers]);
 
   useEffect(() => {
@@ -167,7 +166,7 @@ const UsersTable = () => {
         </Box>
         <Table
           {...getTableProps()}
-          sx={{ minWidth: 650, position: "relative" }}
+          sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
           aria-label="simple table"
           size="small"
         >

@@ -24,7 +24,8 @@ import SSR_Pagination from "../SSR_Pagination";
 import usePagination from "@/hooks/usePagination";
 import Loading_Icon from "../Loading_Icon";
 import useFilters from "@/hooks/useFilters";
-import { Box } from "@mui/material";
+import { Box, Collapse, Fade } from "@mui/material";
+import TableSkeleton from "../skeleton/TableSkeleton";
 
 // import axios from "axios";
 
@@ -172,7 +173,7 @@ const MobileBookings = () => {
           />
 
           <Box sx={tableStyles.helpersWrapper}>
-            {loading && <Loading_Icon />}
+            {/* {loading && <Loading_Icon />} */}
 
             <SSR_Pagination
               paginationParams={paginationParams}
@@ -205,11 +206,10 @@ const MobileBookings = () => {
               </Tooltip>
             )}
           </Box>
+
           <Table
             {...getTableProps()}
-            sx={{ minWidth: 650 }}
-
-            // onContextMenu={handleRightClick}
+            sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
           >
             <CustomTableHead
               headerGroups={headerGroups}
