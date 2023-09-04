@@ -49,7 +49,7 @@ export default function PasswordDialog({
   };
 
   return (
-    <div>
+    <>
       <Dialog
         open={openPasswordDialog}
         onClose={handleClose}
@@ -144,6 +144,6 @@ export default function PasswordDialog({
           </DialogActions>
         </form>
       </Dialog>
-    </div>
+    </>
   );
 }

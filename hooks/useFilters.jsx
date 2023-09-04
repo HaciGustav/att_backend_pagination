@@ -11,6 +11,44 @@ const useFilters = () => {
   const dispatch = useDispatch();
   const adapterDayjs = new AdapterDayjs();
 
+  const filterUsers = (filterVal) => {
+    const {
+      client,
+      settlement,
+      personnelnumber,
+      firstname,
+      lastname,
+      username,
+    } = filterVal;
+
+    let base = "";
+
+    if (client) {
+      base += `&client=${client}`;
+    }
+    if (settlement) {
+      base += `&settlement=${settlement}`;
+    }
+    if (personnelnumber) {
+      base += `&personnelnumber=${personnelnumber}`;
+    }
+    if (firstname) {
+      base += `&firstname=${firstname}`;
+    }
+    if (lastname) {
+      base += `&lastname=${lastname}`;
+    }
+    if (username) {
+      base += `&username=${username}`;
+    }
+
+    dispatch(setFilterParams({ params: base, table: "users" }));
+    dispatch(setCurrentPage({ number: 1, table: "users" }));
+    dispatch(setSearchTrigger({ table: "users" }));
+
+    return base;
+  };
+
   const filterBookings = (filterVal, setFilterVal) => {
     const isDateFromValid = adapterDayjs.isValid(filterVal.dateFrom);
     const isDateToValid = adapterDayjs.isValid(filterVal.dateTo);
@@ -275,7 +313,13 @@ const useFilters = () => {
     dispatch(setFilterParams({ params: "", table }));
   };
 
-  return { filterBookings, resetFilter, filterItems, filterProtocol };
+  return {
+    filterBookings,
+    resetFilter,
+    filterItems,
+    filterProtocol,
+    filterUsers,
+  };
 };
 
 export default useFilters;

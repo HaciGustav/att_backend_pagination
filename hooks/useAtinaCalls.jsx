@@ -16,6 +16,7 @@ const useAtinaCalls = () => {
     try {
       const { data } = await axiosWithToken.get(`${url}`);
       dispatch(getSuccess({ data, url }));
+
       res = data;
     } catch (err) {
       toastErrorNotify(`Etwas ist schiefgelaufen.. `);
@@ -28,7 +29,8 @@ const useAtinaCalls = () => {
     return { error, res };
   };
 
-  const getUsersData = () => getAtinaData("AtinaUsers");
+  const getUsersData = (params = "") =>
+    getAtinaData("AtinaUsers?showPagination=true&" + params);
   const getBookingTypes = () =>
     getAtinaData("api/AtinaMasterData/GetBookingTypes");
   const getMobileBookingsData = (params = "") => {

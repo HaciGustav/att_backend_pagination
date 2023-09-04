@@ -26,7 +26,10 @@ const usePagination = (table) => {
       directions = Object.values(sortingParams).join("%7C");
     }
 
-    const PARAMS = `pageNumber=${paginationParams.currentPage}&pageSize=${paginationParams.pageSize}&sortingFields=${fields}&sortingDirections=${directions}`;
+    let PARAMS = `pageNumber=${paginationParams.currentPage}&pageSize=${paginationParams.pageSize}&sortingFields=${fields}&sortingDirections=${directions}`;
+    if (PARAMS.includes("userInfo.")) {
+      PARAMS = PARAMS.replaceAll("userInfo.", "");
+    }
 
     const PAGI_STRING = `pageNumber=${paginationParams.currentPage}&pageSize=${paginationParams.pageSize}`;
     const SORT_STRING = `pageNumber=${paginationParams.currentPage}&pageSize=${paginationParams.pageSize}`;

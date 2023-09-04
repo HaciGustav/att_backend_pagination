@@ -11,7 +11,8 @@ const BookingImageRow = ({ row, open }) => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <div
             style={{
-              padding: 1,
+              // padding: 15,
+              padding: "0.8rem 0",
               maxHeight: "12rem",
               overflow: "auto",
               maxWidth: "90vw",

@@ -24,13 +24,17 @@ import Link from "next/link";
 import { dashboardStyles } from "@/styles/dashboard_styles";
 import { getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import ProfileMenu from "@/components/menus/ProfileMenu";
+// import ProfileMenu from "@/components/menus/ProfileMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/slices/settingsSlice";
 import PlagiarismIcon from "@mui/icons-material/Plagiarism";
 import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
 import FeedIcon from "@mui/icons-material/Feed";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 const drawerWidth = 240;
+
+const ProfileMenu = dynamic(() => import("@/components/menus/ProfileMenu"));
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -183,11 +187,19 @@ export default function Layout({ children, toggleTheme }) {
           </div>
           <div style={dashboardStyles.logo.wrapper}>
             <Link href={"/"}>
-              <img
+              <Image
+                src={"/assets/attensam-logo.svg"}
+                alt="logo"
+                loading="eager"
+                width={150}
+                height={50}
+                priority
+              />
+              {/* <img
                 style={dashboardStyles.logo.img}
                 src={"/assets/attensam-logo.svg"}
                 alt="logo"
-              />
+              /> */}
             </Link>
             <div
               style={{
@@ -207,10 +219,18 @@ export default function Layout({ children, toggleTheme }) {
               >
                 {`${user?.firstname} ${user?.lastname}`}
               </Typography>{" "}
-              <Avatar
+              {/* <Avatar
                 onClick={handleClick}
                 src={user?.avatarUrl}
                 sx={{ width: "3.5rem", height: "3.5rem", cursor: "pointer" }}
+              /> */}
+              <Image
+                onClick={handleClick}
+                src={user?.avatarUrl || ""}
+                width={60}
+                height={60}
+                alt="profilePicture"
+                style={{ cursor: "pointer" }}
               />
               <ProfileMenu
                 anchorEl={anchorEl}

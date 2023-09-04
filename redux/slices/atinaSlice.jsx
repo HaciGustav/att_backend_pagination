@@ -28,7 +28,7 @@ const atinaSlice = createSlice({
   name: "atina",
 
   initialState: {
-    atinaUsers: [],
+    atinaUsers: {},
     mobileBookings: {},
     bookingTypes: [],
     nfcTags: [],

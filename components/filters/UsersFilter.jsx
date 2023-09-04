@@ -8,17 +8,31 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Collapse from "@mui/material/Collapse";
 import Box from "@mui/system/Box";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { filterStyles } from "@/styles/filter_styles";
 import FilterHead from "./filter_components/FilterHead";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useSelector } from "react-redux";
+import useFilters from "@/hooks/useFilters";
 
 const UsersFilter = ({
   filterVal,
   setFilterVal,
-  handleFilter,
-  handleReset,
+  // handleFilter,
+  // handleReset,
 }) => {
   const [open, setOpen] = useState(false);
+  const { client, settlement } = useSelector((state) => state.atina);
+  const { filterUsers, resetFilter } = useFilters();
+
+  const handleFilter = (e) => {
+    e.preventDefault();
+    filterUsers(filterVal);
+  };
+  const handleReset = () => {
+    setFilterVal({});
+    resetFilter("users");
+  };
 
   const handleChange = (e) => {
     setFilterVal({
@@ -34,6 +48,80 @@ const UsersFilter = ({
       <Collapse sx={{ width: "100%" }} in={open} timeout="auto" unmountOnExit>
         <Box component="form" style={filterStyles.insideWrapper}>
           <Grid container sx={filterStyles.grid.container}>
+            <Grid item md={2}>
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+                <InputLabel id="mandant">Mandant</InputLabel>
+                <Select
+                  sx={{ width: "100%" }}
+                  labelId="mandant"
+                  id="demo-select-small"
+                  value={filterVal?.client || ""}
+                  label="Mandant"
+                  onChange={(e) =>
+                    setFilterVal({ ...filterVal, client: e.target.value })
+                  }
+                  MenuProps={{ PaperProps: { sx: { maxHeight: 250 } } }}
+                >
+                  <MenuItem value={""}>
+                    <Typography component="em" sx={{ fontSize: "0.7rem" }}>
+                      None
+                    </Typography>
+                  </MenuItem>
+                  {client?.map((item) => {
+                    return (
+                      <MenuItem key={item} value={item}>
+                        <Typography sx={{ fontSize: "0.7rem" }}>
+                          {item}
+                        </Typography>
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+              {/* <TextField
+                sx={filterStyles.textField}
+                onChange={handleChange}
+                value={filterVal.client || ""}
+                variant="outlined"
+                size="small"
+                label="Mandant"
+                name="client"
+              /> */}
+            </Grid>
+            <Grid item md={2}>
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+                <InputLabel id="Standort">Standort</InputLabel>
+                <Select
+                  sx={{ width: "100%" }}
+                  labelId="Standort"
+                  id="demo-select-small"
+                  value={filterVal?.settlement || ""}
+                  label="Standort"
+                  onChange={(e) =>
+                    setFilterVal({ ...filterVal, settlement: e.target.value })
+                  }
+                  MenuProps={{ PaperProps: { sx: { maxHeight: 250 } } }}
+                >
+                  <MenuItem value={""}>
+                    <Typography component="em" sx={{ fontSize: "0.7rem" }}>
+                      None
+                    </Typography>
+                  </MenuItem>
+                  {settlement?.map((item) => {
+                    return (
+                      <MenuItem key={item} value={item}>
+                        <Typography sx={{ fontSize: "0.7rem" }}>
+                          {item}
+                        </Typography>
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item md={2} />
+            <Grid item md={2} />
+            <Grid item md={2} />
             <Grid item md={2}>
               <TextField
                 sx={filterStyles.textField}
@@ -107,4 +195,4 @@ const UsersFilter = ({
   );
 };
 
-export default UsersFilter;
+export default memo(UsersFilter);

@@ -1,10 +1,14 @@
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import React, { useEffect, useState } from "react";
-import UserModal from "../modals/UserModal";
+// import UserModal from "../modals/UserModal";
 import { tableStyles } from "@/styles/table_styles";
-import ConfirmDialog from "../ConfirmDialog";
+// import ConfirmDialog from "../ConfirmDialog";
 import EditDeleteCells from "./row_components/EditDeleteCells";
+import dynamic from "next/dynamic";
+
+const ConfirmDialog = dynamic(() => import("../ConfirmDialog"));
+const UserModal = dynamic(() => import("../modals/UserModal"));
 
 const UsersTableRow = ({ row, prepareRow, resetResize }) => {
   const [openUserModal, setOpenUserModal] = useState(false);

@@ -19,7 +19,6 @@ import useColumns from "../../hooks/useColumns";
 import UndoIcon from "@mui/icons-material/Undo";
 import Tooltip from "@mui/material/Tooltip";
 import ErrorModal from "../modals/ErrorModal";
-import Loading from "../Loading";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
@@ -107,11 +106,6 @@ const ItemsTable = ({}) => {
     e.preventDefault();
     setType(filterVal.itemType);
     filterItems(filterVal);
-    /*  // setLoading(true);
-    searchItems({ ...filterVal, type }).then((res) => {
-      setAllData(res.itemArray);
-      // setLoading(false);
-    }); */
   };
 
   const handleReset = () => {

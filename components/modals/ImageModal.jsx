@@ -5,19 +5,24 @@ import { memo, useEffect, useMemo, useState } from "react";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 import { IconButton } from "@mui/material";
+import Image from "next/image";
+
 const ImageModal = ({ open, setOpen, index, fileArr }) => {
   const style = useMemo(() => ({
     card: {
       minWidth: 500,
       maxHeight: "100%",
+      minHeight: "70vh",
       bgcolor: "background.paper",
       border: "2px solid #000",
       boxShadow: 24,
       p: 2,
       textAlign: "center",
       display: "flex",
+      // placeItems: "center",
       justifyContent: "center",
-      // alignItems: "center",
+      alignItems: "center",
+      //  alignItems: "center",
       borderRadius: "8px",
       position: "relative",
     },
@@ -33,6 +38,7 @@ const ImageModal = ({ open, setOpen, index, fileArr }) => {
       backgroundColor: "#fff4",
       borderRadius: "8px 0 0 8px",
       transition: "0.2s",
+      zIndex: 15,
       "&:hover": {
         opacity: 1,
       },
@@ -47,6 +53,7 @@ const ImageModal = ({ open, setOpen, index, fileArr }) => {
       transition: "0.2s",
       opacity: 0.2,
       backgroundColor: "#fff4",
+      zIndex: 15,
       borderRadius: "0 8px 8px 0 ",
       "&:hover": {
         opacity: 1,
@@ -92,7 +99,20 @@ const ImageModal = ({ open, setOpen, index, fileArr }) => {
             <NavigateBeforeIcon />
           </IconButton>
         </Box>
+
+        {/* <Image
+          alt="Buchungen Bilder"
+          src={path}
+          sizes="20vw"
+          fill
+          loading="lazy"
+          style={{
+            objectFit: "contain",
+          }}
+        /> */}
+
         <img
+          loading="lazy"
           style={{
             display: "block",
             maxWidth: "100%",
