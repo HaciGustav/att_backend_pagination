@@ -20,25 +20,29 @@ const CustomTableBody = ({
         page={page}
       />
 
-      <Fade in={!loading} timeout={450}>
-        <TableBody
-          {...getTableBodyProps()}
-          onContextMenu={(e) => handleRightClick(e, "body")}
-        >
-          {page?.map((row, i) => {
-            prepareRow(row);
+      {/* <Fade in={!loading} timeout={450}> */}
+      <TableBody
+        {...getTableBodyProps()}
+        onContextMenu={(e) => handleRightClick(e, "body")}
+        sx={{
+          opacity: loading ? 0 : 1,
+          transition: "0.7s",
+        }}
+      >
+        {page?.map((row, i) => {
+          prepareRow(row);
 
-            return (
-              <TableRow
-                resetResize={resetResize}
-                key={i}
-                row={row}
-                prepareRow={prepareRow}
-              />
-            );
-          })}
-        </TableBody>
-      </Fade>
+          return (
+            <TableRow
+              resetResize={resetResize}
+              key={i}
+              row={row}
+              prepareRow={prepareRow}
+            />
+          );
+        })}
+      </TableBody>
+      {/* </Fade> */}
     </>
   );
 };

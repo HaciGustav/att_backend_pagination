@@ -35,7 +35,9 @@ const useAtinaCalls = () => {
       console.log(message);
       error = err;
     } finally {
-      dispatch(stopLoading());
+      setTimeout(() => {
+        dispatch(stopLoading());
+      }, 400);
     }
     return { error, res };
   };
