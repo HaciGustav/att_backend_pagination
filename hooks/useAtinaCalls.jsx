@@ -37,7 +37,7 @@ const useAtinaCalls = () => {
     } finally {
       setTimeout(() => {
         dispatch(stopLoading());
-      }, 400);
+      }, 150);
     }
     return { error, res };
   };

@@ -1,5 +1,5 @@
 import TableSkeleton from "@/components/skeleton/TableSkeleton";
-import { Fade } from "@mui/material";
+
 import TableBody from "@mui/material/TableBody";
 import { useSelector } from "react-redux";
 
@@ -12,15 +12,11 @@ const CustomTableBody = ({
   handleRightClick,
 }) => {
   const { loading } = useSelector((state) => state.atina);
+
   return (
     <>
-      <TableSkeleton
-        loading={loading}
-        getTableBodyProps={getTableBodyProps}
-        page={page}
-      />
+      <TableSkeleton loading={loading} page={page} />
 
-      {/* <Fade in={!loading} timeout={450}> */}
       <TableBody
         {...getTableBodyProps()}
         onContextMenu={(e) => handleRightClick(e, "body")}
@@ -42,7 +38,6 @@ const CustomTableBody = ({
           );
         })}
       </TableBody>
-      {/* </Fade> */}
     </>
   );
 };

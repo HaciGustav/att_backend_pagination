@@ -1,8 +1,8 @@
 import React from "react";
 import Skeleton from "@mui/material/Skeleton";
-import { Box, Collapse, TableBody, TableCell, TableRow } from "@mui/material";
+import { Box, Collapse } from "@mui/material";
 
-const TableSkeleton = ({ getTableBodyProps, page, loading }) => {
+const TableSkeleton = ({ page, loading }) => {
   const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
   return (
     // <Fade in={loading} timeout={450}>
@@ -12,11 +12,12 @@ const TableSkeleton = ({ getTableBodyProps, page, loading }) => {
         position: "absolute",
         height: "60vh",
         left: 0,
-        opacity: loading ? 1 : 0,
+        opacity: loading ? 0.5 : 0,
         transition: "0.7s",
+        // filter: "blur(1px)",
       }}
-      in={true}
-      timeout={50}
+      in={loading}
+      timeout={350}
       unmountOnExit
     >
       {/* <Box
@@ -31,26 +32,27 @@ const TableSkeleton = ({ getTableBodyProps, page, loading }) => {
       > */}
       {arr.map((row, i) => (
         <Box key={i} sx={{ width: "100%", display: "flex" }}>
-          {arr.map((cell, i) => (
+          {page[0]?.cells?.map((cell, i) => (
             <Box
               key={i}
               sx={{
-                borderRight: "1px solid #999",
-                width: "10%",
+                // borderRight: "0.5px solid #99999944",
+                width: `15vw`,
                 height: 58,
                 diplay: "grid",
                 placeItems: "center",
+                p: 1.5,
               }}
             >
               <Skeleton
                 animation="wave"
                 variant="text"
-                sx={{ fontSize: "0.5rem" }}
+                sx={{ fontSize: "0.4rem", width: "80%" }}
               />
               <Skeleton
                 animation="wave"
                 variant="text"
-                sx={{ fontSize: "0.5rem", width: "50%" }}
+                sx={{ fontSize: "0.5rem", width: "40%" }}
               />
             </Box>
           ))}

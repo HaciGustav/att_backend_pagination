@@ -15,7 +15,7 @@ const Loading = ({ init }) => {
       url === router.asPath &&
       setTimeout(() => {
         setLoading(false);
-      }, 600);
+      }, 450);
     router.events.on("routeChangeStart", handleStart);
     router.events.on("routeChangeComplete", handleComplete);
     return () => {
@@ -26,11 +26,11 @@ const Loading = ({ init }) => {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1200);
   }, []);
 
   return (
-    <Fade in={loading} timeout={350}>
+    <Fade in={loading} timeout={300}>
       <Backdrop
         sx={{
           backgroundColor: "#000000ef",
