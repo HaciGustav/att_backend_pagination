@@ -61,6 +61,9 @@ const ItemsFilter = ({
                   name="itemType"
                   onChange={handleChange}
                 >
+                  {/* <MenuItem value={""}>
+                    <Typography component="em">None</Typography>
+                  </MenuItem> */}
                   <MenuItem value={"Order"}>Auftrag</MenuItem>
                   <MenuItem value={"Meter"}>Zähler</MenuItem>
                   <MenuItem value={"Vehicle"}>KFZ</MenuItem>

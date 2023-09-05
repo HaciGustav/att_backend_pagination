@@ -94,9 +94,9 @@ const UsersTable = () => {
   }, [paginationParams, sortingParams, filterParams, searchTrigger]);
 
   useEffect(() => {
+    console.log("filterParams", filterParams);
     if (!atinaUsers?.entries) return;
     setAllData(atinaUsers?.entries);
-    console.log("user rendered");
   }, [atinaUsers]);
 
   useEffect(() => {

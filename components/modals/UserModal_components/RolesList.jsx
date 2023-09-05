@@ -8,6 +8,7 @@ import { useEffect } from "react";
 
 const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
   const { userRoles } = useSelector((state) => state.atina);
+  const { user } = useSelector((state) => state.settings);
 
   const handleClick = (e) => {
     if (e.target.checked) {
@@ -43,6 +44,7 @@ const RolesList = ({ inputVal, setInputVal, roleIds, setRoleIds }) => {
               }}
             >
               <FormControlLabel
+                disabled={!user?.isAdmin}
                 sx={{ width: "100%" }}
                 control={
                   <Checkbox

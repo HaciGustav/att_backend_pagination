@@ -117,7 +117,8 @@ const ItemsTable = ({}) => {
 
   useEffect(() => {
     const params = makeUrlParams();
-    getAtinaItemsData(params + filterParams);
+
+    getAtinaItemsData(params + filterParams, type);
   }, [paginationParams, sortingParams, filterParams, searchTrigger]);
 
   useEffect(() => {

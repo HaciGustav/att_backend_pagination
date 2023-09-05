@@ -184,9 +184,11 @@ const useFilters = () => {
     if (id) {
       base += `&ID=${id}`;
     }
-    if (itemType) {
-      base += `&ItemType=${itemType}`;
-    }
+    // if (itemType) {
+    //   base += `&ItemType=${itemType}`;
+    // } else {
+    //   base += `&ItemType=Order`;
+    // }
     if (itemID) {
       base += `&ItemId=${itemID}`;
     }

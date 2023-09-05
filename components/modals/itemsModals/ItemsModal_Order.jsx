@@ -62,6 +62,7 @@ const ItemsModal_Order = ({
               >
                 <Grid item md={4}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Datensatznummer"
                     size="small"
@@ -73,6 +74,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={8}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Straße"
                     size="small"
@@ -85,6 +87,7 @@ const ItemsModal_Order = ({
 
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Hausnummer"
                     size="small"
@@ -96,6 +99,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="PLZ"
                     size="small"
@@ -107,6 +111,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Stadt"
                     size="small"
@@ -118,6 +123,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Land"
                     size="small"
@@ -129,6 +135,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Mandant"
                     size="small"
@@ -140,6 +147,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Auftragsart"
                     size="small"
@@ -151,6 +159,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Auftragsbetreff"
                     size="small"
@@ -162,6 +171,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Kundennummer"
                     size="small"
@@ -173,6 +183,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={12}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Kundenname"
                     size="small"
@@ -191,6 +202,7 @@ const ItemsModal_Order = ({
                 sx={{ justifyContent: "space-between", rowGap: 2 }}
               >
                 {/*  <TextField
+                disabled={!isAdmin}
                   variant="outlined"
                   label="Artikel ID"
                   size="small"
@@ -200,6 +212,7 @@ const ItemsModal_Order = ({
                 />{" "} */}
                 <Grid item md={4}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Artikelnummer"
                     size="small"
@@ -211,6 +224,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={8}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Straße"
                     size="small"
@@ -229,6 +243,7 @@ const ItemsModal_Order = ({
 
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Hausnummer"
                     size="small"
@@ -240,6 +255,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="PLZ"
                     size="small"
@@ -251,6 +267,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Stadt"
                     size="small"
@@ -262,6 +279,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Land"
                     size="small"
@@ -273,6 +291,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Mandant"
                     size="small"
@@ -284,6 +303,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Auftragsart"
                     size="small"
@@ -295,6 +315,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Auftragsbetreff"
                     size="small"
@@ -306,6 +327,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Kundennummer"
                     size="small"
@@ -317,6 +339,7 @@ const ItemsModal_Order = ({
                 </Grid>
                 <Grid item md={12}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Kundenname"
                     size="small"

@@ -112,6 +112,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
               >
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DateField
+                    disabled={!user?.isAdmin}
                     label="Datum"
                     size="small"
                     format="DD.MM.YYYY"
@@ -127,6 +128,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   />
                 </LocalizationProvider>
                 <TextField
+                  disabled={!user?.isAdmin}
                   variant="outlined"
                   label="Uhrzeit"
                   size="small"
@@ -144,6 +146,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
                 <InputLabel id="bookingType">Buchungstyp</InputLabel>
                 <Select
+                  disabled={!user?.isAdmin}
                   readOnly={!user?.isAdmin}
                   labelId="bookingType"
                   id="demo-select-small"
@@ -168,6 +171,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
               </FormControl>
 
               <TextField
+                disabled={!user?.isAdmin}
                 variant="outlined"
                 label="Datensatznummer"
                 size="small"
@@ -177,6 +181,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 value={inputVal.Itemnumber || ""}
               />
               <TextField
+                disabled={!user?.isAdmin}
                 variant="outlined"
                 label="Straße"
                 size="small"
@@ -187,6 +192,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
               />
 
               <TextField
+                disabled={!user?.isAdmin}
                 variant="outlined"
                 label="Hausnummer"
                 size="small"
@@ -198,6 +204,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
 
               <div style={{ display: "flex" }}>
                 <TextField
+                  disabled={!user?.isAdmin}
                   variant="outlined"
                   label="PLZ"
                   size="small"
@@ -208,6 +215,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 />
 
                 <TextField
+                  disabled={!user?.isAdmin}
                   variant="outlined"
                   label="Stadt"
                   size="small"
@@ -219,6 +227,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
               </div>
 
               <TextField
+                disabled={!user?.isAdmin}
                 variant="outlined"
                 label="Land"
                 size="small"

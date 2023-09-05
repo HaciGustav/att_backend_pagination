@@ -13,7 +13,7 @@ const usePagination = (table) => {
   const dispatch = useDispatch();
   const { mobileBookings, atinaItems } = useSelector((state) => state.atina);
 
-  const { sortingParams, paginationParams } = useSelector(
+  const { sortingParams, paginationParams, filterParams } = useSelector(
     (state) => state.tableUtils[table]
   );
 

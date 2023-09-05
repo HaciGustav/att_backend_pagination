@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toastErrorNotify, toastSuccessNotify } from "../helpers/ToastNotify";
 import {
   fetchFail,
@@ -7,10 +7,14 @@ import {
   stopLoading,
 } from "../redux/slices/atinaSlice";
 import useAxios from "./useAxios";
+import { setPageSize, setSearchTrigger } from "@/redux/slices/tableUtilsSlice";
+import usePagination from "./usePagination";
 
 const useAtinaCalls = () => {
   const dispatch = useDispatch();
   const { axiosInstance, axiosWithToken } = useAxios();
+  const { paginationParams, sortingParams, filterParams, searchTrigger } =
+    useSelector((state) => state.tableUtils.users);
 
   //!--------------- GET CALL --------------
   const getAtinaData = async (url) => {
@@ -61,7 +65,6 @@ const useAtinaCalls = () => {
     try {
       const x = await axiosWithToken.post(`${url}`, params);
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
-      // getUsersData();
     } catch (error) {
       toastErrorNotify(`Etwas ist schiefgelaufen.. `);
       toastErrorNotify(error.response.data);
@@ -81,6 +84,7 @@ const useAtinaCalls = () => {
       roleIds: editedRoles,
     };
     postAtinaData("AtinaUsers/register", editedParams);
+
     getUsersData();
   };
 
@@ -115,9 +119,8 @@ const useAtinaCalls = () => {
       };
 
       await axiosWithToken.post("AtinaUsers/update", editedData);
-
+      getUsersData(filterParams);
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
-      getUsersData();
     } catch (err) {
       const { message } = err;
       dispatch(fetchFail({ message }));

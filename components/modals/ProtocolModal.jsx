@@ -53,6 +53,7 @@ const ProtocolModal = ({
               {" "}
               <Grid item md={6}>
                 <TextField
+                  disabled={true}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -69,6 +70,7 @@ const ProtocolModal = ({
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  disabled={true}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -87,6 +89,7 @@ const ProtocolModal = ({
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  disabled={true}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -100,6 +103,7 @@ const ProtocolModal = ({
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  disabled={true}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -113,6 +117,7 @@ const ProtocolModal = ({
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  disabled={true}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -126,6 +131,7 @@ const ProtocolModal = ({
               </Grid>
               <Grid item md={6}>
                 <TextField
+                  disabled={true}
                   InputProps={{
                     readOnly: true,
                   }}
@@ -138,6 +144,7 @@ const ProtocolModal = ({
                 />
               </Grid>
               <TextField
+                disabled={true}
                 InputProps={{
                   readOnly: true,
                 }}

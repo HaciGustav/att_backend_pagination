@@ -77,7 +77,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       //   personnelNumber: inputVal.personnelnumber,
       // };
       // delete parameter.personnelnumber;
-      console.log(inputVal);
+
       putUserData(inputVal);
       handleClose();
     } else {
@@ -160,6 +160,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     <FormControl
                       sx={{ minWidth: 120, width: "100%" }}
                       size="small"
+                      disabled={!user?.isAdmin}
                     >
                       <InputLabel id="mandant">Mandant</InputLabel>
                       <Select
@@ -208,6 +209,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                         width: "100%",
                       }}
                       size="small"
+                      disabled={!user?.isAdmin}
                     >
                       <InputLabel id="standort">Standort</InputLabel>
                       <Select
@@ -263,6 +265,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     required
                     value={inputVal?.firstname || ""}
                     onChange={handleChange}
+                    disabled={!user?.isAdmin}
                   />
 
                   <TextField
@@ -273,6 +276,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     required
                     value={inputVal?.lastname || ""}
                     onChange={handleChange}
+                    disabled={!user?.isAdmin}
                   />
 
                   <TextField
@@ -283,6 +287,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     required
                     value={inputVal?.personnelnumber || ""}
                     onChange={handleChange}
+                    disabled={!user?.isAdmin}
                   />
                 </div>
                 <TextField
@@ -294,6 +299,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                   value={inputVal?.username || ""}
                   onChange={handleChange}
                   required
+                  disabled={!user?.isAdmin}
                 />{" "}
                 {!userInfo && (
                   <TextField

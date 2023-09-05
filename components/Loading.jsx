@@ -6,10 +6,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 const Loading = ({ loading }) => {
   return (
-    <Fade in={loading} timeout={150}>
+    <Fade in={loading} timeout={350}>
       <Backdrop
         sx={{
-          backgroundColor: "#000000dd",
+          backgroundColor: "#000000de",
           color: "#fff",
           zIndex: (theme) => theme.zIndex.drawer + 3,
         }}

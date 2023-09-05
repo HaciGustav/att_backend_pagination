@@ -38,10 +38,11 @@ const ItemsModal_Vehicle = ({
           }}
         >
           <div
-            sx={{
+            style={{
               display: "flex",
-              columnGap: "10px",
+              columnGap: "5px",
               alignItems: "center",
+              width: "100%",
             }}
           >
             <TapAndPlayIcon fontSize="large" />
@@ -72,6 +73,7 @@ const ItemsModal_Vehicle = ({
               </Grid> */}
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Artikelnummer"
                   size="small"
@@ -84,6 +86,7 @@ const ItemsModal_Vehicle = ({
 
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Mandant"
                   size="small"
@@ -95,6 +98,7 @@ const ItemsModal_Vehicle = ({
               </Grid>
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Standort"
                   size="small"
@@ -106,6 +110,7 @@ const ItemsModal_Vehicle = ({
               </Grid>
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Kennzeichen"
                   size="small"
@@ -117,6 +122,7 @@ const ItemsModal_Vehicle = ({
               </Grid>
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Modell"
                   size="small"
@@ -135,6 +141,7 @@ const ItemsModal_Vehicle = ({
             >
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Itemtype"
                   size="small"
@@ -146,6 +153,7 @@ const ItemsModal_Vehicle = ({
               </Grid>
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Artikelnummer"
                   size="small"
@@ -158,6 +166,7 @@ const ItemsModal_Vehicle = ({
 
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Mandant"
                   size="small"
@@ -168,6 +177,7 @@ const ItemsModal_Vehicle = ({
               </Grid>
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Standort"
                   size="small"
@@ -178,6 +188,7 @@ const ItemsModal_Vehicle = ({
               </Grid>
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Kennzeichen"
                   size="small"
@@ -188,6 +199,7 @@ const ItemsModal_Vehicle = ({
               </Grid>
               <Grid item md={12}>
                 <TextField
+                  disabled={!isAdmin}
                   variant="outlined"
                   label="Modell"
                   size="small"

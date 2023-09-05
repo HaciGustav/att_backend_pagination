@@ -60,6 +60,7 @@ const ItemsModal_Meter = ({
               >
                 <Grid item md={12}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Datensatznummer"
                     size="small"
@@ -71,6 +72,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={12}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Straße"
                     size="small"
@@ -83,6 +85,7 @@ const ItemsModal_Meter = ({
 
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Hausnummer"
                     size="small"
@@ -94,6 +97,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="PLZ"
                     size="small"
@@ -105,6 +109,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Stadt"
                     size="small"
@@ -116,6 +121,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Land"
                     size="small"
@@ -127,6 +133,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Letzte Ablesung am"
                     size="small"
@@ -138,6 +145,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Letzte Ablesung"
                     size="small"
@@ -155,6 +163,7 @@ const ItemsModal_Meter = ({
                 sx={{ justifyContent: "space-between", rowGap: 2 }}
               >
                 {/*  <TextField
+                disabled={!isAdmin}
                   variant="outlined"
                   label="Artikel ID"
                   size="small"
@@ -164,6 +173,7 @@ const ItemsModal_Meter = ({
                 />{" "} */}
                 <Grid item md={4}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Artikelnummer"
                     size="small"
@@ -175,6 +185,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={8}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Straße"
                     size="small"
@@ -187,6 +198,7 @@ const ItemsModal_Meter = ({
 
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Hausnummer"
                     size="small"
@@ -198,6 +210,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="PLZ"
                     size="small"
@@ -209,6 +222,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Stadt"
                     size="small"
@@ -220,6 +234,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Land"
                     size="small"
@@ -231,6 +246,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Daten 1"
                     size="small"
@@ -242,6 +258,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Daten 2"
                     size="small"
@@ -253,6 +270,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Daten 3"
                     size="small"
@@ -264,6 +282,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={6}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Daten 4"
                     size="small"
@@ -275,6 +294,7 @@ const ItemsModal_Meter = ({
                 </Grid>
                 <Grid item md={12}>
                   <TextField
+                    disabled={!isAdmin}
                     variant="outlined"
                     label="Daten 5"
                     size="small"
