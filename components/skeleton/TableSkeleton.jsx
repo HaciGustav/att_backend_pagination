@@ -8,11 +8,11 @@ const TableSkeleton = ({ page, loading }) => {
     // <Fade in={loading} timeout={450}>
     <Collapse
       sx={{
-        width: "100%",
+        // width: "100%",
         position: "absolute",
         height: "60vh",
         left: 0,
-        opacity: loading ? 0.5 : 0,
+        opacity: loading ? 1 : 0,
         transition: "0.7s",
         // filter: "blur(1px)",
       }}
@@ -31,34 +31,66 @@ const TableSkeleton = ({ page, loading }) => {
         }}
       > */}
       {arr.map((row, i) => (
-        <Box key={i} sx={{ width: "100%", display: "flex" }}>
-          {page[0]?.cells?.map((cell, i) => (
-            <Box
-              key={i}
-              sx={{
-                // borderRight: "0.5px solid #99999944",
-                width: `15vw`,
-                height: 58,
-                diplay: "grid",
-                placeItems: "center",
-                p: 1.5,
-              }}
-            >
-              <Skeleton
-                animation="wave"
-                variant="text"
-                sx={{ fontSize: "0.4rem", width: "80%" }}
-              />
-              <Skeleton
-                animation="wave"
-                variant="text"
-                sx={{ fontSize: "0.5rem", width: "40%" }}
-              />
-            </Box>
-          ))}
+        <Box
+          key={i}
+          sx={{
+            // borderRight: "0.5px solid #99999944",
+            // width: `100vw`,
+            height: 58,
+            diplay: "grid",
+            placeItems: "center",
+            // p: 1.5,
+          }}
+        >
+          {/* <Skeleton
+            animation="wave"
+            variant="text"
+            sx={{ fontSize: "0.5rem", width: "90%" }}
+          />
+          <Skeleton
+            animation="wave"
+            variant="text"
+            sx={{ fontSize: "0.5rem", width: "85%" }}
+          />
+          <Skeleton
+            animation="wave"
+            variant="text"
+            sx={{ fontSize: "0.5rem", width: "50%" }}
+          /> */}
+
+          <Box key={i} sx={{ display: "flex" }}>
+            {page[0]?.cells?.map((cell, i) => (
+              <Box
+                key={i}
+                sx={{
+                  borderRight: "0.5px solid #99999944",
+                  width: cell?.column?.width,
+                  height: 58,
+                  diplay: "grid",
+                  placeItems: "center",
+                  // p: 1.5,
+                }}
+              >
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  sx={{ fontSize: "0.4rem", width: "80%" }}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  sx={{ fontSize: "0.4rem", width: "60%" }}
+                />
+                <Skeleton
+                  animation="wave"
+                  variant="text"
+                  sx={{ fontSize: "0.4rem", width: "40%" }}
+                />
+              </Box>
+            ))}
+          </Box>
         </Box>
       ))}
-      {/* </Box> */}
     </Collapse>
     // </Fade>
   );

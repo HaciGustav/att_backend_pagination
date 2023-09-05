@@ -53,12 +53,12 @@ const useColumns = () => {
     {
       accessor: "userInfo.client",
       Header: "Mandant",
-      width: 150,
+      // width: 150,
     },
     {
       accessor: "userInfo.settlement",
       Header: "Standort",
-      width: 150,
+      // width: 150,
     },
     {
       accessor: "userInfo.username",
@@ -84,7 +84,7 @@ const useColumns = () => {
 
     {
       Header: "bild",
-      width: 150,
+      // width: 150,
       Cell: (row) => (
         <Avatar
           sx={{ ...tableStyles.tr.image, margin: "auto" }}

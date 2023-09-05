@@ -12,7 +12,6 @@ const CustomTableBody = ({
   handleRightClick,
 }) => {
   const { loading } = useSelector((state) => state.atina);
-
   return (
     <>
       <TableSkeleton loading={loading} page={page} />
@@ -22,7 +21,7 @@ const CustomTableBody = ({
         onContextMenu={(e) => handleRightClick(e, "body")}
         sx={{
           opacity: loading ? 0 : 1,
-          transition: "0.7s",
+          transition: "0.55s",
         }}
       >
         {page?.map((row, i) => {

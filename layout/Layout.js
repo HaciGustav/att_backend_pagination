@@ -18,21 +18,20 @@ import ListItemText from "@mui/material/ListItemText";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import NfcIcon from "@mui/icons-material/Nfc";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-import { Avatar, Tooltip, Typography } from "@mui/material";
+import { Tooltip, Typography } from "@mui/material";
 import TapAndPlayOutlinedIcon from "@mui/icons-material/TapAndPlayOutlined";
 import Link from "next/link";
 import { dashboardStyles } from "@/styles/dashboard_styles";
 import { getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-// import ProfileMenu from "@/components/menus/ProfileMenu";
+
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/slices/settingsSlice";
-import PlagiarismIcon from "@mui/icons-material/Plagiarism";
-import ContentPasteSearchIcon from "@mui/icons-material/ContentPasteSearch";
+
 import FeedIcon from "@mui/icons-material/Feed";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Loading from "@/components/Loading";
+
 const drawerWidth = 240;
 
 const ProfileMenu = dynamic(() => import("@/components/menus/ProfileMenu"));
@@ -229,26 +228,17 @@ export default function Layout({ children, toggleTheme }) {
               /> */}
               <Image
                 onClick={handleClick}
-                src={user?.avatarUrl || ""}
-                width={60}
-                height={60}
+                src={user?.avatarUrl || "/assets/emptyAvatar.jpg"}
+                width={50}
+                height={50}
                 alt="profilePicture"
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", borderRadius: "50%" }}
               />
               <ProfileMenu
                 anchorEl={anchorEl}
                 setAnchorEl={setAnchorEl}
                 toggleTheme={toggleTheme}
               />
-              {/* <Link href="" style={{ width: "6.2rem", textAlign: "center" }}>
-                  <Button
-                    sx={dashboardStyles.logoutBtn}
-                    onClick={() => signOut()}
-                    size="small"
-                  >
-                    Ausloggen
-                  </Button>
-                </Link> */}
             </div>
           </div>
         </Toolbar>
@@ -305,27 +295,16 @@ export default function Layout({ children, toggleTheme }) {
         </List>
 
         <Divider />
-        {/* <ListItem
-            disablePadding
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <DarkModeSwitch toggleTheme={toggleTheme} />
-          </ListItem> */}
       </Drawer>
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          // p: 0.5,
         }}
       >
         <DrawerHeader />
         {children}
       </Box>
     </div>
-    // </Paper>
   );
 }

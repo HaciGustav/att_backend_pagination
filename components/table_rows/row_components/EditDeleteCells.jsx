@@ -8,7 +8,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 const EditDeleteCells = ({ setOpenModal, setOpenDialog }) => {
   const { user } = useSelector((state) => state.settings);
 
-  useEffect(() => {}, [user]);
+  // useEffect(() => {}, [user]);
 
   return (
     <>

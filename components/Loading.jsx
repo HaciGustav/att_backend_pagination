@@ -37,6 +37,7 @@ const Loading = ({ init }) => {
           filter: "blur(1px)",
           color: "#fff",
           zIndex: (theme) => theme.zIndex.drawer + 3,
+          margin: "-5rem",
         }}
         open={true}
       >
