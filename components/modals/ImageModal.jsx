@@ -20,10 +20,8 @@ const ImageModal = ({ open, setOpen, index, fileArr }) => {
       p: 1,
       textAlign: "center",
       display: "flex",
-      // placeItems: "center",
       justifyContent: "center",
       alignItems: "center",
-      //  alignItems: "center",
       borderRadius: "8px",
       position: "relative",
     },
@@ -80,7 +78,6 @@ const ImageModal = ({ open, setOpen, index, fileArr }) => {
   const handlePrevImage = () => {
     let total = fileArr.length - 1;
     if (imageIndex > 0) {
-      // let temp = imageIndex
       setImageIndex(imageIndex - 1);
     } else {
       setImageIndex(total);
@@ -111,9 +108,6 @@ const ImageModal = ({ open, setOpen, index, fileArr }) => {
               position: "absolute",
               display: "grid",
               placeItems: "center",
-              // border: "2px solid red",
-              // backgroundColor: "#000d",
-
               top: 0,
               bottom: 0,
               left: 0,
@@ -130,28 +124,15 @@ const ImageModal = ({ open, setOpen, index, fileArr }) => {
           src={path}
           width={500}
           height={450}
-          // sizes="40vw"
-          // fill
           style={{
             objectFit: "contain",
             WebkitFilter: isLoading ? "blur(5px)" : "none",
-            // maxHeight: "90%",
             maxWidth: "100%",
             maxHeight: "70vh",
             width: "auto",
-            // height: "70vh",
             boxShadow: "-2px 19px 48px -24px rgba(66, 68, 90, 1)",
             userSelect: "none",
-            /* position: "absolute",
-            top: "50%",
-            bottom: "50%",
-            transform: "translate(0, -50%)", */
             borderRadius: "8px",
-            // maxHeight: "10rem",
-            // cursor: "pointer",
-            // outline: "1px solid #888",
-            // outlineOffset: "2px",
-            // borderRadius: "8px",
           }}
         />
 

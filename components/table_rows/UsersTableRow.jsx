@@ -51,10 +51,10 @@ const UsersTableRow = ({ row, prepareRow, resetResize }) => {
             </TableCell>
           );
         })}
-        <EditDeleteCells
+        {/* <EditDeleteCells
           setOpenModal={setOpenUserModal}
           setOpenDialog={setOpenDialog}
-        />
+        /> */}
       </TableRow>
     </>
   );

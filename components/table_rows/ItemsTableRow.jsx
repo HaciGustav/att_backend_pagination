@@ -55,10 +55,10 @@ const ItemsTableRow = ({ row, prepareRow, resetResize }) => {
           );
         })}
 
-        <EditDeleteCells
+        {/* <EditDeleteCells
           setOpenModal={setOpenItemsModal}
           setOpenDialog={setOpenDialog}
-        />
+        /> */}
       </TableRow>
     </>
   );

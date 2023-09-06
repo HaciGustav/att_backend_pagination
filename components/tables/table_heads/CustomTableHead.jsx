@@ -20,19 +20,20 @@ const CustomTableHead = ({
 }) => {
   // const [contextMenu, setContextMenu] = useState(initalContextMenu);
   // const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
-  const [showEmptyCells, setShowEmptyCells] = useState(false);
-  const router = useRouter();
-  const { user } = useSelector((state) => state.settings);
+  //! ▼▼▼▼▼ Deactivated but it can be needed in the future ▼▼▼▼▼
+  // const [showEmptyCells, setShowEmptyCells] = useState(false);
+  // const router = useRouter();
+  // const { user } = useSelector((state) => state.settings);
+  // useEffect(() => {
+  //   if (
+  //     (router.pathname === "/users" || router.pathname === "/items") &&
+  //     user?.isAdmin
+  //   ) {
+  //     setShowEmptyCells(true);
+  //   }
+  // }, [user]);
+  //! ▲▲▲▲▲ ======== ▲▲▲▲▲
   const { sortingParams } = useSelector((state) => state.tableUtils[table]);
-  useEffect(() => {
-    if (
-      (router.pathname === "/users" || router.pathname === "/items") &&
-      user?.isAdmin
-    ) {
-      setShowEmptyCells(true);
-    }
-  }, [user]);
-
   return (
     <TableHead
       sx={tableStyles.tableHead}
@@ -101,7 +102,8 @@ const CustomTableHead = ({
             </TableCell>
           ))}
 
-          {showEmptyCells && (
+          {/* ▼▼▼▼▼ Deactivated but it can be needed in the future ▼▼▼▼▼ */}
+          {/* {showEmptyCells && (
             <>
               <TableCell
                 className={styles.th}
@@ -112,7 +114,8 @@ const CustomTableHead = ({
                 sx={{ borderRight: "1px solid #eee", minWidth: "70px" }}
               ></TableCell>
             </>
-          )}
+          )} */}
+          {/* ▲▲▲▲▲ ======== ▲▲▲▲▲ */}
         </TableRow>
       ))}
     </TableHead>

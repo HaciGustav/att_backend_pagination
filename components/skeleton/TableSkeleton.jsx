@@ -3,7 +3,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { Box, Collapse } from "@mui/material";
 
 const TableSkeleton = ({ page, loading }) => {
-  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+  const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
   return (
     // <Fade in={loading} timeout={450}>
     <Collapse
