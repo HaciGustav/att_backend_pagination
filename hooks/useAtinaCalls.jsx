@@ -139,7 +139,7 @@ const useAtinaCalls = () => {
           settlement: info.settlement,
           isAdministrator: info.isAdministrator,
         },
-        roles: roles,
+        roles: info?.roleIds,
       };
 
       dispatch(editOneObject({ data: xData, modul: "users" }));
