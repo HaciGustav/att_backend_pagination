@@ -15,7 +15,8 @@ const useAtinaCalls = () => {
   const { axiosInstance, axiosWithToken } = useAxios();
   const { paginationParams, sortingParams, filterParams, searchTrigger } =
     useSelector((state) => state.tableUtils.users);
-
+  const { handleSortParams, makeUrlParams, handlePaginationParams } =
+    usePagination("users");
   //!--------------- GET CALL --------------
   const getAtinaData = async (url) => {
     dispatch(fetchStart());
@@ -121,7 +122,7 @@ const useAtinaCalls = () => {
       };
 
       await axiosWithToken.post("AtinaUsers/update", editedData);
-      getUsersData(filterParams);
+      dispatch(setSearchTrigger({ table: "users" }));
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
     } catch (err) {
       const { message } = err;
