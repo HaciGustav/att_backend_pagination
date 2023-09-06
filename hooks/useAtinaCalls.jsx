@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toastErrorNotify, toastSuccessNotify } from "../helpers/ToastNotify";
 import {
+  editOneObject,
   fetchFail,
   fetchStart,
   getSuccess,
@@ -122,7 +123,28 @@ const useAtinaCalls = () => {
       };
 
       await axiosWithToken.post("AtinaUsers/update", editedData);
-      dispatch(setSearchTrigger({ table: "users" }));
+
+      const xData = {
+        userInfo: {
+          id: info.id,
+          externalUserID: "",
+          username: info.username,
+          passwordHash: info.passwordHash,
+          passwordSalt: info.passwordSalt,
+          externalPersonnelID: info.externalPersonnelID,
+          personnelnumber: info.personnelnumber,
+          firstname: info.firstname,
+          lastname: info.lastname,
+          client: info.client,
+          settlement: info.settlement,
+          isAdministrator: info.isAdministrator,
+        },
+        roles: roles,
+      };
+
+      dispatch(editOneObject({ data: xData, modul: "users" }));
+      // dispatch(setSearchTrigger({ table: "users" }));
+
       toastSuccessNotify(`Erfolgreich durchgeführt..`);
     } catch (err) {
       const { message } = err;

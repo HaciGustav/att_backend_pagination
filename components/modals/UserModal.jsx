@@ -78,6 +78,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       // };
       // delete parameter.personnelnumber;
 
+      // console.log(inputVal);
       putUserData(inputVal);
       handleClose();
     } else {

@@ -66,6 +66,16 @@ const atinaSlice = createSlice({
         state.protocol = data;
       }
     },
+    editOneObject: (state, { payload: { data, modul } }) => {
+      if (modul.includes("user")) {
+        const originalArray = state.atinaUsers.entries;
+        const id = data.userInfo.id;
+        const tempArray = originalArray.map((u) =>
+          u.userInfo.id !== id ? u : data
+        );
+        state.atinaUsers.entries = tempArray;
+      }
+    },
     fetchFail: (state, { payload: { message } }) => {
       // state.loading = false;
       state.error = true;
@@ -78,6 +88,6 @@ const atinaSlice = createSlice({
   },
 });
 
-export const { fetchStart, getSuccess, fetchFail, stopLoading } =
+export const { fetchStart, getSuccess, fetchFail, stopLoading, editOneObject } =
   atinaSlice.actions;
 export default atinaSlice.reducer;

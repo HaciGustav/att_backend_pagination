@@ -97,7 +97,6 @@ const UsersTable = () => {
     if (!atinaUsers?.entries) return;
     setAllData(atinaUsers?.entries);
   }, [atinaUsers]);
-
   useEffect(() => {
     getAtinaRoleDefinitions();
     const x = localStorage.getItem("hiddenColumns/users");
