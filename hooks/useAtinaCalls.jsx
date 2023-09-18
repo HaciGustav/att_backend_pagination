@@ -170,9 +170,8 @@ const useAtinaCalls = () => {
       toastErrorNotify(`${error?.message}`);
       console.log(error?.message);
     } finally {
-      setTimeout(() => {
-        dispatch(stopLoading());
-      }, 150);
+      dispatch(stopLoading());
+
       dispatch(setSearchTrigger({ table: "users" }));
     }
   };
