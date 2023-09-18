@@ -82,7 +82,7 @@ const useColumns = () => {
       Header: "nachname",
     },
 
-    {
+    /*  {
       Header: "bild",
       // width: 150,
       Cell: (row) => (
@@ -91,7 +91,7 @@ const useColumns = () => {
           src={`data:image/png;base64,${row.original?.image}`}
         />
       ),
-    },
+    }, */
   ];
   const ITEM_TABLE_ORDER_COLUMNS = [
     {
@@ -332,6 +332,16 @@ const useColumns = () => {
     {
       accessor: "Username",
       Header: "Benutzername",
+      // width: 100,
+    },
+    {
+      accessor: "Firstname",
+      Header: "Vorname",
+      // width: 100,
+    },
+    {
+      accessor: "Lastname",
+      Header: "Nachname",
       // width: 100,
     },
     {

@@ -161,7 +161,7 @@ const ProtocolTable = () => {
             setFilterVal={setFilterVal}
           />
 
-          <Box sx={tableStyles.helpersWrapper}>
+          <Box sx={{ ...tableStyles.helpersWrapper, justifyContent: "end" }}>
             {loading && <Loading_Icon />}
 
             <SSR_Pagination

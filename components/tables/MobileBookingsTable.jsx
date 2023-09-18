@@ -172,7 +172,7 @@ const MobileBookings = () => {
             setFilterVal={setFilterVal}
           />
 
-          <Box sx={tableStyles.helpersWrapper}>
+          <Box sx={{ ...tableStyles.helpersWrapper, justifyContent: "end" }}>
             {/* {loading && <Loading_Icon />} */}
 
             <SSR_Pagination
@@ -209,7 +209,8 @@ const MobileBookings = () => {
 
           <Table
             {...getTableProps()}
-            sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
+            sx={{ minWidth: 650, position: "relative" }}
+            // sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
           >
             <CustomTableHead
               headerGroups={headerGroups}

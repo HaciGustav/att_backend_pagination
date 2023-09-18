@@ -1,16 +1,23 @@
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 // import UserModal from "../modals/UserModal";
 import { tableStyles } from "@/styles/table_styles";
 // import ConfirmDialog from "../ConfirmDialog";
 import EditDeleteCells from "./row_components/EditDeleteCells";
 import dynamic from "next/dynamic";
+import { Checkbox, Collapse } from "@mui/material";
 
 const ConfirmDialog = dynamic(() => import("../ConfirmDialog"));
 const UserModal = dynamic(() => import("../modals/UserModal"));
 
-const UsersTableRow = ({ row, prepareRow, resetResize }) => {
+const UsersTableRow = ({
+  row,
+  prepareRow,
+  resetResize,
+  checkboxColumn,
+  setCheckboxColumn,
+}) => {
   const [openUserModal, setOpenUserModal] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const handleDblClick = (e) => {
@@ -18,6 +25,36 @@ const UsersTableRow = ({ row, prepareRow, resetResize }) => {
       setOpenUserModal(true);
     }
   };
+
+  const selectRow = useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (e.target.checked) {
+        setCheckboxColumn({
+          ...checkboxColumn,
+          selectedRows: [
+            ...checkboxColumn.selectedRows,
+            row.original.userInfo.id,
+          ],
+        });
+      } else {
+        setCheckboxColumn((prev) => ({
+          ...prev,
+          selectedRows: [
+            ...prev.selectedRows.filter((x) => x !== Number(e.target.value)),
+          ],
+        }));
+      }
+    },
+    [checkboxColumn]
+  );
+  // useEffect(() => {
+  //   setCheckboxColumn((prev) => ({
+  //     ...prev,
+  //     selectedRows: prev.selectedRows,
+  //   }));
+  // }, [checkboxColumn.selectedRows]);
+
   useEffect(() => {
     prepareRow(row);
   }, [resetResize, row]);
@@ -39,6 +76,29 @@ const UsersTableRow = ({ row, prepareRow, resetResize }) => {
         sx={tableStyles.tr.row}
         onClick={handleDblClick}
       >
+        <Collapse
+          sx={{ p: 0 }}
+          orientation="horizontal"
+          in={checkboxColumn.isOpen}
+        >
+          <TableCell
+            sx={{ ...tableStyles.tr.cell, width: "5rem", textAlign: "center" }}
+          >
+            {" "}
+            <Checkbox
+              color="primary"
+              sx={{ p: 0 }}
+              value={row?.original?.userInfo?.id}
+              checked={checkboxColumn.selectedRows.includes(
+                row?.original?.userInfo?.id
+              )}
+              // indeterminate={numSelected > 0 && numSelected < rowCount}
+              // checked={rowCount > 0 && numSelected === rowCount}
+              onClick={selectRow}
+            />
+          </TableCell>
+        </Collapse>
+
         {row.cells.map((cell) => {
           return (
             <TableCell

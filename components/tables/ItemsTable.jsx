@@ -167,7 +167,7 @@ const ItemsTable = ({}) => {
           type={type}
           setType={setType}
         />
-        <Box sx={tableStyles.helpersWrapper}>
+        <Box sx={{ ...tableStyles.helpersWrapper, justifyContent: "end" }}>
           <div style={{ display: "flex" }}>
             {loading && <Loading_Icon />}
             <SSR_Pagination
@@ -207,7 +207,8 @@ const ItemsTable = ({}) => {
         <Table
           className="table"
           {...getTableProps()}
-          sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
+          sx={{ minWidth: 650, position: "relative" }}
+          // sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
           aria-label="simple table"
           size="small"
         >

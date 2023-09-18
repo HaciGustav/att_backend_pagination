@@ -51,8 +51,10 @@ const ContextMenu = ({
   contextMenu,
   setContextMenu,
   setOpenModal,
-
+  setOpenColumn,
+  openColumn,
   state,
+  setOpenMultiEditModal,
 }) => {
   const [open, setOpen] = useState({
     columns: false,
@@ -240,12 +242,38 @@ const ContextMenu = ({
         </MenuItem>
       )}
       {setOpenModal !== undefined && contextMenu.point === "body" && (
-        <MenuItem
-          sx={{ width: "100%", fontSize: "0.9rem", fontWeight: "600" }}
-          onClick={() => setOpenModal(true)}
-        >
-          Neu Anlegen
-        </MenuItem>
+        <>
+          <MenuItem
+            sx={{ width: "100%", fontSize: "0.9rem", fontWeight: "600" }}
+            onClick={() => setOpenModal(true)}
+          >
+            Neu Anlegen
+          </MenuItem>
+          {setOpenColumn !== undefined && (
+            <>
+              <MenuItem
+                sx={{ width: "100%", fontSize: "0.9rem", fontWeight: "600" }}
+                onClick={() => {
+                  if (openColumn.isOpen) {
+                    setOpenColumn({ selectedRows: [], isOpen: false });
+                  } else {
+                    setOpenColumn((prev) => ({ ...prev, isOpen: true }));
+                  }
+                }}
+              >
+                Mehrfache Auswahl
+              </MenuItem>
+              {openColumn.selectedRows.length > 0 && (
+                <MenuItem
+                  onClick={() => setOpenMultiEditModal(true)}
+                  sx={{ width: "100%", fontSize: "0.9rem", fontWeight: "600" }}
+                >
+                  Auswahl Bearbeiten
+                </MenuItem>
+              )}
+            </>
+          )}
+        </>
       )}
 
       {open.columns && (

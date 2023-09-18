@@ -7,13 +7,8 @@ import Box from "@mui/system/Box";
 import UsersFilter from "../filters/UsersFilter";
 // import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
-import DownloadCSV from "../DownloadCSV";
 import { tableStyles } from "@/styles/table_styles";
-import Tooltip from "@mui/material/Tooltip";
-import UndoIcon from "@mui/icons-material/Undo";
-import IconButton from "@mui/material/IconButton";
 import useColumns from "@/hooks/useColumns";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 // import UserModal from "../modals/UserModal";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import { useSelector } from "react-redux";
@@ -21,12 +16,12 @@ import { useSelector } from "react-redux";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
-import Loading_Icon from "../Loading_Icon";
-import SSR_Pagination from "../SSR_Pagination";
 import usePagination from "@/hooks/usePagination";
-import useFilters from "@/hooks/useFilters";
 import dynamic from "next/dynamic";
-import { Fade } from "@mui/material";
+import { Button } from "@mui/material";
+
+import TableHelpers from "../TableHelpers";
+import MultipleEditModal from "../modals/UserModal_components/MultipleEditModal";
 
 const UsersTableRow = dynamic(() => import("../table_rows/UsersTableRow"));
 const UserModal = dynamic(() => import("../modals/UserModal"));
@@ -45,6 +40,11 @@ const UsersTable = () => {
   const [hiddenColumns, setHiddenColumns] = useState([]);
   const [allData, setAllData] = useState([]);
   const [openUserModal, setOpenUserModal] = useState(false);
+  const [checkboxColumn, setCheckboxColumn] = useState({
+    isOpen: false,
+    selectedRows: [],
+  });
+  const [openMultiEditModal, setOpenMultiEditModal] = useState(false);
   const [resetResize, setResetResize] = useState(false);
   const [filterVal, setFilterVal] = useState({});
   //! User Credentials State ▼▼▼▼▼▼
@@ -69,7 +69,7 @@ const UsersTable = () => {
   const defaultColumn = useMemo(
     () => ({
       minWidth: 100,
-      width: 225,
+      width: 200,
       maxWidth: 600,
     }),
     []
@@ -108,6 +108,11 @@ const UsersTable = () => {
         setOpenUserModal={setOpenUserModal}
         openUserModal={openUserModal}
       />
+      <MultipleEditModal
+        setOpenModal={setOpenMultiEditModal}
+        openModal={openMultiEditModal}
+        checkboxColumn={checkboxColumn}
+      />
       {/* {loading && <Loading />} */}
       {error && <ErrorModal error={errorMsg} />}
       {contextMenu.show && (
@@ -118,6 +123,9 @@ const UsersTable = () => {
           contextMenu={contextMenu}
           setContextMenu={setContextMenu}
           setOpenModal={setOpenUserModal}
+          setOpenColumn={setCheckboxColumn}
+          openColumn={checkboxColumn}
+          setOpenMultiEditModal={setOpenMultiEditModal}
           tableColumns={tableColumns}
           state={state}
         />
@@ -129,42 +137,35 @@ const UsersTable = () => {
           filterVal={filterVal}
           setFilterVal={setFilterVal}
         />
+
         <Box sx={tableStyles.helpersWrapper}>
-          {loading && <Loading_Icon />}
+          <Button
+            disabled={
+              !checkboxColumn.isOpen || checkboxColumn.selectedRows.length < 1
+            }
+            onClick={() => setOpenMultiEditModal(true)}
+            size="small"
+            sx={{
+              opacity: checkboxColumn.selectedRows.length ? 1 : 0,
+              transition: "all 0.2s",
+              fontSize: "0.7rem",
+            }}
+          >
+            bearbeiten
+          </Button>
 
-          <SSR_Pagination
-            paginationParams={paginationParams}
-            totalPages={atinaUsers?.totalPages}
-            table={"users"}
+          <TableHelpers
+            resetResizing={resetResizing}
+            setResetResize={setResetResize}
+            setOpenModal={setOpenUserModal}
+            table={"benutzer"}
           />
-          <Tooltip title="Spaltengröße rückgängig machen" arrow>
-            <IconButton
-              onClick={() => {
-                resetResizing();
-                setResetResize(!resetResize);
-              }}
-            >
-              <UndoIcon />
-            </IconButton>
-          </Tooltip>
-          <DownloadCSV rawData={allData} fileName={"benutzer"} />
-
-          {user?.isAdmin && (
-            <Tooltip title="Neuen Datensatz anlegen" arrow>
-              <IconButton onClick={() => setOpenUserModal(true)}>
-                <AddCircleIcon
-                  sx={{
-                    borderRadius: "10px",
-                    color: "green",
-                  }}
-                />
-              </IconButton>
-            </Tooltip>
-          )}
         </Box>
+
         <Table
           {...getTableProps()}
-          sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
+          sx={{ minWidth: 650, position: "relative" }}
+          // sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
           aria-label="simple table"
           size="small"
         >
@@ -174,6 +175,8 @@ const UsersTable = () => {
             setResetResize={setResetResize}
             handleRightClick={handleRightClick}
             handleSortParams={handleSortParams}
+            checkboxColumn={checkboxColumn}
+            setCheckboxColumn={setCheckboxColumn}
             table={"users"}
           />
           <CustomTableBody
@@ -183,6 +186,8 @@ const UsersTable = () => {
             page={page}
             TableRow={UsersTableRow}
             handleRightClick={handleRightClick}
+            checkboxColumn={checkboxColumn}
+            setCheckboxColumn={setCheckboxColumn}
           />
         </Table>
       </TableContainer>

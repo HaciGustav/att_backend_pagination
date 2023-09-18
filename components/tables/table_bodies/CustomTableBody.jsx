@@ -10,6 +10,8 @@ const CustomTableBody = ({
   resetResize,
   TableRow,
   handleRightClick,
+  checkboxColumn,
+  setCheckboxColumn,
 }) => {
   const { loading } = useSelector((state) => state.atina);
   return (
@@ -33,6 +35,8 @@ const CustomTableBody = ({
               key={i}
               row={row}
               prepareRow={prepareRow}
+              checkboxColumn={checkboxColumn}
+              setCheckboxColumn={setCheckboxColumn}
             />
           );
         })}

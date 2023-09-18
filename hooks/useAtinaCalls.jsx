@@ -127,7 +127,7 @@ const useAtinaCalls = () => {
       const xData = {
         userInfo: {
           id: info.id,
-          externalUserID: "",
+          externalUserID: info.externalUserID,
           username: info.username,
           passwordHash: info.passwordHash,
           passwordSalt: info.passwordSalt,
@@ -152,6 +152,28 @@ const useAtinaCalls = () => {
       toastErrorNotify(`Etwas ist schiefgelaufen.. `);
       toastErrorNotify(`${message}`);
       console.log(err);
+    }
+  };
+
+  const assignMultipleUserRoles = (users, roles) => {
+    dispatch(fetchStart());
+    try {
+      axiosWithToken.post("AtinaUserRoles/assign/multiple", {
+        userIds: users,
+        roleIds: roles,
+      });
+
+      toastSuccessNotify(`Erfolgreich aktualisiert..`);
+    } catch (error) {
+      dispatch(fetchFail({ message: error?.message }));
+      toastErrorNotify(`Etwas ist schiefgelaufen.. `);
+      toastErrorNotify(`${error?.message}`);
+      console.log(error?.message);
+    } finally {
+      setTimeout(() => {
+        dispatch(stopLoading());
+      }, 150);
+      dispatch(setSearchTrigger({ table: "users" }));
     }
   };
 
@@ -190,6 +212,7 @@ const useAtinaCalls = () => {
     getBookingTypes,
     getAtinaRoleDefinitions,
     postUserData,
+    assignMultipleUserRoles,
   };
 };
 

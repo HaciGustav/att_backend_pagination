@@ -16,7 +16,7 @@ export const tableStyles = {
   },
   helpersWrapper: {
     display: "flex",
-    justifyContent: "end",
+    justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
     position: "sticky",

@@ -9,6 +9,7 @@ import styles from "../table_styles.module.css";
 import { tableStyles } from "@/styles/table_styles";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import { Collapse, Tooltip } from "@mui/material";
 
 const CustomTableHead = ({
   headerGroups,
@@ -16,6 +17,8 @@ const CustomTableHead = ({
   resetResize,
   handleRightClick,
   handleSortParams,
+  checkboxColumn,
+  setCheckboxColumn,
   table,
 }) => {
   // const [contextMenu, setContextMenu] = useState(initalContextMenu);
@@ -33,6 +36,7 @@ const CustomTableHead = ({
   //   }
   // }, [user]);
   //! ▲▲▲▲▲ ======== ▲▲▲▲▲
+
   const { sortingParams } = useSelector((state) => state.tableUtils[table]);
   return (
     <TableHead
@@ -54,6 +58,39 @@ const CustomTableHead = ({
 
       {headerGroups.map((headerGroup) => (
         <TableRow className={styles.tr} {...headerGroup.getHeaderGroupProps()}>
+          {checkboxColumn && (
+            <Collapse
+              sx={{}}
+              orientation="horizontal"
+              in={checkboxColumn.isOpen}
+            >
+              <Tooltip
+                sx={{ display: !checkboxColumn.isOpen && "none" }}
+                title="Alles abwählen"
+                placement="top"
+                arrow
+              >
+                <TableCell
+                  sx={{
+                    ...tableStyles.th.cell,
+                    color: "#1976d2",
+                    width: "5rem",
+                    fontSize: "0.65rem",
+                    whiteSpace: "nowrap",
+                    textAlign: "center",
+                  }}
+                  onClick={(e) => {
+                    setCheckboxColumn({
+                      isOpen: false,
+                      selectedRows: [],
+                    });
+                  }}
+                >
+                  {checkboxColumn.selectedRows.length} auswahl
+                </TableCell>
+              </Tooltip>
+            </Collapse>
+          )}
           {headerGroup.headers.map((column) => (
             <TableCell
               className={styles.th}
