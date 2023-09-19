@@ -251,25 +251,24 @@ const ContextMenu = ({
           </MenuItem>
           {setOpenColumn !== undefined && (
             <>
-              {!openColumn.isOpen && (
-                <MenuItem
-                  sx={{ width: "100%", fontSize: "0.9rem", fontWeight: "600" }}
-                  onClick={() => {
-                    if (openColumn.isOpen) {
-                      setOpenColumn({
-                        selectedRows: [],
-                        isOpen: false,
-                        users: [],
-                      });
-                    } else {
-                      setOpenColumn((prev) => ({ ...prev, isOpen: true }));
-                    }
-                    closeContextMenu();
-                  }}
-                >
-                  Mehrfache Auswahl
-                </MenuItem>
-              )}
+              <MenuItem
+                sx={{ width: "100%", fontSize: "0.9rem", fontWeight: "600" }}
+                onClick={() => {
+                  if (openColumn.isOpen) {
+                    setOpenColumn({
+                      selectedRows: [],
+                      isOpen: false,
+                      users: [],
+                    });
+                  } else {
+                    setOpenColumn((prev) => ({ ...prev, isOpen: true }));
+                  }
+                  closeContextMenu();
+                }}
+              >
+                Mehrfache Auswahl
+              </MenuItem>
+
               {openColumn.selectedRows.length > 0 && (
                 <MenuItem
                   onClick={() => setOpenMultiEditModal(true)}
