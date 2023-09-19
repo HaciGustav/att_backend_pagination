@@ -36,6 +36,7 @@ const UsersTableRow = ({
             ...checkboxColumn.selectedRows,
             row.original.userInfo.id,
           ],
+          users: [...checkboxColumn.users, row.original],
         });
       } else {
         setCheckboxColumn((prev) => ({
@@ -43,17 +44,16 @@ const UsersTableRow = ({
           selectedRows: [
             ...prev.selectedRows.filter((x) => x !== Number(e.target.value)),
           ],
+          users: [
+            ...prev.users.filter(
+              (u) => u.userInfo.id !== Number(e.target.value)
+            ),
+          ],
         }));
       }
     },
     [checkboxColumn]
   );
-  // useEffect(() => {
-  //   setCheckboxColumn((prev) => ({
-  //     ...prev,
-  //     selectedRows: prev.selectedRows,
-  //   }));
-  // }, [checkboxColumn.selectedRows]);
 
   useEffect(() => {
     prepareRow(row);

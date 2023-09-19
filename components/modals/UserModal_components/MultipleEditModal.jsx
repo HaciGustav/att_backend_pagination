@@ -35,9 +35,9 @@ const MultipleEditModal = ({ openModal, setOpenModal, checkboxColumn }) => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { selectedRows } = checkboxColumn;
+    const { selectedRows, users } = checkboxColumn;
     const editedRoles = roleIds.map((id) => Number(id));
-    assignMultipleUserRoles(selectedRows, editedRoles);
+    assignMultipleUserRoles(selectedRows, editedRoles, users);
     handleClose();
   };
 

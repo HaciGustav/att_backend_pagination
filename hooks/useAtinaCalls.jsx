@@ -155,14 +155,38 @@ const useAtinaCalls = () => {
     }
   };
 
-  const assignMultipleUserRoles = (users, roles) => {
+  const assignMultipleUserRoles = (userids, roleIds, users) => {
     dispatch(fetchStart());
     try {
+      //Post Call to assign user roles
       axiosWithToken.post("AtinaUserRoles/assign/multiple", {
-        userIds: users,
-        roleIds: roles,
+        userIds: userids,
+        roleIds: roleIds,
       });
 
+      // Edit Present Users to avoid a new get call
+
+      users.forEach((user) => {
+        const { userInfo } = user;
+        const xData = {
+          userInfo: {
+            id: userInfo.id,
+            externalUserID: userInfo.externalUserID,
+            username: userInfo.username,
+            passwordHash: userInfo.passwordHash,
+            passwordSalt: userInfo.passwordSalt,
+            externalPersonnelID: userInfo.externalPersonnelID,
+            personnelnumber: userInfo.personnelnumber,
+            firstname: userInfo.firstname,
+            lastname: userInfo.lastname,
+            client: userInfo.client,
+            settlement: userInfo.settlement,
+            isAdministrator: userInfo.isAdministrator,
+          },
+          roles: roleIds.map((x) => x.toString()),
+        };
+        dispatch(editOneObject({ data: xData, modul: "users" }));
+      });
       toastSuccessNotify(`Erfolgreich aktualisiert..`);
     } catch (error) {
       dispatch(fetchFail({ message: error?.message }));
@@ -171,8 +195,7 @@ const useAtinaCalls = () => {
       console.log(error?.message);
     } finally {
       dispatch(stopLoading());
-
-      dispatch(setSearchTrigger({ table: "users" }));
+      // dispatch(setSearchTrigger({ table: "users" }));
     }
   };
 

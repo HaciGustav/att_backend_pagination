@@ -43,6 +43,7 @@ const UsersTable = () => {
   const [checkboxColumn, setCheckboxColumn] = useState({
     isOpen: false,
     selectedRows: [],
+    users: [],
   });
   const [openMultiEditModal, setOpenMultiEditModal] = useState(false);
   const [resetResize, setResetResize] = useState(false);

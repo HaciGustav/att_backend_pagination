@@ -83,6 +83,7 @@ const CustomTableHead = ({
                     setCheckboxColumn({
                       isOpen: false,
                       selectedRows: [],
+                      users: [],
                     });
                   }}
                 >
