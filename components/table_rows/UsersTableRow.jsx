@@ -73,7 +73,12 @@ const UsersTableRow = ({
       />
       <TableRow
         {...row.getRowProps()}
-        sx={tableStyles.tr.row}
+        sx={{
+          ...tableStyles.tr.row,
+          backgroundColor:
+            checkboxColumn.selectedRows.includes(row?.original?.userInfo?.id) &&
+            "#bbbb",
+        }}
         onClick={handleDblClick}
       >
         <Collapse

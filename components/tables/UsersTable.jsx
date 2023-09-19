@@ -140,7 +140,7 @@ const UsersTable = () => {
         />
 
         <Box sx={tableStyles.helpersWrapper}>
-          <Button
+          {/* <Button
             disabled={
               !checkboxColumn.isOpen || checkboxColumn.selectedRows.length < 1
             }
@@ -153,8 +153,8 @@ const UsersTable = () => {
             }}
           >
             bearbeiten
-          </Button>
-
+          </Button> */}
+          <span></span>
           <TableHelpers
             resetResizing={resetResizing}
             setResetResize={setResetResize}
