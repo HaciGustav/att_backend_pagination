@@ -251,7 +251,7 @@ const ContextMenu = ({
           </MenuItem>
           {setOpenColumn !== undefined && (
             <>
-              {!openColumn.selectedRows.length > 0 && (
+              {!openColumn.isOpen && (
                 <MenuItem
                   sx={{ width: "100%", fontSize: "0.9rem", fontWeight: "600" }}
                   onClick={() => {
