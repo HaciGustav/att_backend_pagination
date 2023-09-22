@@ -16,6 +16,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import FilterHead from "./filter_components/FilterHead";
 import { useSelector } from "react-redux";
 import TimeInput from "../TimeInput";
+import CheckIcon from "@mui/icons-material/Check";
+import LoopIcon from "@mui/icons-material/Loop";
+import SyncProblemIcon from "@mui/icons-material/SyncProblem";
+
 const BookingsFilter = ({
   filterVal,
   setFilterVal,
@@ -49,6 +53,69 @@ const BookingsFilter = ({
           }}
         >
           <Grid container sx={filterStyles.grid.container}>
+            <Grid item md={2}>
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+                <InputLabel id="importState">Import Status</InputLabel>
+                <Select
+                  sx={{ width: "100%" }}
+                  labelId="importState"
+                  id="demo-select-small"
+                  value={filterVal?.importState || ""}
+                  label="Buchungstyp"
+                  onChange={(e) =>
+                    setFilterVal({ ...filterVal, importState: e.target.value })
+                  }
+                >
+                  <MenuItem value={""}>
+                    <Typography component="em" sx={{ fontSize: "0.7rem" }}>
+                      None
+                    </Typography>
+                  </MenuItem>
+
+                  <MenuItem value="I">
+                    <Typography
+                      sx={{
+                        fontSize: "0.7rem",
+                        display: "flex",
+                        alignItems: "center",
+                        columnGap: "5px",
+                        width: "100%",
+                      }}
+                    >
+                      <LoopIcon /> <span>In Bearbeitung</span>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value="A">
+                    <Typography
+                      sx={{
+                        fontSize: "0.7rem",
+                        display: "flex",
+                        alignItems: "center",
+                        columnGap: "5px",
+                        width: "100%",
+                      }}
+                    >
+                      <SyncProblemIcon />
+                      <span>Abgebrochen</span>
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value="D">
+                    <Typography
+                      sx={{
+                        fontSize: "0.7rem",
+                        display: "flex",
+                        alignItems: "center",
+                        columnGap: "5px",
+                        width: "100%",
+                      }}
+                    >
+                      <CheckIcon />
+                      <span>Gesendet</span>
+                    </Typography>
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
             <Grid item md={2}>
               <TextField
                 sx={filterStyles.textField}
@@ -134,7 +201,7 @@ const BookingsFilter = ({
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item md={2} />
+
             <Grid item md={2}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
@@ -246,6 +313,7 @@ const BookingsFilter = ({
                 value={filterVal?.timeTo}
               />
             </Grid>
+            <Grid item md={2} />
             {/* <Grid item md={2} /> */}
             <Grid item md={2}>
               <TextField

@@ -1,6 +1,8 @@
 import { tableStyles } from "@/styles/table_styles";
 import { Avatar } from "@mui/material";
-
+import CheckIcon from "@mui/icons-material/Check";
+import LoopIcon from "@mui/icons-material/Loop";
+import SyncProblemIcon from "@mui/icons-material/SyncProblem";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -329,6 +331,29 @@ const useColumns = () => {
       accessor: "FileCounter",
       Header: "Bilder",
     },
+
+    {
+      accessor: "ImportState",
+      Header: "Import Status",
+      width: 110,
+      Cell: ({ value }) => {
+        return (
+          <span
+            style={{
+              display: "flex",
+              width: "100%",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {value === "I" && <LoopIcon />}
+            {value === "A" && <SyncProblemIcon />}
+            {value === "D" && <CheckIcon />}
+          </span>
+        );
+      },
+    },
+
     {
       accessor: "Username",
       Header: "Benutzername",

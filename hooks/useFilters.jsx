@@ -64,6 +64,7 @@ const useFilters = () => {
     });
 
     const {
+      importState,
       bookingType,
       itemType,
       street,
@@ -88,6 +89,9 @@ const useFilters = () => {
     // let base = `https://pbsolutions.dev/atina/api/AtinaMobileBookings?`;
     let base = "";
 
+    if (importState) {
+      base += `&state=${importState}`;
+    }
     if (bookingType) {
       base += `&bookingType=${bookingType}`;
     }
