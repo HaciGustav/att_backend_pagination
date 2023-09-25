@@ -55,7 +55,6 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
 
   useEffect(() => {
     if (booking) {
-      console.log(booking.Time);
       setInputVal({
         ...booking,
         Date: dayjs(booking.Date),

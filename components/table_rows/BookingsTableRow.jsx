@@ -1,12 +1,18 @@
-import { TableCell, TableRow } from "@mui/material";
-import React, { Fragment, useEffect, useState } from "react";
+import { Checkbox, Collapse, TableCell, TableRow } from "@mui/material";
+import React, { Fragment, useCallback, useEffect, useState } from "react";
 import BookingsModal from "../modals/BookingsModal";
 import { tableStyles } from "@/styles/table_styles";
 import styles from "./table_row_styles.module.css";
 import BookingImageRow from "./row_components/BookingImageRow";
 import ExpandRowCell from "./row_components/BookingExpandRowCell";
 
-const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
+const BookingsTableRow = ({
+  resetResize,
+  row,
+  prepareRow,
+  checkboxColumn,
+  setCheckboxColumn,
+}) => {
   const [openBookingModal, setOpenBookingModal] = useState(false);
   const [open, setOpen] = useState(false);
   const handleOpen = (e) => {
@@ -19,6 +25,34 @@ const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
       setOpenBookingModal(true);
     }
   };
+
+  const selectRow = useCallback(
+    (e) => {
+      e.stopPropagation();
+      if (e.target.checked) {
+        setCheckboxColumn({
+          ...checkboxColumn,
+          selectedRows: [
+            ...checkboxColumn.selectedRows,
+            row.original.BookingID,
+          ],
+          data: [...checkboxColumn.data, row.original],
+        });
+      } else {
+        setCheckboxColumn((prev) => ({
+          ...prev,
+          selectedRows: [
+            ...prev.selectedRows.filter((x) => x !== Number(e.target.value)),
+          ],
+          data: [
+            ...prev.data.filter((m) => m.BookingID !== Number(e.target.value)),
+          ],
+        }));
+      }
+    },
+    [checkboxColumn]
+  );
+
   useEffect(() => {
     prepareRow(row);
   }, [resetResize]);
@@ -35,10 +69,38 @@ const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
       />
       <TableRow
         {...row.getRowProps()}
-        sx={tableStyles.tr.row}
+        sx={{
+          ...tableStyles.tr.row,
+          backgroundColor:
+            checkboxColumn.selectedRows.includes(row?.original?.BookingID) &&
+            "#bbbb",
+        }}
         className={styles.tr}
         onClick={handleDblClick}
       >
+        <Collapse
+          sx={{ p: 0 }}
+          orientation="horizontal"
+          in={checkboxColumn.isOpen}
+        >
+          <TableCell
+            sx={{ ...tableStyles.tr.cell, width: "5rem", textAlign: "center" }}
+          >
+            {" "}
+            <Checkbox
+              color="primary"
+              sx={{ p: 0 }}
+              value={row?.original?.BookingID}
+              checked={checkboxColumn.selectedRows.includes(
+                row?.original?.BookingID
+              )}
+              // indeterminate={numSelected > 0 && numSelected < rowCount}
+              // checked={rowCount > 0 && numSelected === rowCount}
+              onClick={selectRow}
+            />
+          </TableCell>
+        </Collapse>
+
         {row.cells.map((cell, i) => (
           <Fragment key={i}>
             {cell.getCellProps().key.includes("FileCounter") ? (

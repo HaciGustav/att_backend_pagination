@@ -31,7 +31,7 @@ export const filterStyles = {
     transition: "all 0.3s",
     // display: open ? "flex" : "none",
     flexDirection: "column",
-    rowGap: "0px",
+    rowGap: "8px",
     paddingInline: "1rem",
   },
   grid: {

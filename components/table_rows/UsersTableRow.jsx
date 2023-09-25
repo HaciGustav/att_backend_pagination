@@ -36,7 +36,7 @@ const UsersTableRow = ({
             ...checkboxColumn.selectedRows,
             row.original.userInfo.id,
           ],
-          users: [...checkboxColumn.users, row.original],
+          data: [...checkboxColumn.data, row.original],
         });
       } else {
         setCheckboxColumn((prev) => ({
@@ -44,8 +44,8 @@ const UsersTableRow = ({
           selectedRows: [
             ...prev.selectedRows.filter((x) => x !== Number(e.target.value)),
           ],
-          users: [
-            ...prev.users.filter(
+          data: [
+            ...prev.data.filter(
               (u) => u.userInfo.id !== Number(e.target.value)
             ),
           ],

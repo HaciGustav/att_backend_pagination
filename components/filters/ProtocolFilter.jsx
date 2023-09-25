@@ -7,22 +7,51 @@ import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { filterStyles } from "@/styles/filter_styles";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+
 import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import FilterHead from "./filter_components/FilterHead";
 import { useSelector } from "react-redux";
 import TimeInput from "../TimeInput";
-const ProtocolFilter = ({
-  filterVal,
-  setFilterVal,
-  handleFilter,
-  handleReset,
-}) => {
+import useFilters from "@/hooks/useFilters";
+
+const protocolFilterParams = {
+  protocolType: null,
+  module: null,
+  userId: null,
+  userName: null,
+  itemId: null,
+  itemNumber: null,
+  dateFrom: null,
+  timeFrom: null,
+  dateTo: null,
+  timeTo: null,
+  description: null,
+  street: null,
+  streetnumber: null,
+  zip: null,
+  city: null,
+  country: null,
+};
+
+const ProtocolFilter = ({}) => {
   const [open, setOpen] = useState(false);
+  const [filterVal, setFilterVal] = useState(protocolFilterParams);
+  const { filterProtocol, resetFilter } = useFilters();
+
+  const handleFilter = useCallback(
+    (e) => {
+      e.preventDefault();
+      filterProtocol(filterVal);
+    },
+    [filterVal]
+  );
+
+  const handleReset = useCallback(() => {
+    setFilterVal(protocolFilterParams);
+    resetFilter("protocol");
+  }, []);
+
   const handleChange = useCallback(
     (e) => {
       setFilterVal({

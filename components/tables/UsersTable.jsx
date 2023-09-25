@@ -26,7 +26,7 @@ import MultipleEditModal from "../modals/UserModal_components/MultipleEditModal"
 const UsersTableRow = dynamic(() => import("../table_rows/UsersTableRow"));
 const UserModal = dynamic(() => import("../modals/UserModal"));
 const ErrorModal = dynamic(() => import("../modals/ErrorModal"));
-const ContextMenu = dynamic(() => import("../ContextMenu"));
+const ContextMenu = dynamic(() => import("../menus/ContextMenu"));
 
 const initalContextMenu = {
   show: false,
@@ -43,11 +43,11 @@ const UsersTable = () => {
   const [checkboxColumn, setCheckboxColumn] = useState({
     isOpen: false,
     selectedRows: [],
-    users: [],
+    data: [],
   });
   const [openMultiEditModal, setOpenMultiEditModal] = useState(false);
   const [resetResize, setResetResize] = useState(false);
-  const [filterVal, setFilterVal] = useState({});
+
   //! User Credentials State ▼▼▼▼▼▼
   const { user } = useSelector((state) => state.settings);
 
@@ -129,31 +129,13 @@ const UsersTable = () => {
           setOpenMultiEditModal={setOpenMultiEditModal}
           tableColumns={tableColumns}
           state={state}
+          table="users"
         />
       )}
       <TableContainer component={Paper} sx={tableStyles.tableContainer}>
-        <UsersFilter
-          // handleReset={handleReset}
-          // handleFilter={handleFilter}
-          filterVal={filterVal}
-          setFilterVal={setFilterVal}
-        />
+        <UsersFilter />
 
         <Box sx={tableStyles.helpersWrapper}>
-          {/* <Button
-            disabled={
-              !checkboxColumn.isOpen || checkboxColumn.selectedRows.length < 1
-            }
-            onClick={() => setOpenMultiEditModal(true)}
-            size="small"
-            sx={{
-              opacity: checkboxColumn.selectedRows.length ? 1 : 0,
-              transition: "all 0.2s",
-              fontSize: "0.7rem",
-            }}
-          >
-            bearbeiten
-          </Button> */}
           <span></span>
           <TableHelpers
             resetResizing={resetResizing}

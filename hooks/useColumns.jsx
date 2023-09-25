@@ -328,11 +328,6 @@ const useColumns = () => {
 
   const BUCHUNGEN_TABLE_COLUMNS = [
     {
-      accessor: "FileCounter",
-      Header: "Bilder",
-    },
-
-    {
       accessor: "ImportState",
       Header: "Import Status",
       width: 110,
@@ -352,6 +347,10 @@ const useColumns = () => {
           </span>
         );
       },
+    },
+    {
+      accessor: "FileCounter",
+      Header: "Bilder",
     },
 
     {

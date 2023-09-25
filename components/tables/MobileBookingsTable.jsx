@@ -3,7 +3,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import BookingsFilter from "../filters/BookingsFilter";
-import ContextMenu from "../ContextMenu";
+import ContextMenu from "../menus/ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 import Tooltip from "@mui/material/Tooltip";
@@ -20,7 +20,7 @@ import ErrorModal from "../modals/ErrorModal";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
-import SSR_Pagination from "../SSR_Pagination";
+import SSR_Pagination from "../Pagination";
 import usePagination from "@/hooks/usePagination";
 import Loading_Icon from "../Loading_Icon";
 import useFilters from "@/hooks/useFilters";
@@ -36,25 +36,6 @@ const initalContextMenu = {
   point: "",
 };
 
-const bookingsFilterParams = {
-  id: null,
-  bookingType: null,
-  street: null,
-  streetnumber: null,
-  zip: null,
-  city: null,
-  country: null,
-  nfcTagID: null,
-  nfcTagInfo: null,
-  userID: null,
-  itemID: null,
-  username: null,
-  dateFrom: null,
-  dateTo: null,
-  timeFrom: null,
-  timeTo: null,
-};
-
 const MobileBookings = () => {
   const { BUCHUNGEN_TABLE_COLUMNS } = useColumns();
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
@@ -62,7 +43,12 @@ const MobileBookings = () => {
   const [resetResize, setResetResize] = useState(false);
   const [openBookingModal, setOpenBookingModal] = useState(false);
   const [hiddenColumns, setHiddenColumns] = useState([]);
-  const [filterVal, setFilterVal] = useState(bookingsFilterParams);
+
+  const [checkboxColumn, setCheckboxColumn] = useState({
+    isOpen: false,
+    selectedRows: [],
+    data: [],
+  });
 
   //! User Credentials State ▼▼▼▼▼▼
   const { user } = useSelector((state) => state.settings);
@@ -77,7 +63,6 @@ const MobileBookings = () => {
   //#region //! Custom Hooks ▼▼▼▼▼▼
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
   const { getBookingTypes, getMobileBookingsData } = useAtinaCalls();
-  const { filterBookings, resetFilter } = useFilters();
   const { handleSortParams, makeUrlParams, handlePaginationParams } =
     usePagination("bookings");
 
@@ -108,18 +93,7 @@ const MobileBookings = () => {
   const getTableBodyPropsMemo = useCallback(() => getTableBodyProps(), []);
 
   //#region ===Table Filter START===
-  const handleFilter = useCallback(
-    (e) => {
-      e.preventDefault();
-      filterBookings(filterVal, setFilterVal);
-    },
-    [filterVal]
-  );
 
-  const handleReset = useCallback(() => {
-    setFilterVal(bookingsFilterParams);
-    resetFilter("bookings");
-  }, []);
   //#endregion
 
   useEffect(() => {
@@ -160,17 +134,15 @@ const MobileBookings = () => {
             contextMenu={contextMenu}
             setContextMenu={setContextMenu}
             setOpenModal={setOpenBookingModal}
+            setOpenColumn={setCheckboxColumn}
+            openColumn={checkboxColumn}
             tableColumns={tableColumns}
             state={state}
+            table="bookings"
           />
         )}
         <TableContainer component={Paper} sx={tableStyles.tableContainer}>
-          <BookingsFilter
-            handleReset={handleReset}
-            handleFilter={handleFilter}
-            filterVal={filterVal}
-            setFilterVal={setFilterVal}
-          />
+          <BookingsFilter />
 
           <Box sx={{ ...tableStyles.helpersWrapper, justifyContent: "end" }}>
             {/* {loading && <Loading_Icon />} */}
@@ -218,6 +190,8 @@ const MobileBookings = () => {
               setResetResize={setResetResize}
               handleRightClick={handleRightClick}
               handleSortParams={handleSortParams}
+              checkboxColumn={checkboxColumn}
+              setCheckboxColumn={setCheckboxColumn}
               table={"bookings"}
             />
             <CustomTableBody
@@ -227,6 +201,8 @@ const MobileBookings = () => {
               page={page}
               TableRow={BookingsTableRow}
               handleRightClick={handleRightClick}
+              checkboxColumn={checkboxColumn}
+              setCheckboxColumn={setCheckboxColumn}
             />
           </Table>
         </TableContainer>

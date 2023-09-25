@@ -91,7 +91,6 @@ export const searchNfcTag = async (params, setError) => {
     nfcArray = data;
   } catch (error) {
     console.log(error);
-    setError(error);
   }
 
   return nfcArray;

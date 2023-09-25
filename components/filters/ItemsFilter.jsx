@@ -1,31 +1,35 @@
-import {
-  Button,
-  Grid,
-  IconButton,
-  Paper,
-  TextField,
-  Typography,
-  Collapse,
-} from "@mui/material";
+import { Button, Grid, Paper, TextField, Collapse } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { memo, useState } from "react";
 import { filterStyles } from "@/styles/filter_styles";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FilterHead from "./filter_components/FilterHead";
+import useFilters from "@/hooks/useFilters";
 const ItemsFilter = ({
-  filterVal,
-  setFilterVal,
-  handleFilter,
-  handleReset,
+  // filterVal,
+  // setFilterVal,
+  // handleFilter,
+  // handleReset,
   type,
   setType,
 }) => {
   const [open, setOpen] = useState(false);
+  const [filterVal, setFilterVal] = useState({ itemType: "Order" });
+  const { filterItems, resetFilter } = useFilters();
+  const handleFilter = (e) => {
+    e.preventDefault();
+    setType(filterVal.itemType);
+    filterItems(filterVal);
+  };
+
+  const handleReset = () => {
+    setFilterVal({ itemType: "Order" });
+    resetFilter("items");
+    setType("Order");
+  };
 
   const handleChange = (e) => {
     // if (e.target.name === "itemType") {

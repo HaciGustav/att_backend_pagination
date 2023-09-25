@@ -15,13 +15,9 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useSelector } from "react-redux";
 import useFilters from "@/hooks/useFilters";
 
-const UsersFilter = ({
-  filterVal,
-  setFilterVal,
-  // handleFilter,
-  // handleReset,
-}) => {
+const UsersFilter = () => {
   const [open, setOpen] = useState(false);
+  const [filterVal, setFilterVal] = useState({});
   const { client, settlement } = useSelector((state) => state.atina);
   const { filterUsers, resetFilter } = useFilters();
 
@@ -40,7 +36,6 @@ const UsersFilter = ({
       [e.target.name]: e.target.value,
     });
   };
-  // const xxl = useMediaQuery("(min-width:1500px)");
 
   return (
     <Box component={Paper} style={filterStyles.container}>

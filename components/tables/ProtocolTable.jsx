@@ -2,14 +2,13 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import ContextMenu from "../ContextMenu";
+import ContextMenu from "../menus/ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 import Tooltip from "@mui/material/Tooltip";
 import { tableStyles } from "@/styles/table_styles";
 import UndoIcon from "@mui/icons-material/Undo";
 import IconButton from "@mui/material/IconButton";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import { useSelector } from "react-redux";
 import useColumns from "@/hooks/useColumns";
@@ -17,10 +16,9 @@ import ErrorModal from "../modals/ErrorModal";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
-import SSR_Pagination from "../SSR_Pagination";
+import SSR_Pagination from "../Pagination";
 import usePagination from "@/hooks/usePagination";
 import Loading_Icon from "../Loading_Icon";
-import useFilters from "@/hooks/useFilters";
 import ProtocolTableRow from "../table_rows/ProtocolTableRow";
 import ProtocolFilter from "../filters/ProtocolFilter";
 import { Box } from "@mui/material";
@@ -34,32 +32,12 @@ const initalContextMenu = {
   point: "",
 };
 
-const protocolFilterParams = {
-  protocolType: null,
-  module: null,
-  userId: null,
-  userName: null,
-  itemId: null,
-  itemNumber: null,
-  dateFrom: null,
-  timeFrom: null,
-  dateTo: null,
-  timeTo: null,
-  description: null,
-  street: null,
-  streetnumber: null,
-  zip: null,
-  city: null,
-  country: null,
-};
-
 const ProtocolTable = () => {
   const { PROTOCOL_TABLE_COLUMNS } = useColumns();
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const [allData, setAllData] = useState([]);
   const [resetResize, setResetResize] = useState(false);
   const [hiddenColumns, setHiddenColumns] = useState([]);
-  const [filterVal, setFilterVal] = useState(protocolFilterParams);
 
   //! User Credentials State ▼▼▼▼▼▼
   const { user } = useSelector((state) => state.settings);
@@ -75,7 +53,7 @@ const ProtocolTable = () => {
   //#region //! Custom Hooks ▼▼▼▼▼▼
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
   const { getProtocolData } = useAtinaCalls();
-  const { filterProtocol, resetFilter } = useFilters();
+
   const { handleSortParams, makeUrlParams, handlePaginationParams } =
     usePagination("protocol");
 
@@ -103,18 +81,7 @@ const ProtocolTable = () => {
   const getTableBodyPropsMemo = useCallback(() => getTableBodyProps(), []);
 
   //#region ===Table Filter START===
-  const handleFilter = useCallback(
-    (e) => {
-      e.preventDefault();
-      filterProtocol(filterVal);
-    },
-    [filterVal]
-  );
 
-  const handleReset = useCallback(() => {
-    setFilterVal(protocolFilterParams);
-    resetFilter("protocol");
-  }, []);
   //#endregion
 
   useEffect(() => {
@@ -154,12 +121,7 @@ const ProtocolTable = () => {
           />
         )}
         <TableContainer component={Paper} sx={tableStyles.tableContainer}>
-          <ProtocolFilter
-            handleReset={handleReset}
-            handleFilter={handleFilter}
-            filterVal={filterVal}
-            setFilterVal={setFilterVal}
-          />
+          <ProtocolFilter />
 
           <Box sx={{ ...tableStyles.helpersWrapper, justifyContent: "end" }}>
             {loading && <Loading_Icon />}

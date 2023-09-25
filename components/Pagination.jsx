@@ -5,34 +5,42 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
+import { useSelector } from "react-redux";
+import usePagination from "@/hooks/usePagination";
 
-const Pagination = ({
-  data,
-  previousPage,
-  nextPage,
-  canPreviousPage,
-  canNextPage,
-  pageOptions,
-  state,
-  setPageSize,
-  gotoPage,
-}) => {
+const Pagination = ({ paginationParams, table, totalPages }) => {
+  const [page, setPage] = useState({
+    pageSize: 50,
+    currentPage: 1,
+  });
+
+  const { handlePageSize, handlePreviousPage, handleNextPage, gotoPage } =
+    usePagination(table);
+
   const handleChange = (event) => {
-    setPageSize(Number(event.target.value));
+    handlePageSize(Number(event.target.value));
+    gotoPage(1);
   };
-  const { pageIndex, pageSize } = state;
+  const { pageSize, currentPage } = paginationParams;
 
+  useEffect(() => {
+    setPage({
+      pageSize,
+      currentPage,
+    });
+  }, [paginationParams]);
   return (
     <div
       style={{
         display: "flex",
         alignItems: "center",
         columnGap: "15px",
+        marginLeft: "5px",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", columnGap: "15px" }}>
@@ -45,7 +53,7 @@ const Pagination = ({
             size="small"
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={pageSize}
+            value={page.pageSize || 25}
             onChange={handleChange}
           >
             <MenuItem defaultChecked value={25}>
@@ -62,21 +70,30 @@ const Pagination = ({
         </FormControl>
       </div>
       <span style={{ fontSize: "0.8rem" }}>
-        {pageIndex + 1} von {pageOptions.length}
+        {page.currentPage} von {totalPages}
       </span>
       <div>
-        <IconButton onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+        <IconButton
+          onClick={() => gotoPage(1)}
+          disabled={page.currentPage === 1}
+        >
           <FirstPageIcon />
         </IconButton>
-        <IconButton onClick={() => previousPage()} disabled={!canPreviousPage}>
+        <IconButton
+          onClick={() => handlePreviousPage()}
+          disabled={page.currentPage === 1}
+        >
           <ChevronLeftIcon />
         </IconButton>
-        <IconButton onClick={() => nextPage()} disabled={!canNextPage}>
+        <IconButton
+          onClick={() => handleNextPage()}
+          disabled={page.currentPage >= totalPages}
+        >
           <ChevronRightIcon />
         </IconButton>
         <IconButton
-          onClick={() => gotoPage(pageOptions.length - 1)}
-          disabled={!canNextPage}
+          onClick={() => gotoPage(totalPages)}
+          disabled={page.currentPage >= totalPages}
         >
           <LastPageIcon />
         </IconButton>

@@ -21,8 +21,6 @@ const CustomTableHead = ({
   setCheckboxColumn,
   table,
 }) => {
-  // const [contextMenu, setContextMenu] = useState(initalContextMenu);
-  // const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
   //! ▼▼▼▼▼ Deactivated but it can be needed in the future ▼▼▼▼▼
   // const [showEmptyCells, setShowEmptyCells] = useState(false);
   // const router = useRouter();
@@ -83,7 +81,7 @@ const CustomTableHead = ({
                     setCheckboxColumn({
                       isOpen: false,
                       selectedRows: [],
-                      users: [],
+                      data: [],
                     });
                   }}
                 >
@@ -101,7 +99,6 @@ const CustomTableHead = ({
               onClick={(e) => handleSortParams(column, e)}
             >
               <div
-                // {...column.getSortByToggleProps()}
                 style={{
                   width: "100%",
                   display: "flex",
@@ -127,7 +124,7 @@ const CustomTableHead = ({
                 )} */}
               </div>
               <div
-                style={{ border: "2px solid green" }}
+                // style={{ border: "2px solid green" }}
                 {...column.getResizerProps()}
                 onClick={(e) => {
                   setResetResize(!resetResize);

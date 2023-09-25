@@ -2,11 +2,11 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
-import Pagination from "../Pagination";
+import Pagination from "../XPagination";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Box from "@mui/system/Box";
 import IconButton from "@mui/material/IconButton";
-import ContextMenu from "../ContextMenu";
+import ContextMenu from "../menus/ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 import { tableStyles } from "@/styles/table_styles";
@@ -24,7 +24,7 @@ import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
 import useFilters from "@/hooks/useFilters";
 import usePagination from "@/hooks/usePagination";
-import SSR_Pagination from "../SSR_Pagination";
+import SSR_Pagination from "../Pagination";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import Loading_Icon from "../Loading_Icon";
 import { Fade } from "@mui/material";
@@ -63,7 +63,7 @@ const ItemsTable = ({}) => {
 
   //#region //! Custom Hooks ▼▼▼▼▼▼
   const { getAtinaItemsData } = useAtinaCalls();
-  const { filterItems, resetFilter } = useFilters();
+
   const { handleSortParams, makeUrlParams, handlePaginationParams } =
     usePagination("items");
 
@@ -101,9 +101,9 @@ const ItemsTable = ({}) => {
 
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
   //#region ===Table Filter START===
-  const [filterVal, setFilterVal] = useState({ itemType: "Order" });
+  // const [filterVal, setFilterVal] = useState({ itemType: "Order" });
 
-  const handleFilter = (e) => {
+  /*  const handleFilter = (e) => {
     e.preventDefault();
     setType(filterVal.itemType);
     filterItems(filterVal);
@@ -113,7 +113,7 @@ const ItemsTable = ({}) => {
     setFilterVal({ itemType: "Order" });
     resetFilter("items");
     setType("Order");
-  };
+  }; */
 
   useEffect(() => {
     const params = makeUrlParams();
@@ -160,10 +160,10 @@ const ItemsTable = ({}) => {
         sx={tableStyles.tableContainer}
       >
         <ItemsFilter
-          handleReset={handleReset}
-          handleFilter={handleFilter}
-          filterVal={filterVal}
-          setFilterVal={setFilterVal}
+          // handleReset={handleReset}
+          // handleFilter={handleFilter}
+          // filterVal={filterVal}
+          // setFilterVal={setFilterVal}
           type={type}
           setType={setType}
         />

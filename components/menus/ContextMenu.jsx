@@ -7,9 +7,9 @@ import {
   Paper,
   Typography,
 } from "@mui/material";
-import useOnClickOutside from "../hooks/useOnClickOutside";
+import useOnClickOutside from "../../hooks/useOnClickOutside";
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import useContextMenu from "../hooks/useContextMenu";
+import useContextMenu from "../../hooks/useContextMenu";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 const ColumnMenu = ({ allColumns, styles, state }) => {
@@ -55,6 +55,7 @@ const ContextMenu = ({
   openColumn,
   state,
   setOpenMultiEditModal,
+  table,
 }) => {
   const [open, setOpen] = useState({
     columns: false,
@@ -258,7 +259,7 @@ const ContextMenu = ({
                     setOpenColumn({
                       selectedRows: [],
                       isOpen: false,
-                      users: [],
+                      data: [],
                     });
                   } else {
                     setOpenColumn((prev) => ({ ...prev, isOpen: true }));
@@ -269,13 +270,37 @@ const ContextMenu = ({
                 Mehrfache Auswahl
               </MenuItem>
 
-              {openColumn.selectedRows.length > 0 && (
-                <MenuItem
-                  onClick={() => setOpenMultiEditModal(true)}
-                  sx={{ width: "100%", fontSize: "0.9rem", fontWeight: "600" }}
-                >
-                  Auswahl Bearbeiten
-                </MenuItem>
+              {table === "users" && (
+                <>
+                  {openColumn.selectedRows.length > 0 && (
+                    <MenuItem
+                      onClick={() => setOpenMultiEditModal(true)}
+                      sx={{
+                        width: "100%",
+                        fontSize: "0.9rem",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Auswahl Bearbeiten
+                    </MenuItem>
+                  )}
+                </>
+              )}
+              {table === "bookings" && (
+                <>
+                  {openColumn.selectedRows.length > 0 && (
+                    <MenuItem
+                      // onClick={() => setOpenMultiEditModal(true)}
+                      sx={{
+                        width: "100%",
+                        fontSize: "0.9rem",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Importieren
+                    </MenuItem>
+                  )}
+                </>
               )}
             </>
           )}

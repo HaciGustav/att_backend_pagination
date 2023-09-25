@@ -5,42 +5,34 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LastPageIcon from "@mui/icons-material/LastPage";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import FirstPageIcon from "@mui/icons-material/FirstPage";
-import { useSelector } from "react-redux";
-import usePagination from "@/hooks/usePagination";
 
-const SSR_Pagination = ({ paginationParams, table, totalPages }) => {
-  const [page, setPage] = useState({
-    pageSize: 50,
-    currentPage: 1,
-  });
-
-  const { handlePageSize, handlePreviousPage, handleNextPage, gotoPage } =
-    usePagination(table);
-
+const Pagination = ({
+  data,
+  previousPage,
+  nextPage,
+  canPreviousPage,
+  canNextPage,
+  pageOptions,
+  state,
+  setPageSize,
+  gotoPage,
+}) => {
   const handleChange = (event) => {
-    handlePageSize(Number(event.target.value));
-    gotoPage(1);
+    setPageSize(Number(event.target.value));
   };
-  const { pageSize, currentPage } = paginationParams;
+  const { pageIndex, pageSize } = state;
 
-  useEffect(() => {
-    setPage({
-      pageSize,
-      currentPage,
-    });
-  }, [paginationParams]);
   return (
     <div
       style={{
         display: "flex",
         alignItems: "center",
         columnGap: "15px",
-        marginLeft: "5px",
       }}
     >
       <div style={{ display: "flex", alignItems: "center", columnGap: "15px" }}>
@@ -53,7 +45,7 @@ const SSR_Pagination = ({ paginationParams, table, totalPages }) => {
             size="small"
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={page.pageSize || 25}
+            value={pageSize}
             onChange={handleChange}
           >
             <MenuItem defaultChecked value={25}>
@@ -70,30 +62,21 @@ const SSR_Pagination = ({ paginationParams, table, totalPages }) => {
         </FormControl>
       </div>
       <span style={{ fontSize: "0.8rem" }}>
-        {page.currentPage} von {totalPages}
+        {pageIndex + 1} von {pageOptions.length}
       </span>
       <div>
-        <IconButton
-          onClick={() => gotoPage(1)}
-          disabled={page.currentPage === 1}
-        >
+        <IconButton onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
           <FirstPageIcon />
         </IconButton>
-        <IconButton
-          onClick={() => handlePreviousPage()}
-          disabled={page.currentPage === 1}
-        >
+        <IconButton onClick={() => previousPage()} disabled={!canPreviousPage}>
           <ChevronLeftIcon />
         </IconButton>
-        <IconButton
-          onClick={() => handleNextPage()}
-          disabled={page.currentPage >= totalPages}
-        >
+        <IconButton onClick={() => nextPage()} disabled={!canNextPage}>
           <ChevronRightIcon />
         </IconButton>
         <IconButton
-          onClick={() => gotoPage(totalPages)}
-          disabled={page.currentPage >= totalPages}
+          onClick={() => gotoPage(pageOptions.length - 1)}
+          disabled={!canNextPage}
         >
           <LastPageIcon />
         </IconButton>
@@ -102,4 +85,4 @@ const SSR_Pagination = ({ paginationParams, table, totalPages }) => {
   );
 };
 
-export default SSR_Pagination;
+export default Pagination;
