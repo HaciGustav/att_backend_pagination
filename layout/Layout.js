@@ -157,6 +157,11 @@ export default function Layout({ children, toggleTheme }) {
       icon: <FeedIcon />,
       nav: "protocol",
     },
+    // {
+    //   text: "Admin",
+    //   icon: "👨",
+    //   nav: "admin",
+    // },
 
     /* {
       text: "Einstellungen",

@@ -88,7 +88,12 @@ const BookingsFilter = ({}) => {
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
                 <InputLabel id="importState">Import Status</InputLabel>
                 <Select
-                  sx={{ width: "100%" }}
+                  sx={{
+                    width: "100%",
+                    // border: "1px solid red",
+                    maxHeight: "2rem",
+                  }}
+                  size="small"
                   labelId="importState"
                   id="demo-select-small"
                   value={filterVal?.importState || ""}
@@ -111,6 +116,7 @@ const BookingsFilter = ({}) => {
                         alignItems: "center",
                         columnGap: "5px",
                         width: "100%",
+                        // border: "1px solid red",
                       }}
                     >
                       <LoopIcon /> <span>In Bearbeitung</span>

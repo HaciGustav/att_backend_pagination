@@ -11,7 +11,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ToastContainer } from "react-toastify";
 
 export default function App({ Component, pageProps }) {
-  const [loading, setLoading] = useState(true);
   const [mode, setMode] = useState("light");
   const router = useRouter();
 
