@@ -3,16 +3,14 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Box from "@mui/system/Box";
-// import UsersTableRow from "../table_rows/UsersTableRow";
 import UsersFilter from "../filters/UsersFilter";
-// import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import { tableStyles } from "@/styles/table_styles";
 import useColumns from "@/hooks/useColumns";
-// import UserModal from "../modals/UserModal";
+
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import { useSelector } from "react-redux";
-// import ErrorModal from "../modals/ErrorModal";
+
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
