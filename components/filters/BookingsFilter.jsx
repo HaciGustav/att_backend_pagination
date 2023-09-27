@@ -86,6 +86,68 @@ const BookingsFilter = ({}) => {
           <Box sx={{ display: "flex", columnGap: "5px", width: "100%" }}>
             <div style={{ width: "18vw" }}>
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+                <InputLabel id="bookingType">Buchungstyp</InputLabel>
+                <Select
+                  sx={{ width: "100%" }}
+                  labelId="bookingType"
+                  id="demo-select-small"
+                  value={filterVal?.bookingType || ""}
+                  label="Buchungstyp"
+                  onChange={(e) =>
+                    setFilterVal({ ...filterVal, bookingType: e.target.value })
+                  }
+                >
+                  <MenuItem value={""}>
+                    <Typography component="em" sx={{ fontSize: "0.7rem" }}>
+                      None
+                    </Typography>
+                  </MenuItem>
+                  {Object.entries(bookingTypes)?.map((item, i) => {
+                    return (
+                      <MenuItem key={i} value={item[0]}>
+                        <Typography sx={{ fontSize: "0.7rem" }}>
+                          {item[1]?.Caption}
+                        </Typography>
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </div>
+            <div style={{ width: "18vw" }}>
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+                <InputLabel id="itemType">Itemtyp</InputLabel>
+                <Select
+                  // sx={{ width: "100%" }}
+                  labelId="itemType"
+                  id="demo-select-small"
+                  value={filterVal?.itemType || ""}
+                  label="Itemtyp"
+                  onChange={(e) =>
+                    setFilterVal({ ...filterVal, itemType: e.target.value })
+                  }
+                >
+                  <MenuItem value={""}>
+                    <Typography component="em" sx={{ fontSize: "0.7rem" }}>
+                      None{" "}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value={"Order"}>
+                    <Typography sx={{ fontSize: "0.7rem" }}>
+                      Auftrag{" "}
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem value={"Meter"}>
+                    <Typography sx={{ fontSize: "0.7rem" }}>Zähler </Typography>
+                  </MenuItem>
+                  <MenuItem value={"Vehicle"}>
+                    <Typography sx={{ fontSize: "0.7rem" }}>KFZ </Typography>
+                  </MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div style={{ width: "18vw" }}>
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
                 <InputLabel id="importState">Import Status</InputLabel>
                 <Select
                   sx={{
@@ -149,69 +211,6 @@ const BookingsFilter = ({}) => {
                       <CheckIcon />
                       <span>Gesendet</span>
                     </Typography>
-                  </MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-
-            <div style={{ width: "18vw" }}>
-              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
-                <InputLabel id="bookingType">Buchungstyp</InputLabel>
-                <Select
-                  sx={{ width: "100%" }}
-                  labelId="bookingType"
-                  id="demo-select-small"
-                  value={filterVal?.bookingType || ""}
-                  label="Buchungstyp"
-                  onChange={(e) =>
-                    setFilterVal({ ...filterVal, bookingType: e.target.value })
-                  }
-                >
-                  <MenuItem value={""}>
-                    <Typography component="em" sx={{ fontSize: "0.7rem" }}>
-                      None
-                    </Typography>
-                  </MenuItem>
-                  {Object.entries(bookingTypes)?.map((item, i) => {
-                    return (
-                      <MenuItem key={i} value={item[0]}>
-                        <Typography sx={{ fontSize: "0.7rem" }}>
-                          {item[1]?.Caption}
-                        </Typography>
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
-            </div>
-            <div style={{ width: "18vw" }}>
-              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
-                <InputLabel id="itemType">Itemtyp</InputLabel>
-                <Select
-                  // sx={{ width: "100%" }}
-                  labelId="itemType"
-                  id="demo-select-small"
-                  value={filterVal?.itemType || ""}
-                  label="Itemtyp"
-                  onChange={(e) =>
-                    setFilterVal({ ...filterVal, itemType: e.target.value })
-                  }
-                >
-                  <MenuItem value={""}>
-                    <Typography component="em" sx={{ fontSize: "0.7rem" }}>
-                      None{" "}
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem value={"Order"}>
-                    <Typography sx={{ fontSize: "0.7rem" }}>
-                      Auftrag{" "}
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem value={"Meter"}>
-                    <Typography sx={{ fontSize: "0.7rem" }}>Zähler </Typography>
-                  </MenuItem>
-                  <MenuItem value={"Vehicle"}>
-                    <Typography sx={{ fontSize: "0.7rem" }}>KFZ </Typography>
                   </MenuItem>
                 </Select>
               </FormControl>
