@@ -84,7 +84,7 @@ const BookingsFilter = ({}) => {
         >
           {/* FIRST ROW */}
           <Box sx={{ display: "flex", columnGap: "5px", width: "100%" }}>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
                 <InputLabel id="importState">Import Status</InputLabel>
                 <Select
@@ -153,29 +153,8 @@ const BookingsFilter = ({}) => {
                 </Select>
               </FormControl>
             </div>
-            <div style={{ width: "20%" }}>
-              <TextField
-                sx={filterStyles.textField}
-                onChange={handleChange}
-                value={filterVal.username || ""}
-                variant="outlined"
-                size="small"
-                label="Benutzername"
-                name="username"
-              />
-            </div>
-            <div style={{ width: "20%" }}>
-              <TextField
-                sx={filterStyles.textField}
-                onChange={handleChange}
-                value={filterVal?.itemNumber || ""}
-                variant="outlined"
-                size="small"
-                label="Datensatznummer"
-                name="itemNumber"
-              />
-            </div>
-            <div style={{ width: "20%" }}>
+
+            <div style={{ width: "18vw" }}>
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
                 <InputLabel id="bookingType">Buchungstyp</InputLabel>
                 <Select
@@ -205,7 +184,7 @@ const BookingsFilter = ({}) => {
                 </Select>
               </FormControl>
             </div>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
                 <InputLabel id="itemType">Itemtyp</InputLabel>
                 <Select
@@ -240,7 +219,7 @@ const BookingsFilter = ({}) => {
           </Box>
           {/* SECOND ROW */}
           <Box sx={{ display: "flex", columnGap: "5px", width: "100%" }}>
-            <div style={{ width: "calc(12% - 8px)" }}>
+            <div style={{ width: "10vw" }}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
                   sx={{ width: "100%" }}
@@ -258,7 +237,7 @@ const BookingsFilter = ({}) => {
                 />
               </LocalizationProvider>
             </div>
-            <div style={{ width: "8%" }}>
+            <div style={{ width: "8vw" }}>
               <TimeInput
                 name="timeFrom"
                 label="Uhrzeit (von)"
@@ -267,7 +246,7 @@ const BookingsFilter = ({}) => {
                 value={filterVal?.timeFrom}
               />
             </div>
-            <div style={{ width: "calc(12% - 8px)" }}>
+            <div style={{ width: "10vw" }}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
                   sx={{ width: "100%" }}
@@ -285,7 +264,7 @@ const BookingsFilter = ({}) => {
                 />
               </LocalizationProvider>
             </div>
-            <div style={{ width: "8%" }}>
+            <div style={{ width: "8vw" }}>
               <TimeInput
                 name="timeTo"
                 label="Uhrzeit (bis)"
@@ -294,7 +273,34 @@ const BookingsFilter = ({}) => {
                 value={filterVal?.timeTo}
               />
             </div>
-            <div style={{ width: "40%" }}>
+            <div style={{ width: "18vw" }}>
+              <TextField
+                sx={filterStyles.textField}
+                onChange={handleChange}
+                value={filterVal.username || ""}
+                variant="outlined"
+                size="small"
+                label="Benutzername"
+                name="username"
+              />
+            </div>
+            <div style={{ width: "18vw" }}>
+              <TextField
+                sx={filterStyles.textField}
+                onChange={handleChange}
+                value={filterVal?.itemNumber || ""}
+                variant="outlined"
+                size="small"
+                label="Datensatznummer"
+                name="itemNumber"
+              />
+            </div>
+
+            <div style={{ width: "18vw" }} />
+          </Box>
+          {/* THIRD ROW */}
+          <Box sx={{ display: "flex", columnGap: "5px", width: "100%" }}>
+            <div style={{ width: "calc(36vw + 15px)" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -305,11 +311,7 @@ const BookingsFilter = ({}) => {
                 name="street"
               />
             </div>
-            <div style={{ width: "20%" }} />
-          </Box>
-          {/* THIRD ROW */}
-          <Box sx={{ display: "flex", columnGap: "5px", width: "100%" }}>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "10vw" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -320,7 +322,7 @@ const BookingsFilter = ({}) => {
                 name="streetnumber"
               />
             </div>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "calc(8vw - 5px)" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -331,7 +333,7 @@ const BookingsFilter = ({}) => {
                 name="zip"
               />
             </div>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -342,7 +344,7 @@ const BookingsFilter = ({}) => {
                 name="city"
               />
             </div>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -353,11 +355,11 @@ const BookingsFilter = ({}) => {
                 name="country"
               />
             </div>
-            <div style={{ width: "20%" }} />
+            {/* <div style={{ width: "20%" }} /> */}
           </Box>
           {/* FOURTH ROW */}
           <Box sx={{ display: "flex", columnGap: "5px", width: "100%" }}>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -368,7 +370,7 @@ const BookingsFilter = ({}) => {
                 name="data1"
               />
             </div>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -379,7 +381,7 @@ const BookingsFilter = ({}) => {
                 name="data2"
               />
             </div>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -390,7 +392,7 @@ const BookingsFilter = ({}) => {
                 name="data3"
               />
             </div>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
@@ -401,7 +403,7 @@ const BookingsFilter = ({}) => {
                 name="data4"
               />
             </div>
-            <div style={{ width: "20%" }}>
+            <div style={{ width: "18vw" }}>
               <TextField
                 sx={filterStyles.textField}
                 onChange={handleChange}
