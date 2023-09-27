@@ -59,7 +59,7 @@ const Admin = () => {
           alignItems: "end",
           rowGap: "8px",
           padding: "1rem",
-          backgroundColor: "yellow",
+          // backgroundColor: "yellow",
           position: "relative",
         }}
       >
@@ -70,7 +70,7 @@ const Admin = () => {
           label="Multiline"
           multiline
           rows={10}
-          inputProps={{ spellCheck: "false", style: { color: "#ffffff00" } }}
+          inputProps={{ spellCheck: "false" }}
         ></TextField>
         <Button variant="contained" onClick={() => handleSubmit()}>
           Submit
