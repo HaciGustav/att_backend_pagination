@@ -27,7 +27,7 @@ import { useRouter } from "next/router";
 
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/slices/settingsSlice";
-
+import SchemaSharpIcon from "@mui/icons-material/SchemaSharp";
 import FeedIcon from "@mui/icons-material/Feed";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -297,6 +297,42 @@ export default function Layout({ children, toggleTheme }) {
               </Tooltip>
             </ListItem>
           ))}
+
+          {user.lastname === "Administrator" && (
+            <ListItem
+              disablePadding
+              sx={{
+                display: "block",
+                backgroundColor: router.pathname === "/admin" && "#bbbb",
+              }}
+            >
+              <Tooltip title={"SQL"} placement="right" arrow>
+                <Link href={"admin"} style={dashboardStyles.link}>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <SchemaSharpIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={"SQL"}
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
+                  </ListItemButton>
+                </Link>
+              </Tooltip>
+            </ListItem>
+          )}
         </List>
 
         <Divider />

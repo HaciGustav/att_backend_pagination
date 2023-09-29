@@ -1,6 +1,6 @@
 import TextField from "@mui/material/TextField";
 import React, { useState } from "react";
-const TimeInput = ({ name, label, value, filterVal, setFilterVal }) => {
+const TimeInput = ({ name, label, value, filterVal, setFilterVal, width }) => {
   const [inputType, setInputType] = useState("text");
   const handleChange = (e) => {
     const { value } = e.target;
@@ -27,7 +27,7 @@ const TimeInput = ({ name, label, value, filterVal, setFilterVal }) => {
   return (
     <TextField
       onChange={handleChange}
-      sx={{ width: "100%" }}
+      sx={{ width: width || "100%" }}
       variant="outlined"
       //   type={inputType}
       size="small"
