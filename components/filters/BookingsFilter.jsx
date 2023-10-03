@@ -75,6 +75,7 @@ const BookingsFilter = ({}) => {
         pageTitle={"Mobile Buchungen"}
       />
       <Collapse
+        component={"form"}
         in={open}
         sx={{
           width: "100%",
