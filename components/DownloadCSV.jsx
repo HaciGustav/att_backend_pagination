@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import { IconButton, Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
@@ -8,46 +8,40 @@ import {
   bookingsTableCSV,
   itemsTableCSV,
   nfcTableCSV,
+  protocolTableCSV,
+  sqlTableCSV,
   userTableCSV,
 } from "@/helpers/DownloadCsvFunctions";
+import axios from "axios";
+import useAxios from "@/hooks/useAxios";
+import { useSelector } from "react-redux";
+import usePagination from "@/hooks/usePagination";
 
-const DownloadCSV = ({ rawData, fileName, type }) => {
+const DownloadCSV = ({ rawData, fileName, type, table }) => {
   const date = new Date().toJSON().slice(0, 10).replaceAll("-", "");
   const [url, setUrl] = useState("");
-
-  const editData = (arr) => {
-    let newArr = [...arr];
-    newArr.forEach((element, i) => {
-      let el = element.toLowerCase();
-      if (el === "id" || el === "externaluserid" || el === "isadministrator") {
-        newArr = newArr.splice(i, 1);
-        // console.log(el);
-      }
-    });
-  };
-
-  const convertJsonToCsv = () => {
+  const { axiosWithToken } = useAxios();
+  const { filterParams } = useSelector((state) => state?.tableUtils[table]);
+  const downloadRef = useRef(null);
+  const convertJsonToCsv = (fltrData) => {
     let headers;
     let main;
     let res;
-    // const h = Object.keys(rawData[0]).join(";").toUpperCase();
-    // // const h = Object.keys(rawData[0]);
-    // editData(h);
-    // const main = rawData.map((item) => Object.values(item).join(";"));
-
+    console.log(fltrData);
     switch (fileName) {
       case "benutzer":
-        res = userTableCSV(rawData);
+        res = userTableCSV(fltrData || rawData);
         headers = res.h;
         main = res.m;
+
         break;
       case "mobile_buchungen":
-        res = bookingsTableCSV(rawData);
+        res = bookingsTableCSV(fltrData || rawData);
         headers = res.h;
         main = res.m;
         break;
       case "nfc_tags":
-        res = nfcTableCSV(rawData);
+        res = nfcTableCSV(fltrData || rawData);
         headers = res.h;
         main = res.m;
         break;
@@ -57,16 +51,60 @@ const DownloadCSV = ({ rawData, fileName, type }) => {
         headers = res.h;
         main = res.m;
         break;
+      // case "protokolle":
+      //   res = protocolTableCSV(rawData, type);
+
+      //   headers = res.h;
+      //   main = res.m;
+      //   break;
+      case "SQL_Abfrage":
+        res = sqlTableCSV(rawData);
+
+        headers = res.h;
+        main = res.m;
+        break;
 
       default:
         return;
     }
     const csv = [headers, ...main].join("\n");
-    console.table(csv);
     const blob = new Blob([csv], { type: "application/csv" });
     const url = URL.createObjectURL(blob);
     setUrl(url);
+
+    // downloadRef.current?.click();
   };
+  const getFilteredData = async () => {
+    let url = "";
+    if (table === "users") {
+      url = "AtinaUsers?showPagination=false&pageNumber=1&pageSize=10000";
+    } else if (table === "bookings") {
+      url =
+        "api/AtinaMobileBookings?showPagination=false&pageNumber=1&pageSize=10000";
+    } else if (table === "items") {
+      url =
+        "api/AtinaItems/SearchByKeyValue?onlyWithTagId=false&showPagination=false&pageNumber=1&pageSize=10000";
+    } else if (table === "protocol") {
+      url =
+        "api/AtinaProtocol?showPagination=false&pageNumber=1&pageSize=10000";
+    }
+
+    try {
+      axiosWithToken(url + filterParams).then((res) =>
+        convertJsonToCsv(res?.data)
+      );
+      // convertJsonToCsv(response?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    if (url) {
+      downloadRef.current?.click();
+    }
+    setUrl("");
+  }, [url]);
+
   return (
     <>
       {rawData && (
@@ -74,25 +112,32 @@ const DownloadCSV = ({ rawData, fileName, type }) => {
           title="CSV Datei Herunterladen"
           arrow
           sx={{ display: "flex", alignItems: "center" }}
-          onClick={() => rawData && convertJsonToCsv()}
-          // onClick={() => userTableCSV(rawData)}
+          // onClick={() => rawData && convertJsonToCsv()}
         >
-          <a
-            href={url}
-            download={`${date + "_" + fileName}.csv`}
-            style={{
-              color: "#888",
-              textDecoration: "none",
-              display: "flex",
-              alignItems: "center",
+          <IconButton
+            onClick={(e) => {
+              if (filterParams) getFilteredData();
+              else rawData && convertJsonToCsv();
             }}
           >
-            <IconButton>
-              <DownloadForOfflineIcon fontSize="medium" />
-            </IconButton>
-          </a>
+            <DownloadForOfflineIcon fontSize="medium" />
+          </IconButton>
         </Tooltip>
       )}
+      <a
+        ref={downloadRef}
+        href={url}
+        download={`${date + "_" + fileName}.csv`}
+        style={{
+          color: "#888",
+          textDecoration: "none",
+          display: "flex",
+          alignItems: "center",
+
+          position: "absolute",
+          left: 20,
+        }}
+      ></a>
     </>
   );
 };

@@ -164,7 +164,11 @@ const MobileBookings = () => {
               </IconButton>
             </Tooltip>
 
-            <DownloadCSV rawData={allData} fileName={"mobile_buchungen"} />
+            <DownloadCSV
+              rawData={allData}
+              fileName={"mobile_buchungen"}
+              table="bookings"
+            />
             {user?.isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>
                 <IconButton onClick={() => setOpenBookingModal(true)}>

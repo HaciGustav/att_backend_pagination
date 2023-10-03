@@ -1,4 +1,3 @@
-import { highlighter } from "@/helpers/highlighter";
 import { highlight, languages } from "prismjs";
 import React, { useEffect, useRef, useState } from "react";
 import Editor from "react-simple-code-editor";
@@ -7,11 +6,9 @@ import "prismjs/components/prism-sql";
 import "prismjs/themes/prism.css";
 import { Box, Button } from "@mui/material";
 
-const SQLHighlightInput = ({ sqlQuery, setSqlQuery }) => {
+const SQLHighlightInput = ({ sqlQuery, handleChange }) => {
   const resizeRef = useRef(null);
   const contextMenuRef = useRef(null);
-  const isClicked = useRef(null);
-  // const isResizeClicked = useRef(null);
 
   useEffect(() => {
     if (!contextMenuRef) return;
@@ -94,9 +91,10 @@ const SQLHighlightInput = ({ sqlQuery, setSqlQuery }) => {
       >
         <Editor
           value={sqlQuery}
-          onValueChange={(e) => setSqlQuery(e)}
+          onValueChange={(e) => handleChange(e)}
           highlight={(code) => highlight(code, languages.js)}
           padding={10}
+          className={"sql-editor"}
           style={{
             fontFamily: '"Fira code", "Fira Mono", monospace',
             fontSize: 16,

@@ -22,12 +22,10 @@ import ErrorModal from "../modals/ErrorModal";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
-import useFilters from "@/hooks/useFilters";
 import usePagination from "@/hooks/usePagination";
 import SSR_Pagination from "../Pagination";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import Loading_Icon from "../Loading_Icon";
-import { Fade } from "@mui/material";
 
 const initalContextMenu = {
   show: false,
@@ -187,7 +185,12 @@ const ItemsTable = ({}) => {
               </IconButton>
             </Tooltip>
 
-            <DownloadCSV rawData={allData} fileName={"items"} type={type} />
+            <DownloadCSV
+              rawData={allData}
+              fileName={"items"}
+              type={type}
+              table="items"
+            />
 
             {user?.isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>

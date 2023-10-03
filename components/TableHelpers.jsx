@@ -13,9 +13,10 @@ const TableHelpers = ({
   setResetResize,
   setOpenModal,
   table,
+  fileName,
 }) => {
   const { atinaUsers, loading } = useSelector((state) => state.atina);
-  const { paginationParams } = useSelector((state) => state.tableUtils.users);
+  const { paginationParams } = useSelector((state) => state.tableUtils[table]);
   const { user } = useSelector((state) => state.settings);
   return (
     <Box
@@ -29,7 +30,7 @@ const TableHelpers = ({
       <Pagination
         paginationParams={paginationParams}
         totalPages={atinaUsers?.totalPages}
-        table={"users"}
+        table={table}
       />
       <Tooltip title="Spaltengröße rückgängig machen" arrow>
         <IconButton
@@ -41,7 +42,11 @@ const TableHelpers = ({
           <UndoIcon />
         </IconButton>
       </Tooltip>
-      <DownloadCSV rawData={atinaUsers} fileName={table} />
+      <DownloadCSV
+        rawData={atinaUsers?.entries}
+        fileName={fileName}
+        table={table}
+      />
 
       {user?.isAdmin && (
         <Tooltip title="Neuen Datensatz anlegen" arrow>

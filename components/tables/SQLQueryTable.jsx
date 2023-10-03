@@ -1,5 +1,5 @@
 import SqlEditorTableSkeleton from "@/components/skeleton/SqlEditorTableSkeleton";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,20 +8,37 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { tableStyles } from "@/styles/table_styles";
 import SQLQueryFilter from "../filters/SQLQueryFilter";
-import { Paper } from "@mui/material";
+import { IconButton, Paper, Tooltip } from "@mui/material";
 import axios from "axios";
-
+import DownloadCSV from "../DownloadCSV";
+import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
+import { sqlTableCSV } from "@/helpers/DownloadCsvFunctions";
 const SQLQueryTable = () => {
+  const date = new Date().toJSON().slice(0, 10).replaceAll("-", "");
+  const downloadRef = useRef(null);
+
+  const initialStatus = useMemo(
+    () => ({
+      isLoading: false,
+      err: { isError: false, message: "" },
+    }),
+    []
+  );
+
   const [data, setData] = useState([]);
   const [headers, setHeaders] = useState([]);
-  const [status, setStatus] = useState({
-    isLoading: false,
-    err: { isError: false, message: "" },
-  });
+  const [status, setStatus] = useState(initialStatus);
+  const [url, setUrl] = useState("");
 
-  const handleSubmit = async (e, sqlQuery) => {
+  const handleSubmit = async (e, sqlQuery, prohibitedCmds, setIsAnimating) => {
     e.preventDefault();
-    setStatus((prev) => ({ ...prev, isLoading: true }));
+
+    if (sqlQuery.match(prohibitedCmds)) {
+      setIsAnimating(true);
+      return;
+    }
+
+    setStatus({ ...initialStatus, isLoading: true });
     try {
       const res = await axios.post(
         `https://localhost:7294/api/Query`,
@@ -34,17 +51,27 @@ const SQLQueryTable = () => {
           },
         }
       );
+
       setData(res.data);
       setStatus((prev) => ({ ...prev, isLoading: false }));
-
-      console.log(res.data);
     } catch (error) {
       setStatus({
-        isLoading: false,
-        err: { isError: true, message: error?.message },
+        ...initialStatus,
+        err: {
+          isError: true,
+          message: error?.response?.data,
+        },
       });
       console.log(error);
     }
+  };
+
+  const exportCsv = () => {
+    const res = sqlTableCSV(data);
+    const csv = [res.h, ...res.m].join("\n");
+    const blob = new Blob([csv], { type: "application/csv" });
+    const url = URL.createObjectURL(blob);
+    setUrl(url);
   };
 
   useEffect(() => {
@@ -54,6 +81,13 @@ const SQLQueryTable = () => {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (url) {
+      downloadRef.current?.click();
+    }
+    setUrl("");
+  }, [url]);
+
   return (
     <TableContainer
       component={Paper}
@@ -62,8 +96,35 @@ const SQLQueryTable = () => {
         minHeight: status.isLoading && "90vh",
       }}
     >
-      <SQLQueryFilter handleSubmit={handleSubmit} dataCount={data?.length} />
+      <SQLQueryFilter handleSubmit={handleSubmit} status={status} />
+      <div style={{ width: "100%", display: "flex", justifyContent: "end" }}>
+        {" "}
+        <Tooltip
+          title="CSV Datei Herunterladen"
+          arrow
+          sx={{ display: "flex", alignItems: "center" }}
+          // onClick={() => rawData && convertJsonToCsv()}
+        >
+          <IconButton onClick={(e) => exportCsv()}>
+            <DownloadForOfflineIcon fontSize="medium" />
+          </IconButton>
+        </Tooltip>
+        {/* <DownloadCSV rawData={data} fileName={"SQL_Abfrage"} /> */}
+        <a
+          ref={downloadRef}
+          href={url}
+          download={`${"SqlQuery" + "_" + date}.csv`}
+          style={{
+            color: "#888",
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
 
+            position: "absolute",
+            left: 20,
+          }}
+        ></a>
+      </div>
       <Table sx={{ minWidth: 650, position: "relative" }}>
         <TableHead
           sx={{

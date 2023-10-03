@@ -1,32 +1,55 @@
 export const userTableCSV = (rawData) => {
   const headersAPI = [
+    "username",
+    "personnelnumber",
     "firstname",
     "lastname",
-    "username",
-    "passwordSalt",
-    "personnelnumber",
+    "client",
+    "settlement",
+    // "passwordSalt",
   ];
   const headersCSV = [
     "Benutzername",
-    "Kennwort",
     "Personalnummer",
     "Vorname",
     "Nachname",
+    "Mandant",
+    "Standort",
+    // "Kennwort",
   ];
   let arr = [];
 
   for (let i = 0; i < rawData.length; i++) {
     let row = {};
-    Object.keys(rawData[i]).forEach((item) => {
+    Object.keys(rawData[i].userInfo).forEach((item) => {
       if (headersAPI.includes(item)) {
-        row = { ...row, [item]: rawData[i][item] };
+        row = {
+          ...row,
+          [item]: rawData[i].userInfo[item] ? rawData[i].userInfo[item] : " ",
+        };
       }
     });
+
     arr.push(row);
   }
   return {
     m: arr.map((item) => Object.values(item).join(";")),
     h: headersCSV.join(";").toUpperCase(),
+  };
+};
+
+export const sqlTableCSV = (rawData) => {
+  const headers = Object.keys(rawData[0]);
+  let arr = [];
+  return {
+    m: rawData.map((item) => {
+      return Object.values(item)
+        .map((x) =>
+          typeof x === "object" ? JSON.stringify(x).replaceAll('"', "") : x
+        )
+        .join(";");
+    }),
+    h: headers.join(";").toUpperCase(),
   };
 };
 
@@ -191,10 +214,16 @@ export const itemsTableCSV = (rawData, type) => {
   const headersVehicleCSV = [
     "ItemTyp",
     "Datensatznummer",
+    "Straße",
+    "Hausnummer",
+    "PLZ",
+    "Stadt",
+    "Land",
     "Mandant",
     "Standort",
     "Kennzeichen",
     "Modell",
+    "Status",
   ];
   let arr = [];
 
@@ -226,5 +255,46 @@ export const itemsTableCSV = (rawData, type) => {
         : type === "Meter"
         ? headersMeterCSV.join(";").toUpperCase()
         : headersVehicleCSV.join(";").toUpperCase(),
+  };
+};
+
+export const protocolTableCSV = (rawData) => {
+  const headersAPI = [
+    "createdDate",
+    "createdTime",
+    "userId",
+    "protocoltype",
+    "module",
+    "item",
+    "description",
+  ];
+  const headersCSV = [
+    "Datum",
+    "Uhrzeit",
+    "Benutzer ID",
+    "Protokolltyp",
+    "Modul",
+    "Datensatz",
+    "Beschreibung",
+  ];
+
+  let arr = [];
+
+  for (let i = 0; i < rawData.length; i++) {
+    let row = {};
+    Object.keys(rawData[i]).forEach((item) => {
+      if (headersAPI.includes(item)) {
+        row = {
+          ...row,
+          [item]: rawData[i][item] ? rawData[i][item] : " ",
+        };
+      }
+    });
+
+    arr.push(row);
+  }
+  return {
+    m: arr.map((item) => Object.values(item).join(";")),
+    h: headersCSV.join(";").toUpperCase(),
   };
 };

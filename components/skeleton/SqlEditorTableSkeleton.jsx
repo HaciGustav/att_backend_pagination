@@ -7,6 +7,7 @@ const SqlEditorTableSkeleton = ({ loading }) => {
   const headers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
   return (
     <Collapse
+      component="span"
       sx={{
         width: "100%",
         position: "absolute",
@@ -23,6 +24,7 @@ const SqlEditorTableSkeleton = ({ loading }) => {
     >
       {rows.map((row) => (
         <Box
+          component="span"
           key={row}
           sx={{
             // borderRight: "0.5px solid #99999944",
@@ -34,9 +36,10 @@ const SqlEditorTableSkeleton = ({ loading }) => {
             borderBottom: "0.5px solid #99999944",
           }}
         >
-          <Box sx={{ display: "flex" }}>
+          <Box component="span" sx={{ display: "flex" }}>
             {headers.map((cell) => (
               <Box
+                component="span"
                 key={cell}
                 sx={{
                   borderRight: "0.5px solid #99999944",

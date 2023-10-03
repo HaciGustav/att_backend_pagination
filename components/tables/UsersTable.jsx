@@ -138,7 +138,8 @@ const UsersTable = () => {
             resetResizing={resetResizing}
             setResetResize={setResetResize}
             setOpenModal={setOpenUserModal}
-            table={"benutzer"}
+            table={"users"}
+            fileName="benutzer"
           />
         </Box>
 

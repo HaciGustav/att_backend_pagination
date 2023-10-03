@@ -143,7 +143,11 @@ const ProtocolTable = () => {
               </IconButton>
             </Tooltip>
 
-            <DownloadCSV rawData={allData} fileName={"mobile_buchungen"} />
+            <DownloadCSV
+              rawData={allData}
+              fileName={"protokolle"}
+              table="protocol"
+            />
           </Box>
           <Table
             {...getTableProps()}
