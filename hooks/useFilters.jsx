@@ -2,9 +2,9 @@ import {
   setCurrentPage,
   setFilterParams,
   setSearchTrigger,
+  setSortType,
 } from "@/redux/slices/tableUtilsSlice";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import React from "react";
 import { useDispatch } from "react-redux";
 
 const useFilters = () => {
@@ -317,6 +317,7 @@ const useFilters = () => {
   };
   const resetFilter = (table) => {
     dispatch(setFilterParams({ params: "", table }));
+    dispatch(setSortType({ field: {}, table }));
   };
 
   return {

@@ -1,13 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
-import useAtinaCalls from "./useAtinaCalls";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setCurrentPage,
   setPageSize,
   setSortType,
-  setTotalPages,
 } from "@/redux/slices/tableUtilsSlice";
-import AtinaItems from "@/pages/items";
 
 const usePagination = (table) => {
   const dispatch = useDispatch();
