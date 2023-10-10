@@ -130,7 +130,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     ...modalStyles.userModal.imgStyle,
                     backgroundImage: selectedImage
                       ? `url(${selectedImage})`
-                      : `url(${"/assets/placeholder.jpg"})`,
+                      : `url(${userInfo?.avatarUrl})`,
                   }}
                 >
                   <PhotoCameraIcon

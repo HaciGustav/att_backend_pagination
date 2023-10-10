@@ -2,7 +2,6 @@ import Table from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
-import Pagination from "../XPagination";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Box from "@mui/system/Box";
 import IconButton from "@mui/material/IconButton";
@@ -23,9 +22,10 @@ import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
 import usePagination from "@/hooks/usePagination";
-import SSR_Pagination from "../Pagination";
+import Pagination from "../Pagination";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import Loading_Icon from "../Loading_Icon";
+import TotalEntries from "../table_helpers/TotalEntries";
 
 const initalContextMenu = {
   show: false,
@@ -165,10 +165,16 @@ const ItemsTable = ({}) => {
           type={type}
           setType={setType}
         />
-        <Box sx={{ ...tableStyles.helpersWrapper, justifyContent: "end" }}>
+        <Box
+          sx={{
+            ...tableStyles.helpersWrapper,
+            justifyContent: "space-between",
+          }}
+        >
+          <TotalEntries totalEntries={atinaItems?.totalEntries} />
           <div style={{ display: "flex" }}>
             {loading && <Loading_Icon />}
-            <SSR_Pagination
+            <Pagination
               paginationParams={paginationParams}
               totalPages={atinaItems?.totalPages}
               table={"items"}
@@ -206,12 +212,11 @@ const ItemsTable = ({}) => {
             )}
           </div>
         </Box>
-        {/* <Fade in={!loading} timeout={450}> */}
+
         <Table
           className="table"
           {...getTableProps()}
           sx={{ minWidth: 650, position: "relative" }}
-          // sx={{ minWidth: 650, minHeight: 650, position: "relative" }}
           aria-label="simple table"
           size="small"
         >

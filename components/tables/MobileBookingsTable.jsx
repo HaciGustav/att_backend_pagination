@@ -20,12 +20,13 @@ import ErrorModal from "../modals/ErrorModal";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
-import SSR_Pagination from "../Pagination";
+import Pagination from "../Pagination";
 import usePagination from "@/hooks/usePagination";
 import Loading_Icon from "../Loading_Icon";
 import useFilters from "@/hooks/useFilters";
 import { Box, Collapse, Fade } from "@mui/material";
 import TableSkeleton from "../skeleton/TableSkeleton";
+import TotalEntries from "../table_helpers/TotalEntries";
 
 // import axios from "axios";
 
@@ -144,43 +145,51 @@ const MobileBookings = () => {
         <TableContainer component={Paper} sx={tableStyles.tableContainer}>
           <BookingsFilter />
 
-          <Box sx={{ ...tableStyles.helpersWrapper, justifyContent: "end" }}>
-            {/* {loading && <Loading_Icon />} */}
+          <Box
+            sx={{
+              ...tableStyles.helpersWrapper,
+              justifyContent: "space-between",
+            }}
+          >
+            <TotalEntries totalEntries={mobileBookings?.totalEntries} />
+            <div style={{ display: "flex" }}>
+              {loading && <Loading_Icon />}
 
-            <SSR_Pagination
-              paginationParams={paginationParams}
-              totalPages={mobileBookings?.totalPages}
-              table={"bookings"}
-            />
+              <Pagination
+                paginationParams={paginationParams}
+                totalPages={mobileBookings?.totalPages}
+                table={"bookings"}
+              />
 
-            <Tooltip title="Spaltengröße rückgängig machen" arrow>
-              <IconButton
-                onClick={() => {
-                  resetResizing();
-                  setResetResize(!resetResize);
-                }}
-              >
-                <UndoIcon />
-              </IconButton>
-            </Tooltip>
-
-            <DownloadCSV
-              rawData={allData}
-              fileName={"mobile_buchungen"}
-              table="bookings"
-            />
-            {user?.isAdmin && (
-              <Tooltip title="Neuen Datensatz anlegen" arrow>
-                <IconButton onClick={() => setOpenBookingModal(true)}>
-                  <AddCircleIcon
-                    sx={{
-                      borderRadius: "10px",
-                      color: "green",
-                    }}
-                  />
+              <Tooltip title="Spaltengröße rückgängig machen" arrow>
+                <IconButton
+                  onClick={() => {
+                    resetResizing();
+                    setResetResize(!resetResize);
+                  }}
+                >
+                  <UndoIcon />
                 </IconButton>
               </Tooltip>
-            )}
+
+              <DownloadCSV
+                rawData={allData}
+                fileName={"mobile_buchungen"}
+                table="bookings"
+              />
+              {user?.isAdmin && (
+                <Tooltip title="Neuen Datensatz anlegen" arrow>
+                  <IconButton onClick={() => setOpenBookingModal(true)}>
+                    <AddCircleIcon
+                      sx={{
+                        borderRadius: "10px",
+                        color: "green",
+                      }}
+                    />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </div>
           </Box>
 
           <Table

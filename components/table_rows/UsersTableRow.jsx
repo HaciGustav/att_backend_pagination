@@ -97,8 +97,6 @@ const UsersTableRow = ({
               checked={checkboxColumn.selectedRows.includes(
                 row?.original?.userInfo?.id
               )}
-              // indeterminate={numSelected > 0 && numSelected < rowCount}
-              // checked={rowCount > 0 && numSelected === rowCount}
               onClick={selectRow}
             />
           </TableCell>

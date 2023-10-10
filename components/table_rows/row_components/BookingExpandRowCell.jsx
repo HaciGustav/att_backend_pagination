@@ -10,17 +10,20 @@ const BookingExpandRowCell = ({ cell, row, open, handleOpen }) => {
       sx={{
         ...tableStyles.tr.cell,
         display: "flex",
-        p: 0.3,
+        p: 0,
         alignItems: "center",
         position: "relative",
+        // border: "1px solid red",
       }}
     >
       <IconButton
         aria-label="expand row"
+        size="small"
         sx={{
-          position: "relative",
+          position: "absolute",
+          top: "50%",
           left: "50%",
-          transform: " translate(-50%, 0)",
+          transform: " translate(-50%, -50%)",
         }}
         onClick={handleOpen}
       >

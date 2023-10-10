@@ -16,12 +16,13 @@ import ErrorModal from "../modals/ErrorModal";
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
-import SSR_Pagination from "../Pagination";
+import Pagination from "../Pagination";
 import usePagination from "@/hooks/usePagination";
 import Loading_Icon from "../Loading_Icon";
 import ProtocolTableRow from "../table_rows/ProtocolTableRow";
 import ProtocolFilter from "../filters/ProtocolFilter";
 import { Box } from "@mui/material";
+import TotalEntries from "../table_helpers/TotalEntries";
 
 // import axios from "axios";
 
@@ -123,31 +124,39 @@ const ProtocolTable = () => {
         <TableContainer component={Paper} sx={tableStyles.tableContainer}>
           <ProtocolFilter />
 
-          <Box sx={{ ...tableStyles.helpersWrapper, justifyContent: "end" }}>
-            {loading && <Loading_Icon />}
+          <Box
+            sx={{
+              ...tableStyles.helpersWrapper,
+              justifyContent: "space-between",
+            }}
+          >
+            <TotalEntries totalEntries={protocol?.totalEntries} />
 
-            <SSR_Pagination
-              paginationParams={paginationParams}
-              totalPages={protocol?.totalPages}
-              table={"protocol"}
-            />
+            <div style={{ display: "flex" }}>
+              {loading && <Loading_Icon />}
+              <Pagination
+                paginationParams={paginationParams}
+                totalPages={protocol?.totalPages}
+                table={"protocol"}
+              />
 
-            <Tooltip title="Spaltengröße rückgängig machen" arrow>
-              <IconButton
-                onClick={() => {
-                  resetResizing();
-                  setResetResize(!resetResize);
-                }}
-              >
-                <UndoIcon />
-              </IconButton>
-            </Tooltip>
+              <Tooltip title="Spaltengröße rückgängig machen" arrow>
+                <IconButton
+                  onClick={() => {
+                    resetResizing();
+                    setResetResize(!resetResize);
+                  }}
+                >
+                  <UndoIcon />
+                </IconButton>
+              </Tooltip>
 
-            <DownloadCSV
-              rawData={allData}
-              fileName={"protokolle"}
-              table="protocol"
-            />
+              <DownloadCSV
+                rawData={allData}
+                fileName={"protokolle"}
+                table="protocol"
+              />
+            </div>
           </Box>
           <Table
             {...getTableProps()}

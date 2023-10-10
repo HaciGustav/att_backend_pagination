@@ -7,18 +7,16 @@ import UsersFilter from "../filters/UsersFilter";
 import useContextMenu from "../../hooks/useContextMenu";
 import { tableStyles } from "@/styles/table_styles";
 import useColumns from "@/hooks/useColumns";
-
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import { useSelector } from "react-redux";
-
 import CustomTableHead from "./table_heads/CustomTableHead";
 import CustomTableBody from "./table_bodies/CustomTableBody";
 import useTableUtils from "@/hooks/table_hooks/useTableUtils";
 import usePagination from "@/hooks/usePagination";
 import dynamic from "next/dynamic";
-
-import TableHelpers from "../TableHelpers";
+import TableHelpers from "../table_helpers/TableHelpers";
 import MultipleEditModal from "../modals/UserModal_components/MultipleEditModal";
+import TotalEntries from "../table_helpers/TotalEntries";
 
 const UsersTableRow = dynamic(() => import("../table_rows/UsersTableRow"));
 const UserModal = dynamic(() => import("../modals/UserModal"));
@@ -133,7 +131,7 @@ const UsersTable = () => {
         <UsersFilter />
 
         <Box sx={tableStyles.helpersWrapper}>
-          <span></span>
+          <TotalEntries totalEntries={atinaUsers?.totalEntries} />
           <TableHelpers
             resetResizing={resetResizing}
             setResetResize={setResetResize}

@@ -71,22 +71,27 @@ const BookingsTableRow = ({
         {...row.getRowProps()}
         sx={{
           ...tableStyles.tr.row,
+
           backgroundColor:
             checkboxColumn.selectedRows.includes(row?.original?.BookingID) &&
             "#bbbb",
         }}
-        className={styles.tr}
         onClick={handleDblClick}
       >
         <Collapse
-          sx={{ p: 0 }}
+          component={"td"}
+          sx={{ display: "table-cell" }}
           orientation="horizontal"
           in={checkboxColumn.isOpen}
         >
           <TableCell
-            sx={{ ...tableStyles.tr.cell, width: "5rem", textAlign: "center" }}
+            size="small"
+            sx={{
+              ...tableStyles.tr.cell,
+              width: "5rem",
+              textAlign: "center",
+            }}
           >
-            {" "}
             <Checkbox
               color="primary"
               sx={{ p: 0 }}
@@ -94,8 +99,6 @@ const BookingsTableRow = ({
               checked={checkboxColumn.selectedRows.includes(
                 row?.original?.BookingID
               )}
-              // indeterminate={numSelected > 0 && numSelected < rowCount}
-              // checked={rowCount > 0 && numSelected === rowCount}
               onClick={selectRow}
             />
           </TableCell>
@@ -114,8 +117,9 @@ const BookingsTableRow = ({
               <TableCell
                 {...cell.getCellProps()}
                 sx={tableStyles.tr.cell}
-                className={styles.td}
+                // className={styles.td}
                 align="left"
+                size="small"
               >
                 {cell.render("Cell")}
               </TableCell>

@@ -1,9 +1,9 @@
 import { Box, IconButton, Tooltip } from "@mui/material";
 import React from "react";
-import Loading_Icon from "./Loading_Icon";
-import Pagination from "./Pagination";
+import Loading_Icon from "../Loading_Icon";
+import Pagination from "../Pagination";
 import UndoIcon from "@mui/icons-material/Undo";
-import DownloadCSV from "./DownloadCSV";
+import DownloadCSV from "../DownloadCSV";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { tableStyles } from "@/styles/table_styles";
 import { useSelector } from "react-redux";
