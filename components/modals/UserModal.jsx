@@ -62,7 +62,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
       setSelectedImage(fileContent);
       setInputVal({ ...inputVal, image: base64String });
     };
-    reader.readAsDataURL(selectedFile);
+    reader?.readAsDataURL(selectedFile);
   };
   const handleChange = (e) => {
     if (!user?.isAdmin) return;
@@ -123,18 +123,43 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
           />
           {/* if tab is "Allgemein" this part will be shown */}
           {tab === "Allgemein" && (
-            <div style={{ padding: 1 }}>
+            <div style={{ marginTop: -15 }}>
               <label htmlFor="imgInput">
-                <div
+                {/* <div
                   style={{
                     ...modalStyles.userModal.imgStyle,
                     backgroundImage: selectedImage
                       ? `url(${selectedImage})`
                       : `url(${userInfo?.avatarUrl})`,
                   }}
+                > */}
+                <div
+                  style={{
+                    height: "15rem",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontSize: "7rem",
+                    color: "#00000033",
+                    backgroundColor: "#ddd",
+                    position: "relative",
+                  }}
                 >
+                  <img
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
+                    src={selectedImage ? selectedImage : userInfo?.avatarUrl}
+                    alt="profile-pic"
+                  />
                   <PhotoCameraIcon
-                    sx={{ cursor: "pointer" }}
+                    sx={{
+                      cursor: "pointer",
+                      position: "absolute",
+                      mixBlendMode: "multiply",
+                    }}
                     fontSize="inherit"
                     color="inherit"
                   />
@@ -147,6 +172,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     onChange={handleImageInputChange}
                   />
                 </div>
+                {/* </div> */}
               </label>
               <CardContent sx={modalStyles.userModal.content}>
                 <div style={modalStyles.userModal.inputGroup}>
@@ -342,12 +368,18 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                       marginBottom: "-35px",
                     }}
                   >
-                    <span style={{ fontSize: "0.8rem", paddingLeft: "10px" }}>
+                    <span
+                      style={{
+                        fontSize: "0.8rem",
+                        paddingLeft: "10px",
+                        width: "55%",
+                      }}
+                    >
                       Passwort:
                     </span>
                     <Button
                       size="small"
-                      sx={{ width: "50%", bgcolor: "secondary.main" }}
+                      sx={{ width: "45%", bgcolor: "secondary.main" }}
                       variant="contained"
                       onClick={() => setOpenPasswordDialog(true)}
                     >
