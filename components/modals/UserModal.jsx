@@ -21,6 +21,7 @@ import {
   Typography,
 } from "@mui/material";
 import PasswordDialog from "./UserModal_components/PasswordDialog";
+// import placeholder from "/assets/placeholder.jpg";
 
 const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
   const initInputVal = useMemo(
@@ -124,37 +125,36 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
           {/* if tab is "Allgemein" this part will be shown */}
           {tab === "Allgemein" && (
             <div style={{ marginTop: -15 }}>
-              <label htmlFor="imgInput">
-                {/* <div
+              {/* ============== ⇩ It is going to be necessary ⇩ ========== */}
+
+              {/* <label htmlFor="imgInput"> */}
+
+              <div
+                style={{
+                  height: "15rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "7rem",
+                  color: "#00000033",
+                  backgroundColor: "#a5a6a7dd",
+                  position: "relative",
+                }}
+              >
+                <img
                   style={{
-                    ...modalStyles.userModal.imgStyle,
-                    backgroundImage: selectedImage
-                      ? `url(${selectedImage})`
-                      : `url(${userInfo?.avatarUrl})`,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
                   }}
-                > */}
-                <div
-                  style={{
-                    height: "15rem",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "7rem",
-                    color: "#00000033",
-                    backgroundColor: "#ddd",
-                    position: "relative",
-                  }}
-                >
-                  <img
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "contain",
-                    }}
-                    src={selectedImage ? selectedImage : userInfo?.avatarUrl}
-                    alt="profile-pic"
-                  />
-                  <PhotoCameraIcon
+                  src={
+                    userInfo?.avatarUrl
+                      ? userInfo?.avatarUrl
+                      : "/assets/placeholder.jpg"
+                  }
+                  alt="profile-pic"
+                />
+                {/* <PhotoCameraIcon
                     sx={{
                       cursor: "pointer",
                       position: "absolute",
@@ -162,18 +162,18 @@ const UserModal = ({ setOpenUserModal, openUserModal, userInfo }) => {
                     }}
                     fontSize="inherit"
                     color="inherit"
-                  />
-                  <input
+                  /> */}
+                {/* <input
                     // ref={inputRef}
                     style={modalStyles.userModal.input}
                     id="imgInput"
                     type="file"
                     accept="image/*"
                     onChange={handleImageInputChange}
-                  />
-                </div>
-                {/* </div> */}
-              </label>
+                  /> */}
+              </div>
+
+              {/* </label> */}
               <CardContent sx={modalStyles.userModal.content}>
                 <div style={modalStyles.userModal.inputGroup}>
                   <div
