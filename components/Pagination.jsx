@@ -66,6 +66,14 @@ const Pagination = ({ paginationParams, table, totalPages }) => {
               {" "}
               <span style={{ fontSize: "0.8rem" }}>100</span>
             </MenuItem>
+            <MenuItem value={200}>
+              {" "}
+              <span style={{ fontSize: "0.8rem" }}>200</span>
+            </MenuItem>
+            <MenuItem value={500}>
+              {" "}
+              <span style={{ fontSize: "0.8rem" }}>500</span>
+            </MenuItem>
           </Select>
         </FormControl>
       </div>
