@@ -10,8 +10,10 @@ const TotalEntries = ({ totalEntries }) => {
         paddingLeft: "2px",
       }}
     >
-      <span style={{ fontSize: "0.7rem", fontWeight: "600" }}>Gesamt:</span>
-      <span style={{ fontSize: "0.7rem" }}>{totalEntries}</span>
+      <span style={{ fontSize: "0.8rem", fontWeight: "600" }}>Gesamt:</span>
+      <span style={{ fontSize: "0.8rem" }}>
+        {totalEntries?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+      </span>
     </div>
   );
 };
