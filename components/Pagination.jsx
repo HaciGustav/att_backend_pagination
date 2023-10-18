@@ -78,7 +78,8 @@ const Pagination = ({ paginationParams, table, totalPages }) => {
         </FormControl>
       </div>
       <span style={{ fontSize: "0.8rem" }}>
-        {page.currentPage} von {totalPages}
+        {page.currentPage?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")} von{" "}
+        {totalPages?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
       </span>
       <div>
         <IconButton

@@ -13,7 +13,6 @@ import ItemsTableRow from "../table_rows/ItemsTableRow";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ItemsModal from "../modals/ItemsModal";
 import ItemsFilter from "../filters/ItemsFilter";
-import { searchItems } from "@/helpers/searchFunctions";
 import useColumns from "../../hooks/useColumns";
 import UndoIcon from "@mui/icons-material/Undo";
 import Tooltip from "@mui/material/Tooltip";
@@ -157,14 +156,7 @@ const ItemsTable = ({}) => {
         component={Paper}
         sx={tableStyles.tableContainer}
       >
-        <ItemsFilter
-          // handleReset={handleReset}
-          // handleFilter={handleFilter}
-          // filterVal={filterVal}
-          // setFilterVal={setFilterVal}
-          type={type}
-          setType={setType}
-        />
+        <ItemsFilter type={type} setType={setType} />
         <Box
           sx={{
             ...tableStyles.helpersWrapper,
@@ -238,7 +230,6 @@ const ItemsTable = ({}) => {
             handleRightClick={handleRightClick}
           />
         </Table>
-        {/* </Fade> */}
       </TableContainer>
     </>
   );

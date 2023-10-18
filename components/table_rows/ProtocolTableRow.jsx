@@ -1,10 +1,7 @@
 import { TableCell, TableRow } from "@mui/material";
 import React, { Fragment, useEffect, useState } from "react";
-import BookingsModal from "../modals/BookingsModal";
 import { tableStyles } from "@/styles/table_styles";
 import styles from "./table_row_styles.module.css";
-import BookingImageRow from "./row_components/BookingImageRow";
-import ExpandRowCell from "./row_components/BookingExpandRowCell";
 import ProtocolExpandRowCell from "./row_components/ProtocolExpandRowCell";
 import ProtocolExpandRow from "./row_components/ProtocolExpandRow";
 import ProtocolModal from "../modals/ProtocolModal";

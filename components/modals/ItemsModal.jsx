@@ -1,10 +1,9 @@
 "use client";
 
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ItemsModal_Order from "./itemsModals/ItemsModal_Order";
 import ItemsModal_Meter from "./itemsModals/ItemsModal_Meter";
 import ItemsModal_Vehicle from "./itemsModals/ItemsModal_Vehicle";
-import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 
 //ITEM ORDER
@@ -26,7 +25,7 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item, type }) => {
 
   useEffect(() => {
     setInputVal(item);
-  }, [type]);
+  }, [type, item]);
 
   return (
     <>
