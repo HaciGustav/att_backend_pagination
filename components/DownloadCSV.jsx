@@ -27,7 +27,7 @@ const DownloadCSV = ({ rawData, fileName, type, table }) => {
     let headers;
     let main;
     let res;
-    console.log(fltrData);
+    // console.log(fltrData);
     switch (fileName) {
       case "benutzer":
         res = userTableCSV(fltrData || rawData);
@@ -77,22 +77,21 @@ const DownloadCSV = ({ rawData, fileName, type, table }) => {
   const getFilteredData = async () => {
     let url = "";
     if (table === "users") {
-      url = "AtinaUsers?showPagination=false&pageNumber=1&pageSize=10000";
+      url = "AtinaUsers?showPagination=true&pageNumber=1&pageSize=10000";
     } else if (table === "bookings") {
       url =
-        "api/AtinaMobileBookings?showPagination=false&pageNumber=1&pageSize=10000";
+        "api/AtinaMobileBookings?showPagination=true&pageNumber=1&pageSize=10000";
     } else if (table === "items") {
       url =
-        "api/AtinaItems/SearchByKeyValue?onlyWithTagId=false&showPagination=false&pageNumber=1&pageSize=10000";
+        "api/AtinaItems/SearchByKeyValue?onlyWithTagId=false&showPagination=true&pageNumber=1&pageSize=10000";
     } else if (table === "protocol") {
-      url =
-        "api/AtinaProtocol?showPagination=false&pageNumber=1&pageSize=10000";
+      url = "api/AtinaProtocol?showPagination=true&pageNumber=1&pageSize=10000";
     }
 
     try {
-      axiosWithToken(url + filterParams).then((res) =>
-        convertJsonToCsv(res?.data)
-      );
+      axiosWithToken(url + filterParams).then((res) => {
+        convertJsonToCsv(res?.data?.entries);
+      });
       // convertJsonToCsv(response?.data);
     } catch (error) {
       console.log(error);
