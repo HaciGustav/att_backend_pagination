@@ -128,6 +128,7 @@ export default function Layout({ children, toggleTheme }) {
   };
 
   React.useEffect(() => {
+    console.log(user);
     getSessionData();
   }, []);
 
