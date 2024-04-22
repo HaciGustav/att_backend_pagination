@@ -232,13 +232,26 @@ export default function Layout({ children, toggleTheme }) {
                 src={user?.avatarUrl}
                 sx={{ width: "3.5rem", height: "3.5rem", cursor: "pointer" }}
               /> */}
-              <Image
+              {/* <Image
                 onClick={handleClick}
                 src={user?.avatarUrl || "/assets/emptyAvatar.jpg"}
                 width={50}
                 height={50}
                 alt="profilePicture"
                 style={{ cursor: "pointer", borderRadius: "50%" }}
+              /> */}
+              <img
+                onClick={handleClick}
+                src={user?.avatarUrl || "/assets/emptyAvatar.jpg"}
+                width={50}
+                height={50}
+                alt="profilePicture"
+                style={{
+                  cursor: "pointer",
+                  borderRadius: "50%",
+                  width: "50px",
+                  height: "50px",
+                }}
               />
               <ProfileMenu
                 anchorEl={anchorEl}
