@@ -31,6 +31,7 @@ import SchemaSharpIcon from "@mui/icons-material/SchemaSharp";
 import FeedIcon from "@mui/icons-material/Feed";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const drawerWidth = 240;
 
@@ -174,6 +175,7 @@ export default function Layout({ children, toggleTheme }) {
     // <Paper elevation={0} sx={{ overflow: "hidden" }}>
     <div style={{ display: "flex" }}>
       {/* <Loading loading={loading} /> */}
+      <SpeedInsights/>
       <AppBar
         sx={{ backgroundColor: "navbar.main" }}
         position="fixed"

@@ -9,7 +9,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ToastContainer } from "react-toastify";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+
 
 export default function App({ Component, pageProps }) {
   const [mode, setMode] = useState("light");
@@ -114,7 +114,6 @@ export default function App({ Component, pageProps }) {
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <Loading />
-        <SpeedInsights />
 
         <SessionProvider>
           {router.pathname.includes("login") && <Component {...pageProps} />}
